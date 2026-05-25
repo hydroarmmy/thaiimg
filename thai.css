@@ -421,6 +421,26 @@ body {
   color: var(--text-faint);
 }
 
+/* ── PDF: file card reorder ──────────────────────── */
+.file-card.draggable { cursor: grab; }
+.file-card.draggable:active { cursor: grabbing; }
+.file-card.dragging { opacity: 0.4; }
+.file-card.drag-over { outline: 2px dashed var(--primary); outline-offset: 2px; }
+
+.page-num {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: var(--primary);
+  color: white;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* ── Quality selector (compress) ─────────────────── */
 .quality-selector {
   width: 100%;
