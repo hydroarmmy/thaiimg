@@ -148,8 +148,9 @@ const editStage = document.querySelector('.edit-stage');
 document.querySelectorAll('.tool-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const newTool = tab.dataset.tool;
-    // Auto-bake pending text when leaving text mode
+    // Auto-bake pending overlays when leaving that mode
     if (currentTool === 'text' && newTool !== 'text') bakeText();
+    if (currentTool === 'sticker' && newTool !== 'sticker') bakeSticker();
     currentTool = newTool;
     document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
@@ -158,6 +159,7 @@ document.querySelectorAll('.tool-tab').forEach(tab => {
     });
     editStage.classList.toggle('draw-mode', newTool === 'draw');
     updateTextOverlay();
+    updateStickerOverlay();
   });
 });
 
@@ -231,6 +233,18 @@ canvas.addEventListener('pointerdown', (e) => {
       textX = pt.x;
       textY = pt.y;
       updateTextOverlay();
+    }
+    return;
+  }
+
+  // In sticker mode: click on canvas to place sticker there
+  if (currentTool === 'sticker') {
+    if (stickerChar) {
+      e.preventDefault();
+      const pt = canvasCoords(e);
+      stickerX = pt.x;
+      stickerY = pt.y;
+      updateStickerOverlay();
     }
     return;
   }
@@ -387,7 +401,114 @@ applyTextBtn.addEventListener('click', bakeText);
 
 window.addEventListener('resize', () => {
   if (currentTool === 'text') updateTextOverlay();
+  if (currentTool === 'sticker') updateStickerOverlay();
 });
+
+// ── Sticker tool ───────────────────────────────────
+const STICKERS = [
+  '😀','😁','😂','🤣','😊','😍','🥰','😘','😎','🤩',
+  '😢','😭','😱','😔','🥺','🤔','😴','🤯','🥳','😈',
+  '👍','👎','👏','🙏','💪','✌️','🤘','✊','🤞','🤝',
+  '❤️','💕','💯','✨','🔥','⭐','🌈','☀️','🌙','💫',
+  '🐶','🐱','🦊','🐼','🐨','🦄','🐸','🐯','🦁','🐵',
+  '🍕','🍔','🍦','🍰','🍎','🍌','☕','🍿','🎉','🎁',
+  '🎈','🎵','📷','✅','❌','❗','💡','🌸','👑','🎀'
+];
+
+let stickerChar = '';
+let stickerSize = 100;
+let stickerX = null;
+let stickerY = null;
+
+const stickerGrid      = document.getElementById('stickerGrid');
+const stickerSizeInput = document.getElementById('stickerSize');
+const stickerSizeLabel = document.getElementById('stickerSizeLabel');
+const applyStickerBtn  = document.getElementById('applyStickerBtn');
+const stickerOverlay   = document.getElementById('stickerOverlay');
+
+STICKERS.forEach(s => {
+  const btn = document.createElement('button');
+  btn.className = 'sticker-item';
+  btn.textContent = s;
+  btn.dataset.sticker = s;
+  btn.title = s;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sticker-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    stickerChar = s;
+    if (stickerX === null && baseImg) {
+      stickerX = canvas.width / 2 - stickerSize / 2;
+      stickerY = canvas.height / 2 - stickerSize / 2;
+    }
+    updateStickerOverlay();
+  });
+  stickerGrid.appendChild(btn);
+});
+
+stickerSizeInput.addEventListener('input', () => {
+  stickerSize = parseInt(stickerSizeInput.value) || 30;
+  stickerSizeLabel.textContent = stickerSize;
+  updateStickerOverlay();
+});
+
+function updateStickerOverlay() {
+  if (!baseImg || currentTool !== 'sticker' || !stickerChar) {
+    stickerOverlay.hidden = true;
+    return;
+  }
+  const rect = canvas.getBoundingClientRect();
+  const scale = rect.width / canvas.width || 1;
+  stickerOverlay.hidden = false;
+  stickerOverlay.textContent = stickerChar;
+  stickerOverlay.style.fontSize = (stickerSize * scale) + 'px';
+  stickerOverlay.style.left = (stickerX * scale) + 'px';
+  stickerOverlay.style.top = (stickerY * scale) + 'px';
+}
+
+// Drag the sticker overlay
+let stickerDragging = false;
+let stickerDragStart = null;
+
+stickerOverlay.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  stickerDragging = true;
+  try { stickerOverlay.setPointerCapture(e.pointerId); } catch {}
+  stickerDragStart = { clientX: e.clientX, clientY: e.clientY, tx: stickerX, ty: stickerY };
+});
+
+stickerOverlay.addEventListener('pointermove', (e) => {
+  if (!stickerDragging) return;
+  const rect = canvas.getBoundingClientRect();
+  const scale = rect.width / canvas.width || 1;
+  stickerX = stickerDragStart.tx + (e.clientX - stickerDragStart.clientX) / scale;
+  stickerY = stickerDragStart.ty + (e.clientY - stickerDragStart.clientY) / scale;
+  stickerX = Math.max(0, Math.min(stickerX, canvas.width));
+  stickerY = Math.max(0, Math.min(stickerY, canvas.height));
+  updateStickerOverlay();
+});
+
+stickerOverlay.addEventListener('pointerup', (e) => {
+  stickerDragging = false;
+  try { stickerOverlay.releasePointerCapture(e.pointerId); } catch {}
+});
+stickerOverlay.addEventListener('pointercancel', () => { stickerDragging = false; });
+
+function bakeSticker() {
+  if (!baseImg || !stickerChar || stickerX === null) return;
+  ensureBaseImgCanvas();
+  const bctx = baseImg.getContext('2d');
+  bctx.font = `${stickerSize}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
+  bctx.textBaseline = 'top';
+  bctx.fillText(stickerChar, stickerX, stickerY);
+  applyFilter(currentFilter);
+  document.querySelectorAll('.sticker-item').forEach(b => b.classList.remove('active'));
+  stickerChar = '';
+  stickerX = null; stickerY = null;
+  stickerOverlay.hidden = true;
+}
+
+applyStickerBtn.addEventListener('click', bakeSticker);
 
 // ── Background removal (AI) ────────────────────────
 let imglyRemoveBackground = null;
@@ -453,8 +574,9 @@ convertBtn.addEventListener('click', async () => {
   }
   if (!currentFile) return;
 
-  // Auto-bake any pending text overlay before saving
+  // Auto-bake any pending overlays before saving
   if (textValue.trim() && textX !== null) bakeText();
+  if (stickerChar && stickerX !== null) bakeSticker();
 
   convertBtn.disabled = true;
   try {

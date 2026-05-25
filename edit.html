@@ -168,8 +168,17 @@
         <p class="draw-hint">พิมพ์ข้อความ → ลาก (หรือคลิกบนภาพ) เพื่อจัดตำแหน่ง → กดใช้ข้อความ</p>
       </div>
     </div>
-    <div class="tool-panel coming-soon" data-tool-panel="sticker" hidden>
-      <p>เร็ว ๆ นี้ — คลังสติกเกอร์/อิโมจิ</p>
+    <!-- Sticker panel -->
+    <div class="tool-panel" data-tool-panel="sticker" hidden>
+      <div class="sticker-panel">
+        <div class="sticker-grid" id="stickerGrid"></div>
+        <div class="draw-row">
+          <span class="draw-label">ขนาด: <span id="stickerSizeLabel">100</span>px</span>
+          <input type="range" id="stickerSize" min="30" max="300" value="100" class="draw-range">
+        </div>
+        <button id="applyStickerBtn" class="text-apply-btn">✓ ใช้สติกเกอร์บนภาพ</button>
+        <p class="draw-hint">คลิกสติกเกอร์ → ลาก (หรือคลิกบนภาพ) เพื่อจัดตำแหน่ง → กดใช้สติกเกอร์</p>
+      </div>
     </div>
     <div class="tool-panel coming-soon" data-tool-panel="frame" hidden>
       <p>เร็ว ๆ นี้ — กรอบหลากหลายสไตล์</p>
@@ -194,6 +203,7 @@
       <div class="canvas-wrap">
         <canvas id="editCanvas"></canvas>
         <div id="textOverlay" hidden></div>
+        <div id="stickerOverlay" hidden></div>
       </div>
     </div>
 

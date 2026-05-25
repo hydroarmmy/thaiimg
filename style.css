@@ -874,6 +874,43 @@ h1 {
 .text-apply-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
 .text-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+/* ── Edit page: Sticker panel ────────────────────── */
+.sticker-panel {
+  background: white;
+  border: 1px solid #E5E9F0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 4px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 4px;
+  background: #FAFBFD;
+  border-radius: 8px;
+}
+
+.sticker-item {
+  font-size: 1.7rem;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 6px;
+  line-height: 1;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sticker-item:hover { background: #F0F4FA; }
+.sticker-item.active { border-color: #1E88E5; background: #EFF6FF; }
+
 /* ── Edit page: Canvas wrap + text overlay ───────── */
 .canvas-wrap {
   position: relative;
@@ -893,6 +930,17 @@ h1 {
   outline: 2px dashed #1E88E5;
   outline-offset: 3px;
   text-shadow: 0 0 4px rgba(0,0,0,0.15);
+}
+
+#stickerOverlay {
+  position: absolute;
+  line-height: 1;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  outline: 2px dashed #1E88E5;
+  outline-offset: 4px;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
 }
 
 /* ── Edit page: BG removal panel ─────────────────── */
