@@ -82,21 +82,161 @@ function loadFile(file) {
 
 function setBaseImage(img) {
   baseImg = img;
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
+  canvas.width = img.naturalWidth || img.width;
+  canvas.height = img.naturalHeight || img.height;
   currentFilter = 'none';
+  currentFrame = 'none';
   applyFilter('none');
   buildFilterStrip();
+  buildFrameStrip && buildFrameStrip();
+}
+
+// ── Frames ─────────────────────────────────────────
+const FRAMES = [
+  { id: 'none',     name: 'ไม่มี' },
+  { id: 'white',    name: 'ขาว' },
+  { id: 'black',    name: 'ดำ' },
+  { id: 'polaroid', name: 'โพลารอยด์' },
+  { id: 'film',     name: 'ฟิล์ม' },
+  { id: 'rounded',  name: 'มน' },
+  { id: 'vignette', name: 'เงา' },
+  { id: 'wood',     name: 'ไม้' }
+];
+
+let currentFrame = 'none';
+let currentPadding = { left: 0, right: 0, top: 0, bottom: 0 };
+
+function framePadding(id, w, h) {
+  const m = Math.min(w, h);
+  switch (id) {
+    case 'white':
+    case 'black':    return { left: Math.round(m*0.04), right: Math.round(m*0.04), top: Math.round(m*0.04), bottom: Math.round(m*0.04) };
+    case 'polaroid': return { left: Math.round(m*0.05), right: Math.round(m*0.05), top: Math.round(m*0.05), bottom: Math.round(m*0.20) };
+    case 'film':     return { left: 0, right: 0, top: Math.round(m*0.08), bottom: Math.round(m*0.08) };
+    case 'wood':     return { left: Math.round(m*0.05), right: Math.round(m*0.05), top: Math.round(m*0.05), bottom: Math.round(m*0.05) };
+    default:         return { left: 0, right: 0, top: 0, bottom: 0 };
+  }
+}
+
+function drawFrameBg(c, w, h, id) {
+  switch (id) {
+    case 'white':
+    case 'polaroid':
+      c.fillStyle = '#ffffff';
+      c.fillRect(0, 0, w, h);
+      break;
+    case 'black':
+    case 'film':
+      c.fillStyle = '#000000';
+      c.fillRect(0, 0, w, h);
+      break;
+    case 'wood': {
+      const grad = c.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0,    '#8B4513');
+      grad.addColorStop(0.5,  '#A0522D');
+      grad.addColorStop(1,    '#6B3410');
+      c.fillStyle = grad;
+      c.fillRect(0, 0, w, h);
+      // Wood grain stripes
+      c.fillStyle = 'rgba(0,0,0,0.08)';
+      const stripe = Math.max(2, Math.round(Math.min(w,h)*0.008));
+      for (let y = 0; y < h; y += stripe * 6) {
+        c.fillRect(0, y, w, stripe);
+      }
+      break;
+    }
+  }
+}
+
+function roundedRectPath(c, x, y, w, h, r) {
+  c.beginPath();
+  c.moveTo(x + r, y);
+  c.lineTo(x + w - r, y);
+  c.quadraticCurveTo(x + w, y, x + w, y + r);
+  c.lineTo(x + w, y + h - r);
+  c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  c.lineTo(x + r, y + h);
+  c.quadraticCurveTo(x, y + h, x, y + h - r);
+  c.lineTo(x, y + r);
+  c.quadraticCurveTo(x, y, x + r, y);
+  c.closePath();
+}
+
+function drawFrameFg(c, w, h, id, pad) {
+  if (id === 'film') {
+    const top = pad.top;
+    const hole = top * 0.45;
+    const holeY1 = (top - hole) / 2;
+    const holeY2 = h - top + (top - hole) / 2;
+    const step = top * 1.1;
+    c.fillStyle = '#ffffff';
+    for (let x = step * 0.4; x + hole < w; x += step) {
+      c.fillRect(x, holeY1, hole, hole);
+      c.fillRect(x, holeY2, hole, hole);
+    }
+  }
+  if (id === 'rounded') {
+    c.save();
+    c.globalCompositeOperation = 'destination-in';
+    c.fillStyle = '#000';
+    roundedRectPath(c, 0, 0, w, h, Math.min(w, h) * 0.06);
+    c.fill();
+    c.restore();
+  }
+  if (id === 'vignette') {
+    const grad = c.createRadialGradient(
+      w/2, h/2, Math.min(w, h) * 0.35,
+      w/2, h/2, Math.max(w, h) * 0.75
+    );
+    grad.addColorStop(0, 'rgba(0,0,0,0)');
+    grad.addColorStop(1, 'rgba(0,0,0,0.7)');
+    c.fillStyle = grad;
+    c.fillRect(0, 0, w, h);
+  }
+}
+
+// ── Render (filter + frame) ────────────────────────
+function render() {
+  if (!baseImg) return;
+  const baseW = baseImg.naturalWidth || baseImg.width;
+  const baseH = baseImg.naturalHeight || baseImg.height;
+  currentPadding = framePadding(currentFrame, baseW, baseH);
+  const pad = currentPadding;
+
+  canvas.width  = baseW + pad.left + pad.right;
+  canvas.height = baseH + pad.top + pad.bottom;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawFrameBg(ctx, canvas.width, canvas.height, currentFrame);
+
+  const f = FILTERS.find(x => x.id === currentFilter) || FILTERS[0];
+  ctx.filter = f.css;
+  ctx.drawImage(baseImg, pad.left, pad.top);
+  ctx.filter = 'none';
+
+  drawFrameFg(ctx, canvas.width, canvas.height, currentFrame, pad);
+
+  // Keep overlays positioned correctly
+  updateTextOverlay && updateTextOverlay();
+  updateStickerOverlay && updateStickerOverlay();
 }
 
 // ── Apply filter ───────────────────────────────────
 function applyFilter(id) {
-  const f = FILTERS.find(x => x.id === id) || FILTERS[0];
   currentFilter = id;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.filter = f.css;
-  ctx.drawImage(baseImg, 0, 0);
-  ctx.filter = 'none';
+  render();
+}
+
+function setFrame(id) {
+  currentFrame = id;
+  render();
+}
+
+// ── Coord helpers ──────────────────────────────────
+function baseImgW() { return baseImg.naturalWidth || baseImg.width; }
+function baseImgH() { return baseImg.naturalHeight || baseImg.height; }
+function canvasToBaseImg(pt) {
+  return { x: pt.x - currentPadding.left, y: pt.y - currentPadding.top };
 }
 
 // ── Filter strip thumbnails ────────────────────────
@@ -138,6 +278,69 @@ function buildFilterStrip() {
     });
 
     filterStrip.appendChild(item);
+  });
+}
+
+// ── Frame strip thumbnails ─────────────────────────
+const frameStrip = document.getElementById('frameStrip');
+
+function buildFrameStrip() {
+  if (!frameStrip || !baseImg) return;
+  frameStrip.innerHTML = '';
+  const THUMB = 80;
+  const bw = baseImgW();
+  const bh = baseImgH();
+  const sampleSize = Math.min(bw, bh);
+  const sx = (bw - sampleSize) / 2;
+  const sy = (bh - sampleSize) / 2;
+
+  FRAMES.forEach(f => {
+    const item = document.createElement('button');
+    item.className = 'filter-item frame-item';
+    if (f.id === currentFrame) item.classList.add('active');
+    item.dataset.frame = f.id;
+
+    const pad = framePadding(f.id, sampleSize, sampleSize);
+    const totalW = sampleSize + pad.left + pad.right;
+    const totalH = sampleSize + pad.top + pad.bottom;
+    const fit = Math.min(THUMB / totalW, THUMB / totalH);
+    const rW = totalW * fit;
+    const rH = totalH * fit;
+    const ox = (THUMB - rW) / 2;
+    const oy = (THUMB - rH) / 2;
+
+    const t = document.createElement('canvas');
+    t.width = THUMB; t.height = THUMB;
+    const tc = t.getContext('2d');
+    tc.save();
+    tc.translate(ox, oy);
+    drawFrameBg(tc, rW, rH, f.id);
+    const sPad = {
+      left: pad.left * fit, right: pad.right * fit,
+      top:  pad.top  * fit, bottom: pad.bottom * fit
+    };
+    tc.drawImage(baseImg, sx, sy, sampleSize, sampleSize,
+                 sPad.left, sPad.top, rW - sPad.left - sPad.right, rH - sPad.top - sPad.bottom);
+    drawFrameFg(tc, rW, rH, f.id, sPad);
+    tc.restore();
+
+    const img = document.createElement('img');
+    img.src = t.toDataURL('image/png');
+    img.alt = f.name;
+    item.appendChild(img);
+
+    const label = document.createElement('span');
+    label.textContent = f.name;
+    item.appendChild(label);
+
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.frame-item').forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+      setFrame(f.id);
+      resetConvertBtn();
+    });
+
+    frameStrip.appendChild(item);
   });
 }
 
@@ -229,9 +432,9 @@ canvas.addEventListener('pointerdown', (e) => {
   if (currentTool === 'text') {
     if (textValue.trim()) {
       e.preventDefault();
-      const pt = canvasCoords(e);
-      textX = pt.x;
-      textY = pt.y;
+      const basePt = canvasToBaseImg(canvasCoords(e));
+      textX = Math.max(0, Math.min(basePt.x, baseImgW()));
+      textY = Math.max(0, Math.min(basePt.y, baseImgH()));
       updateTextOverlay();
     }
     return;
@@ -241,9 +444,9 @@ canvas.addEventListener('pointerdown', (e) => {
   if (currentTool === 'sticker') {
     if (stickerChar) {
       e.preventDefault();
-      const pt = canvasCoords(e);
-      stickerX = pt.x;
-      stickerY = pt.y;
+      const basePt = canvasToBaseImg(canvasCoords(e));
+      stickerX = Math.max(0, Math.min(basePt.x, baseImgW()));
+      stickerY = Math.max(0, Math.min(basePt.y, baseImgH()));
       updateStickerOverlay();
     }
     return;
@@ -254,17 +457,19 @@ canvas.addEventListener('pointerdown', (e) => {
   drawing = true;
   try { canvas.setPointerCapture(e.pointerId); } catch {}
   lastPt = canvasCoords(e);
-  // Draw a dot at start so single clicks register
-  ensureBaseImgCanvas();
-  const bctx = baseImg.getContext('2d');
-  bctx.fillStyle = brushColor;
-  bctx.beginPath();
-  bctx.arc(lastPt.x, lastPt.y, brushWidth / 2, 0, Math.PI * 2);
-  bctx.fill();
+  // Dot on visible canvas
   ctx.fillStyle = brushColor;
   ctx.beginPath();
   ctx.arc(lastPt.x, lastPt.y, brushWidth / 2, 0, Math.PI * 2);
   ctx.fill();
+  // Dot on baseImg (translate to baseImg coords)
+  ensureBaseImgCanvas();
+  const basePt = canvasToBaseImg(lastPt);
+  const bctx = baseImg.getContext('2d');
+  bctx.fillStyle = brushColor;
+  bctx.beginPath();
+  bctx.arc(basePt.x, basePt.y, brushWidth / 2, 0, Math.PI * 2);
+  bctx.fill();
 });
 
 canvas.addEventListener('pointermove', (e) => {
@@ -272,7 +477,9 @@ canvas.addEventListener('pointermove', (e) => {
   const pt = canvasCoords(e);
   strokeSegment(ctx, lastPt, pt, brushColor, brushWidth);
   ensureBaseImgCanvas();
-  strokeSegment(baseImg.getContext('2d'), lastPt, pt, brushColor, brushWidth);
+  const basePt = canvasToBaseImg(pt);
+  const baseLastPt = canvasToBaseImg(lastPt);
+  strokeSegment(baseImg.getContext('2d'), baseLastPt, basePt, brushColor, brushWidth);
   lastPt = pt;
 });
 
@@ -301,10 +508,10 @@ const textOverlay      = document.getElementById('textOverlay');
 
 textInput.addEventListener('input', () => {
   textValue = textInput.value;
-  // First non-empty text → place at center
+  // First non-empty text → place at center of baseImg
   if (textValue.trim() && textX === null && baseImg) {
-    textX = canvas.width / 2;
-    textY = canvas.height / 2;
+    textX = baseImgW() / 2;
+    textY = baseImgH() / 2;
   }
   updateTextOverlay();
 });
@@ -348,8 +555,8 @@ function updateTextOverlay() {
   textOverlay.style.fontFamily = textFont;
   textOverlay.style.fontSize = (textSize * scale) + 'px';
   textOverlay.style.color = textColor;
-  textOverlay.style.left = (textX * scale) + 'px';
-  textOverlay.style.top = (textY * scale) + 'px';
+  textOverlay.style.left = ((textX + currentPadding.left) * scale) + 'px';
+  textOverlay.style.top  = ((textY + currentPadding.top)  * scale) + 'px';
 }
 
 // Drag the text overlay
@@ -370,8 +577,8 @@ textOverlay.addEventListener('pointermove', (e) => {
   const scale = rect.width / canvas.width || 1;
   textX = textDragStart.tx + (e.clientX - textDragStart.clientX) / scale;
   textY = textDragStart.ty + (e.clientY - textDragStart.clientY) / scale;
-  textX = Math.max(0, Math.min(textX, canvas.width));
-  textY = Math.max(0, Math.min(textY, canvas.height));
+  textX = Math.max(0, Math.min(textX, baseImgW()));
+  textY = Math.max(0, Math.min(textY, baseImgH()));
   updateTextOverlay();
 });
 
@@ -437,8 +644,8 @@ STICKERS.forEach(s => {
     btn.classList.add('active');
     stickerChar = s;
     if (stickerX === null && baseImg) {
-      stickerX = canvas.width / 2 - stickerSize / 2;
-      stickerY = canvas.height / 2 - stickerSize / 2;
+      stickerX = baseImgW() / 2 - stickerSize / 2;
+      stickerY = baseImgH() / 2 - stickerSize / 2;
     }
     updateStickerOverlay();
   });
@@ -461,8 +668,8 @@ function updateStickerOverlay() {
   stickerOverlay.hidden = false;
   stickerOverlay.textContent = stickerChar;
   stickerOverlay.style.fontSize = (stickerSize * scale) + 'px';
-  stickerOverlay.style.left = (stickerX * scale) + 'px';
-  stickerOverlay.style.top = (stickerY * scale) + 'px';
+  stickerOverlay.style.left = ((stickerX + currentPadding.left) * scale) + 'px';
+  stickerOverlay.style.top  = ((stickerY + currentPadding.top)  * scale) + 'px';
 }
 
 // Drag the sticker overlay
@@ -483,8 +690,8 @@ stickerOverlay.addEventListener('pointermove', (e) => {
   const scale = rect.width / canvas.width || 1;
   stickerX = stickerDragStart.tx + (e.clientX - stickerDragStart.clientX) / scale;
   stickerY = stickerDragStart.ty + (e.clientY - stickerDragStart.clientY) / scale;
-  stickerX = Math.max(0, Math.min(stickerX, canvas.width));
-  stickerY = Math.max(0, Math.min(stickerY, canvas.height));
+  stickerX = Math.max(0, Math.min(stickerX, baseImgW()));
+  stickerY = Math.max(0, Math.min(stickerY, baseImgH()));
   updateStickerOverlay();
 });
 
@@ -581,16 +788,21 @@ convertBtn.addEventListener('click', async () => {
   convertBtn.disabled = true;
   try {
     const isPng = currentFile.type === 'image/png' || /\.png$/i.test(currentFile.name);
-    const mime = isPng ? 'image/png'
+    const needsAlpha = isPng || currentFrame === 'rounded';
+    const mime = needsAlpha ? 'image/png'
       : currentFile.type === 'image/webp' ? 'image/webp'
       : 'image/jpeg';
-    const quality = isPng ? undefined : 0.92;
+    const quality = needsAlpha ? undefined : 0.92;
 
     const blob = await new Promise((resolve, reject) => {
       canvas.toBlob(b => b ? resolve(b) : reject(new Error('Canvas failed')), mime, quality);
     });
 
-    downloadFile(blob, currentFile.name);
+    let saveName = currentFile.name;
+    if (needsAlpha && !/\.png$/i.test(saveName)) {
+      saveName = saveName.replace(/\.[^.]+$/, '.png');
+    }
+    downloadFile(blob, saveName);
     convertBtn.textContent = '✓ เซฟเสร็จแล้ว? เริ่มแต่งใหม่';
     convertBtn.classList.add('done');
   } catch (err) {
