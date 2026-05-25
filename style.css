@@ -323,6 +323,62 @@ h1 {
   box-shadow: 0 4px 14px rgba(22,163,74,0.3);
 }
 
+/* ── Quality selector ────────────────────────────── */
+.quality-selector {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 0 4px;
+}
+
+.quality-label {
+  font-size: 0.83rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.quality-buttons {
+  display: flex;
+  border: 2px solid #C5D3E8;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.quality-btn {
+  padding: 9px 24px;
+  border: none;
+  background: white;
+  color: #555;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+}
+
+.quality-btn:not(:last-child) {
+  border-right: 1px solid #C5D3E8;
+}
+
+.quality-btn.active {
+  background: #1E88E5;
+  color: white;
+}
+
+.quality-btn:hover:not(.active) {
+  background: #EFF6FF;
+  color: #1E88E5;
+}
+
+/* ── File size label ─────────────────────────────── */
+.file-card-size {
+  padding: 0 9px 8px;
+  font-size: 0.68rem;
+  color: #aaa;
+}
+
 /* ── Responsive ───────────────────────────────────── */
 @media (max-width: 600px) {
   .site-nav { display: none; }
