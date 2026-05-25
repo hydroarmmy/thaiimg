@@ -5,59 +5,79 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>แปลงรูปภาพเป็น JPG ฟรี - thaiimg.com</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="thai.css">
 
 </head>
 <body>
 
-<!-- ── Header ─────────────────────────────────────── -->
-<header class="site-header">
+<!-- ── Sidebar ────────────────────────────────────── -->
+<aside class="sidebar">
 
-  <a href="/" class="logo">
+  <a href="/" class="brand">
     <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="36" height="36" rx="8" fill="url(#lg)"/>
-      <path d="M4 29 L11 17 L17.5 24 L23 17.5 L32 29 Z" fill="white" opacity="0.9"/>
-      <circle cx="27" cy="10" r="3.5" fill="#FF5722"/>
-      <rect x="28" y="26" width="4" height="4" rx="1" fill="white" opacity="0.35"/>
-      <rect x="32" y="30" width="3" height="3" rx="1" fill="white" opacity="0.2"/>
+      <rect width="36" height="36" rx="9" fill="url(#brandGrad)"/>
+      <path d="M4 29 L11 17 L17.5 24 L23 17.5 L32 29 Z" fill="white" opacity="0.92"/>
+      <circle cx="27" cy="10" r="3.6" fill="#D4A437"/>
       <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#42A5F5"/>
-          <stop offset="1" stop-color="#1565C0"/>
+        <linearGradient id="brandGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#F08641"/>
+          <stop offset="1" stop-color="#C95A1E"/>
         </linearGradient>
       </defs>
     </svg>
-    <span class="logo-word"><span class="lt">thai</span><span class="li">img</span></span>
+    <span class="brand-name">thai<span class="accent">img</span></span>
   </a>
 
-  <nav class="site-nav">
-    <a href="/compress">บีบอัดรูปภาพ</a>
-    <a href="/resize">ปรับขนาดรูปภาพ</a>
-    <a href="/" class="nav-active">แปลงเป็น JPG</a>
-    <a href="/crop">ครอบตัดรูปภาพ</a>
-    <a href="/edit">ปรับแต่งภาพถ่าย</a>
-  </nav>
+  <div>
+    <p class="sidebar-section-label">เครื่องมือ</p>
+    <nav class="tools-nav">
+      <a href="/" class="tool-link active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>แปลงเป็น JPG</span>
+      </a>
+      <a href="/compress" class="tool-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        <span>บีบอัดรูปภาพ</span>
+      </a>
+      <a href="/resize" class="tool-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        <span>ปรับขนาดรูปภาพ</span>
+      </a>
+      <a href="/crop" class="tool-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
+        <span>ครอบตัดรูปภาพ</span>
+      </a>
+      <a href="/edit" class="tool-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L13.5 8L19 9L13.5 10.5L12 16L10.5 10.5L5 9L10.5 8L12 3z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7L19 17z"/></svg>
+        <span>ปรับแต่งภาพถ่าย</span>
+      </a>
+    </nav>
+  </div>
 
-</header>
+  <p class="sidebar-footer">© thaiimg.com</p>
 
-<!-- ── Main ───────────────────────────────────────── -->
-<main class="page-wrap">
+</aside>
 
-  <h1>แปลงรูปภาพเป็น JPG</h1>
-  <p class="subtitle">
-    แปลง <b>PNG</b>, <b>GIF</b>, <b>SVG</b>, <b>WEBP</b>, <b>HEIC</b>
-    ให้อยู่ในรูปแบบ JPG<br>แปลงหลายๆภาพให้เป็น JPG ออนไลน์ได้ทันที
-  </p>
+<!-- ── Workspace ──────────────────────────────────── -->
+<main class="workspace">
 
-  <!-- Drop zone — แสดงตลอด -->
+  <header class="page-header">
+    <h1>แปลงรูปภาพเป็น JPG</h1>
+    <p>
+      แปลง <b>PNG</b>, <b>GIF</b>, <b>SVG</b>, <b>WEBP</b>, <b>HEIC</b>
+      ให้อยู่ในรูปแบบ JPG<br>แปลงหลายๆภาพให้เป็น JPG ออนไลน์ได้ทันที
+    </p>
+  </header>
+
+  <!-- Drop zone -->
   <div id="drop-zone">
     <div class="drop-icon">
-      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-        <circle cx="26" cy="26" r="26" fill="#EFF6FF"/>
-        <path d="M10 40 L18 26 L25 34 L31 26 L42 40 Z" fill="#93C5FD"/>
-        <circle cx="34" cy="18" r="4" fill="#FCA5A5"/>
-        <path d="M20 18 L20 12" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/>
-        <path d="M17 15 L20 12 L23 15" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <svg width="56" height="56" viewBox="0 0 52 52" fill="none">
+        <circle cx="26" cy="26" r="26" fill="#FBEDD9"/>
+        <path d="M10 40 L18 26 L25 34 L31 26 L42 40 Z" fill="#F08641"/>
+        <circle cx="34" cy="18" r="4" fill="#D4A437"/>
+        <path d="M20 18 L20 12" stroke="#E97132" stroke-width="2" stroke-linecap="round"/>
+        <path d="M17 15 L20 12 L23 15" stroke="#E97132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
     </div>
     <label id="selectBtn" for="fileInput">เลือกรูปภาพ</label>
@@ -67,7 +87,7 @@
     <p class="format-hint">PNG &nbsp;·&nbsp; GIF &nbsp;·&nbsp; SVG &nbsp;·&nbsp; WEBP &nbsp;·&nbsp; HEIC</p>
   </div>
 
-  <!-- File section — แสดงเมื่อเลือกไฟล์ -->
+  <!-- File section -->
   <div id="file-section" hidden>
 
     <div class="file-area">
