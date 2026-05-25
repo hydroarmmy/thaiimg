@@ -347,15 +347,34 @@ h1 {
 }
 
 .quality-btn {
-  padding: 9px 24px;
+  padding: 8px 24px;
   border: none;
   background: white;
   color: #555;
-  font-size: 0.875rem;
-  font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: 1.2;
+  min-width: 88px;
+}
+
+.q-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.q-pct {
+  font-size: 0.7rem;
+  opacity: 0.65;
+  font-weight: 500;
+}
+
+.quality-btn.active .q-pct {
+  opacity: 0.95;
 }
 
 .quality-btn:not(:last-child) {
