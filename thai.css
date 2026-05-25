@@ -31,21 +31,57 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "topbar topbar"
+    "sidebar workspace";
   -webkit-font-smoothing: antialiased;
+}
+
+/* ── Topbar (logo + ads) ─────────────────────────── */
+.topbar {
+  grid-area: topbar;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 78px;
+}
+
+.topbar .brand {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--border);
+}
+
+.topbar .brand-logo { max-width: 180px; }
+
+.ads-topbar {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: var(--surface);
+  min-height: 78px;
+  width: 100%;
 }
 
 /* ── Sidebar ─────────────────────────────────────── */
 .sidebar {
+  grid-area: sidebar;
   background: var(--surface);
   border-right: 1px solid var(--border);
-  padding: 24px 14px;
+  padding: 22px 14px;
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 78px;
+  height: calc(100vh - 78px);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
 }
 
 .brand {
@@ -109,7 +145,8 @@ body {
 
 /* ── Workspace ───────────────────────────────────── */
 .workspace {
-  padding: 56px 40px 60px;
+  grid-area: workspace;
+  padding: 40px 40px 60px;
   max-width: 880px;
   margin: 0 auto;
   width: 100%;
@@ -1256,23 +1293,38 @@ body {
 
 /* ── Mobile ──────────────────────────────────────── */
 @media (max-width: 860px) {
-  body { grid-template-columns: 1fr; }
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "topbar"
+      "sidebar"
+      "workspace";
+  }
+
+  .topbar {
+    grid-template-columns: 1fr;
+    min-height: 64px;
+  }
+  .topbar .brand { border-right: none; padding: 10px 14px; }
+  .topbar .brand-logo { max-width: 140px; }
+  .ads-topbar { display: none; }   /* save space on mobile */
 
   .sidebar {
     flex-direction: row;
     position: sticky;
-    top: 0;
+    top: 64px;
     height: auto;
-    padding: 12px 16px;
+    padding: 10px 14px;
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
-    z-index: 100;
-    gap: 16px;
+    z-index: 99;
+    gap: 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
   }
 
   .sidebar-section-label, .sidebar-footer { display: none; }
-  .brand-name { font-size: 1.1rem; }
 
   .tools-nav {
     flex-direction: row;
