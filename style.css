@@ -607,6 +607,128 @@ h1 {
   margin: 0;
 }
 
+/* ── Edit page: toolbar ──────────────────────────── */
+.edit-toolbar {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  background: white;
+  border: 1px solid #E5E9F0;
+  border-radius: 12px;
+  padding: 6px;
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.tool-tab {
+  flex: 1;
+  min-width: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 6px;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  color: #666;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tool-tab:hover { background: #F0F4FA; color: #1E88E5; }
+.tool-tab.active { background: #EFF6FF; color: #1E88E5; }
+
+/* ── Edit page: tool panel ───────────────────────── */
+.tool-panel {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.tool-panel.coming-soon {
+  background: white;
+  border: 1px dashed #C5D3E8;
+  border-radius: 12px;
+  padding: 28px 18px;
+  text-align: center;
+}
+
+.tool-panel.coming-soon p {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* ── Edit page: filter strip ─────────────────────── */
+.filter-strip {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 2px 10px;
+  scrollbar-width: thin;
+}
+
+.filter-item {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.filter-item img {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  border: 3px solid transparent;
+  display: block;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.filter-item:hover img { transform: translateY(-2px); }
+.filter-item.active img { border-color: #1E88E5; }
+
+.filter-item span {
+  font-size: 0.72rem;
+  color: #666;
+  font-weight: 600;
+  max-width: 78px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filter-item.active span { color: #1E88E5; }
+
+/* ── Edit page: canvas stage ─────────────────────── */
+.edit-stage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  line-height: 0;
+}
+
+#editCanvas {
+  display: block;
+  max-width: 100%;
+  max-height: 520px;
+  width: auto;
+  height: auto;
+}
+
 /* ── Responsive ───────────────────────────────────── */
 @media (max-width: 600px) {
   .site-nav { display: none; }
