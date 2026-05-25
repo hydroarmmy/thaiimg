@@ -195,35 +195,16 @@ function resetPage() {
 }
 
 // ── Compression ────────────────────────────────────
-function compressImage(file) {
-  return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const img = new Image();
-    img.onload = () => {
-      const c = document.createElement('canvas');
-      c.width = img.naturalWidth;
-      c.height = img.naturalHeight;
-      const ctx = c.getContext('2d');
+const PRESETS = {
+  0.85: { maxSizeMB: 3,   initialQuality: 0.80, maxWidthOrHeight: 2560 },
+  0.65: { maxSizeMB: 1,   initialQuality: 0.65, maxWidthOrHeight: 1920 },
+  0.40: { maxSizeMB: 0.3, initialQuality: 0.50, maxWidthOrHeight: 1280 }
+};
 
-      const isPng = file.type === 'image/png' || /\.png$/i.test(file.name);
-      if (!isPng) {
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, c.width, c.height);
-      }
-      ctx.drawImage(img, 0, 0);
-      URL.revokeObjectURL(url);
-
-      const mime = isPng ? 'image/png'
-        : file.type === 'image/webp' ? 'image/webp'
-        : 'image/jpeg';
-      const quality = isPng ? undefined : currentQuality;
-
-      c.toBlob(
-        b => b ? resolve(b) : reject(new Error('Canvas failed')),
-        mime, quality
-      );
-    };
-    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Load failed')); };
-    img.src = url;
+async function compressImage(file) {
+  const preset = PRESETS[currentQuality] || PRESETS[0.65];
+  return await imageCompression(file, {
+    ...preset,
+    useWebWorker: true
   });
 }
