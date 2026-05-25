@@ -103,9 +103,31 @@
       <div class="filter-strip" id="filterStrip"></div>
     </div>
 
-    <!-- Coming-soon panels -->
-    <div class="tool-panel coming-soon" data-tool-panel="draw" hidden>
-      <p>เร็ว ๆ นี้ — เครื่องมือวาดเส้นแบบเลือกสี/ขนาดแปรง</p>
+    <!-- Draw panel -->
+    <div class="tool-panel" data-tool-panel="draw" hidden>
+      <div class="draw-panel">
+        <div class="draw-row">
+          <span class="draw-label">สี</span>
+          <div class="color-swatches">
+            <button class="color-swatch active" data-color="#000000" style="background:#000"></button>
+            <button class="color-swatch" data-color="#FFFFFF" style="background:#FFF"></button>
+            <button class="color-swatch" data-color="#E53935" style="background:#E53935"></button>
+            <button class="color-swatch" data-color="#43A047" style="background:#43A047"></button>
+            <button class="color-swatch" data-color="#1E88E5" style="background:#1E88E5"></button>
+            <button class="color-swatch" data-color="#FB8C00" style="background:#FB8C00"></button>
+            <button class="color-swatch" data-color="#FDD835" style="background:#FDD835"></button>
+            <button class="color-swatch" data-color="#8E24AA" style="background:#8E24AA"></button>
+            <label class="color-custom-label" title="เลือกสีเอง">
+              <input type="color" id="customColor" value="#000000">
+            </label>
+          </div>
+        </div>
+        <div class="draw-row">
+          <span class="draw-label">ขนาดแปรง: <span id="brushSizeLabel">8</span>px</span>
+          <input type="range" id="brushSize" min="1" max="60" value="8" class="draw-range">
+        </div>
+        <p class="draw-hint">ลากเมาส์/นิ้วบนภาพเพื่อวาด</p>
+      </div>
     </div>
     <div class="tool-panel coming-soon" data-tool-panel="text" hidden>
       <p>เร็ว ๆ นี้ — เพิ่มข้อความ ปรับขนาด/สี/ฟอนต์</p>

@@ -709,6 +709,97 @@ h1 {
 
 .filter-item.active span { color: #1E88E5; }
 
+/* ── Edit page: Draw panel ───────────────────────── */
+.draw-panel {
+  background: white;
+  border: 1px solid #E5E9F0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.draw-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.draw-label {
+  font-size: 0.83rem;
+  color: #555;
+  font-weight: 600;
+  min-width: 88px;
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: 1px solid #ddd;
+  outline-offset: -1px;
+  transition: transform 0.1s;
+}
+
+.color-swatch:hover { transform: scale(1.1); }
+
+.color-swatch.active {
+  outline: 2px solid #1E88E5;
+  outline-offset: 2px;
+}
+
+.color-custom-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px dashed #C5D3E8;
+  background: linear-gradient(135deg, #ff0080, #ff8c00 50%, #40e0d0);
+}
+
+#customColor {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  opacity: 0;
+}
+
+.draw-range {
+  flex: 1;
+  min-width: 120px;
+  accent-color: #1E88E5;
+}
+
+.draw-hint {
+  font-size: 0.78rem;
+  color: #999;
+  text-align: center;
+}
+
+.edit-stage.draw-mode #editCanvas {
+  cursor: crosshair;
+  touch-action: none;
+}
+
 /* ── Edit page: BG removal panel ─────────────────── */
 .bg-panel {
   background: white;

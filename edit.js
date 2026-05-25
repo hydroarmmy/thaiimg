@@ -142,16 +142,115 @@ function buildFilterStrip() {
 }
 
 // ── Tool tabs ──────────────────────────────────────
+let currentTool = 'filter';
+const editStage = document.querySelector('.edit-stage');
+
 document.querySelectorAll('.tool-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const tool = tab.dataset.tool;
+    currentTool = tool;
     document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     document.querySelectorAll('.tool-panel').forEach(p => {
       p.hidden = (p.dataset.toolPanel !== tool);
     });
+    editStage.classList.toggle('draw-mode', tool === 'draw');
   });
 });
+
+// ── Draw tool ──────────────────────────────────────
+let brushColor = '#000000';
+let brushWidth = 8;
+let drawing = false;
+let lastPt = null;
+
+const customColor    = document.getElementById('customColor');
+const brushSizeInput = document.getElementById('brushSize');
+const brushSizeLabel = document.getElementById('brushSizeLabel');
+
+document.querySelectorAll('.color-swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    brushColor = sw.dataset.color;
+    customColor.value = brushColor;
+  });
+});
+
+customColor.addEventListener('input', () => {
+  brushColor = customColor.value;
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+});
+
+brushSizeInput.addEventListener('input', () => {
+  brushWidth = parseInt(brushSizeInput.value) || 1;
+  brushSizeLabel.textContent = brushWidth;
+});
+
+function canvasCoords(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  return {
+    x: (e.clientX - rect.left) * scaleX,
+    y: (e.clientY - rect.top) * scaleY
+  };
+}
+
+function ensureBaseImgCanvas() {
+  if (baseImg instanceof HTMLCanvasElement) return;
+  const c = document.createElement('canvas');
+  c.width = baseImg.naturalWidth || baseImg.width;
+  c.height = baseImg.naturalHeight || baseImg.height;
+  c.getContext('2d').drawImage(baseImg, 0, 0);
+  baseImg = c;
+}
+
+function strokeSegment(context, from, to, color, width) {
+  context.strokeStyle = color;
+  context.lineWidth = width;
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
+  context.beginPath();
+  context.moveTo(from.x, from.y);
+  context.lineTo(to.x, to.y);
+  context.stroke();
+}
+
+canvas.addEventListener('pointerdown', (e) => {
+  if (currentTool !== 'draw' || !baseImg) return;
+  e.preventDefault();
+  drawing = true;
+  try { canvas.setPointerCapture(e.pointerId); } catch {}
+  lastPt = canvasCoords(e);
+  // Draw a dot at start so single clicks register
+  ensureBaseImgCanvas();
+  const bctx = baseImg.getContext('2d');
+  bctx.fillStyle = brushColor;
+  bctx.beginPath();
+  bctx.arc(lastPt.x, lastPt.y, brushWidth / 2, 0, Math.PI * 2);
+  bctx.fill();
+  ctx.fillStyle = brushColor;
+  ctx.beginPath();
+  ctx.arc(lastPt.x, lastPt.y, brushWidth / 2, 0, Math.PI * 2);
+  ctx.fill();
+});
+
+canvas.addEventListener('pointermove', (e) => {
+  if (!drawing) return;
+  const pt = canvasCoords(e);
+  strokeSegment(ctx, lastPt, pt, brushColor, brushWidth);
+  ensureBaseImgCanvas();
+  strokeSegment(baseImg.getContext('2d'), lastPt, pt, brushColor, brushWidth);
+  lastPt = pt;
+});
+
+canvas.addEventListener('pointerup', (e) => {
+  if (!drawing) return;
+  drawing = false;
+  try { canvas.releasePointerCapture(e.pointerId); } catch {}
+});
+canvas.addEventListener('pointercancel', () => { drawing = false; });
 
 // ── Background removal (AI) ────────────────────────
 let imglyRemoveBackground = null;
