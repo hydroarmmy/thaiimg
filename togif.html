@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>บีบอัดรูปภาพฟรี - thaiimg.com</title>
+<title>แปลงรูปภาพเป็น GIF Animation ฟรี - thaiimg.com</title>
 <link rel="stylesheet" href="thai.css?v=2">
 
 </head>
@@ -26,7 +26,7 @@
   <div>
     <p class="sidebar-section-label">เครื่องมือ</p>
     <nav class="tools-nav">
-      <a href="/compress" class="tool-link active">
+      <a href="/compress" class="tool-link">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
         <span>บีบอัดรูปภาพ</span>
       </a>
@@ -42,7 +42,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
         <span>แปลงเป็น PDF</span>
       </a>
-      <a href="/togif" class="tool-link">
+      <a href="/togif" class="tool-link active">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="7 8 7 16 11 16"/><line x1="7" y1="12" x2="10" y2="12"/><line x1="13" y1="8" x2="13" y2="16"/><polyline points="20 8 16 8 16 16"/><line x1="16" y1="12" x2="19" y2="12"/></svg>
         <span>แปลงเป็น GIF</span>
       </a>
@@ -65,10 +65,10 @@
 <main class="workspace">
 
   <header class="page-header">
-    <h1>บีบอัดรูปภาพ</h1>
+    <h1>แปลงเป็น GIF Animation</h1>
     <p>
-      ลดขนาดไฟล์ <b>JPG</b>, <b>PNG</b>, <b>WEBP</b><br>
-      บีบอัดหลายภาพพร้อมกันออนไลน์ได้ทันที
+      รวม <b>JPG</b>, <b>PNG</b>, <b>WEBP</b> เป็น GIF animation<br>
+      ลากการ์ดเพื่อสลับลำดับเฟรม
     </p>
   </header>
 
@@ -103,22 +103,11 @@
       </label>
     </div>
 
-    <!-- Quality selector -->
-    <div class="quality-selector">
-      <p class="quality-label">ระดับการบีบอัด</p>
-      <div class="quality-buttons">
-        <button class="quality-btn" data-quality="0.85">
-          <span class="q-name">น้อย</span>
-          <span class="q-pct">85%</span>
-        </button>
-        <button class="quality-btn active" data-quality="0.65">
-          <span class="q-name">ปานกลาง</span>
-          <span class="q-pct">65%</span>
-        </button>
-        <button class="quality-btn" data-quality="0.40">
-          <span class="q-name">มาก</span>
-          <span class="q-pct">40%</span>
-        </button>
+    <!-- Frame delay selector -->
+    <div class="resize-selector">
+      <div class="resize-group">
+        <p class="quality-label">หน่วงเวลาต่อเฟรม: <span id="delayLabel">300</span>ms (<span id="fpsLabel">3.3</span> fps)</p>
+        <input type="range" id="frameDelay" min="50" max="2000" step="50" value="300" class="draw-range" style="width:300px;max-width:90vw;">
       </div>
     </div>
 
@@ -134,11 +123,10 @@
       </div>
 
       <button id="convertBtn" class="convert-btn">
-        บีบอัดรูปภาพ
+        สร้าง GIF
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <circle cx="9" cy="9" r="7.5" stroke="white" stroke-width="1.5"/>
-          <path d="M6 9 L12 9 M9.5 6.5 L12 9 L9.5 11.5"
-            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 12 L3 14 A1 1 0 0 0 4 15 L14 15 A1 1 0 0 0 15 14 L15 12 M9 3 L9 11 M5.5 7.5 L9 11 L12.5 7.5"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         </svg>
       </button>
 
@@ -148,9 +136,8 @@
 
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
-<script src="compress.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
+<script src="togif.js"></script>
 
 </body>
 </html>
