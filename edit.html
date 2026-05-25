@@ -129,8 +129,44 @@
         <p class="draw-hint">ลากเมาส์/นิ้วบนภาพเพื่อวาด</p>
       </div>
     </div>
-    <div class="tool-panel coming-soon" data-tool-panel="text" hidden>
-      <p>เร็ว ๆ นี้ — เพิ่มข้อความ ปรับขนาด/สี/ฟอนต์</p>
+    <!-- Text panel -->
+    <div class="tool-panel" data-tool-panel="text" hidden>
+      <div class="text-panel">
+        <input type="text" id="textInput" placeholder="พิมพ์ข้อความที่จะใส่บนภาพ" class="text-input">
+        <div class="draw-row">
+          <span class="draw-label">ขนาด: <span id="textSizeLabel">48</span>px</span>
+          <input type="range" id="textSize" min="12" max="200" value="48" class="draw-range">
+        </div>
+        <div class="draw-row">
+          <span class="draw-label">ฟอนต์</span>
+          <select id="textFont" class="text-font-select">
+            <option value="Tahoma, sans-serif">Tahoma</option>
+            <option value="'Segoe UI', sans-serif">Segoe UI</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="'Courier New', monospace">Courier</option>
+            <option value="'Comic Sans MS', cursive">Comic</option>
+            <option value="Impact, sans-serif">Impact</option>
+          </select>
+        </div>
+        <div class="draw-row">
+          <span class="draw-label">สี</span>
+          <div class="color-swatches">
+            <button class="text-color-swatch active" data-color="#000000" style="background:#000"></button>
+            <button class="text-color-swatch" data-color="#FFFFFF" style="background:#FFF"></button>
+            <button class="text-color-swatch" data-color="#E53935" style="background:#E53935"></button>
+            <button class="text-color-swatch" data-color="#43A047" style="background:#43A047"></button>
+            <button class="text-color-swatch" data-color="#1E88E5" style="background:#1E88E5"></button>
+            <button class="text-color-swatch" data-color="#FB8C00" style="background:#FB8C00"></button>
+            <button class="text-color-swatch" data-color="#FDD835" style="background:#FDD835"></button>
+            <button class="text-color-swatch" data-color="#8E24AA" style="background:#8E24AA"></button>
+            <label class="color-custom-label" title="เลือกสีเอง">
+              <input type="color" id="textCustomColor" value="#000000">
+            </label>
+          </div>
+        </div>
+        <button id="applyTextBtn" class="text-apply-btn">✓ ใช้ข้อความบนภาพ</button>
+        <p class="draw-hint">พิมพ์ข้อความ → ลาก (หรือคลิกบนภาพ) เพื่อจัดตำแหน่ง → กดใช้ข้อความ</p>
+      </div>
     </div>
     <div class="tool-panel coming-soon" data-tool-panel="sticker" hidden>
       <p>เร็ว ๆ นี้ — คลังสติกเกอร์/อิโมจิ</p>
@@ -155,7 +191,10 @@
 
     <!-- Canvas stage -->
     <div class="edit-stage">
-      <canvas id="editCanvas"></canvas>
+      <div class="canvas-wrap">
+        <canvas id="editCanvas"></canvas>
+        <div id="textOverlay" hidden></div>
+      </div>
     </div>
 
     <!-- Action bar -->

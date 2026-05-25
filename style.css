@@ -800,6 +800,101 @@ h1 {
   touch-action: none;
 }
 
+/* ── Edit page: Text panel ───────────────────────── */
+.text-panel {
+  background: white;
+  border: 1px solid #E5E9F0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text-input {
+  padding: 10px 14px;
+  border: 2px solid #C5D3E8;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #333;
+  outline: none;
+  background: white;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.text-input:focus { border-color: #1E88E5; }
+
+.text-font-select {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px 12px;
+  border: 2px solid #C5D3E8;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: #333;
+  background: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.text-font-select:focus { border-color: #1E88E5; }
+
+.text-color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: 1px solid #ddd;
+  outline-offset: -1px;
+  transition: transform 0.1s;
+}
+
+.text-color-swatch:hover { transform: scale(1.1); }
+.text-color-swatch.active { outline: 2px solid #1E88E5; outline-offset: 2px; }
+
+.text-apply-btn {
+  background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  align-self: center;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.text-apply-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.text-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ── Edit page: Canvas wrap + text overlay ───────── */
+.canvas-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  max-width: 100%;
+}
+
+#textOverlay {
+  position: absolute;
+  font-weight: 700;
+  line-height: 1;
+  white-space: pre;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  outline: 2px dashed #1E88E5;
+  outline-offset: 3px;
+  text-shadow: 0 0 4px rgba(0,0,0,0.15);
+}
+
 /* ── Edit page: BG removal panel ─────────────────── */
 .bg-panel {
   background: white;

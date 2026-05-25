@@ -147,14 +147,17 @@ const editStage = document.querySelector('.edit-stage');
 
 document.querySelectorAll('.tool-tab').forEach(tab => {
   tab.addEventListener('click', () => {
-    const tool = tab.dataset.tool;
-    currentTool = tool;
+    const newTool = tab.dataset.tool;
+    // Auto-bake pending text when leaving text mode
+    if (currentTool === 'text' && newTool !== 'text') bakeText();
+    currentTool = newTool;
     document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     document.querySelectorAll('.tool-panel').forEach(p => {
-      p.hidden = (p.dataset.toolPanel !== tool);
+      p.hidden = (p.dataset.toolPanel !== newTool);
     });
-    editStage.classList.toggle('draw-mode', tool === 'draw');
+    editStage.classList.toggle('draw-mode', newTool === 'draw');
+    updateTextOverlay();
   });
 });
 
@@ -218,7 +221,21 @@ function strokeSegment(context, from, to, color, width) {
 }
 
 canvas.addEventListener('pointerdown', (e) => {
-  if (currentTool !== 'draw' || !baseImg) return;
+  if (!baseImg) return;
+
+  // In text mode: click on canvas to place text there
+  if (currentTool === 'text') {
+    if (textValue.trim()) {
+      e.preventDefault();
+      const pt = canvasCoords(e);
+      textX = pt.x;
+      textY = pt.y;
+      updateTextOverlay();
+    }
+    return;
+  }
+
+  if (currentTool !== 'draw') return;
   e.preventDefault();
   drawing = true;
   try { canvas.setPointerCapture(e.pointerId); } catch {}
@@ -251,6 +268,126 @@ canvas.addEventListener('pointerup', (e) => {
   try { canvas.releasePointerCapture(e.pointerId); } catch {}
 });
 canvas.addEventListener('pointercancel', () => { drawing = false; });
+
+// ── Text tool ──────────────────────────────────────
+let textValue = '';
+let textColor = '#000000';
+let textSize = 48;
+let textFont = 'Tahoma, sans-serif';
+let textX = null;
+let textY = null;
+
+const textInput        = document.getElementById('textInput');
+const textSizeInput    = document.getElementById('textSize');
+const textSizeLabel    = document.getElementById('textSizeLabel');
+const textFontSelect   = document.getElementById('textFont');
+const textCustomColor  = document.getElementById('textCustomColor');
+const applyTextBtn     = document.getElementById('applyTextBtn');
+const textOverlay      = document.getElementById('textOverlay');
+
+textInput.addEventListener('input', () => {
+  textValue = textInput.value;
+  // First non-empty text → place at center
+  if (textValue.trim() && textX === null && baseImg) {
+    textX = canvas.width / 2;
+    textY = canvas.height / 2;
+  }
+  updateTextOverlay();
+});
+
+textSizeInput.addEventListener('input', () => {
+  textSize = parseInt(textSizeInput.value) || 12;
+  textSizeLabel.textContent = textSize;
+  updateTextOverlay();
+});
+
+textFontSelect.addEventListener('change', () => {
+  textFont = textFontSelect.value;
+  updateTextOverlay();
+});
+
+document.querySelectorAll('.text-color-swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('.text-color-swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    textColor = sw.dataset.color;
+    textCustomColor.value = textColor;
+    updateTextOverlay();
+  });
+});
+
+textCustomColor.addEventListener('input', () => {
+  textColor = textCustomColor.value;
+  document.querySelectorAll('.text-color-swatch').forEach(s => s.classList.remove('active'));
+  updateTextOverlay();
+});
+
+function updateTextOverlay() {
+  if (!baseImg || currentTool !== 'text' || !textValue.trim()) {
+    textOverlay.hidden = true;
+    return;
+  }
+  const rect = canvas.getBoundingClientRect();
+  const scale = rect.width / canvas.width || 1;
+  textOverlay.hidden = false;
+  textOverlay.textContent = textValue;
+  textOverlay.style.fontFamily = textFont;
+  textOverlay.style.fontSize = (textSize * scale) + 'px';
+  textOverlay.style.color = textColor;
+  textOverlay.style.left = (textX * scale) + 'px';
+  textOverlay.style.top = (textY * scale) + 'px';
+}
+
+// Drag the text overlay
+let textDragging = false;
+let textDragStart = null;
+
+textOverlay.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  textDragging = true;
+  try { textOverlay.setPointerCapture(e.pointerId); } catch {}
+  textDragStart = { clientX: e.clientX, clientY: e.clientY, tx: textX, ty: textY };
+});
+
+textOverlay.addEventListener('pointermove', (e) => {
+  if (!textDragging) return;
+  const rect = canvas.getBoundingClientRect();
+  const scale = rect.width / canvas.width || 1;
+  textX = textDragStart.tx + (e.clientX - textDragStart.clientX) / scale;
+  textY = textDragStart.ty + (e.clientY - textDragStart.clientY) / scale;
+  textX = Math.max(0, Math.min(textX, canvas.width));
+  textY = Math.max(0, Math.min(textY, canvas.height));
+  updateTextOverlay();
+});
+
+textOverlay.addEventListener('pointerup', (e) => {
+  textDragging = false;
+  try { textOverlay.releasePointerCapture(e.pointerId); } catch {}
+});
+textOverlay.addEventListener('pointercancel', () => { textDragging = false; });
+
+function bakeText() {
+  if (!baseImg || !textValue.trim() || textX === null) return;
+  ensureBaseImgCanvas();
+  const bctx = baseImg.getContext('2d');
+  bctx.font = `700 ${textSize}px ${textFont}`;
+  bctx.fillStyle = textColor;
+  bctx.textBaseline = 'top';
+  bctx.fillText(textValue, textX, textY);
+  applyFilter(currentFilter);
+  // Reset for next entry
+  textInput.value = '';
+  textValue = '';
+  textX = null; textY = null;
+  textOverlay.hidden = true;
+}
+
+applyTextBtn.addEventListener('click', bakeText);
+
+window.addEventListener('resize', () => {
+  if (currentTool === 'text') updateTextOverlay();
+});
 
 // ── Background removal (AI) ────────────────────────
 let imglyRemoveBackground = null;
@@ -315,6 +452,9 @@ convertBtn.addEventListener('click', async () => {
     return;
   }
   if (!currentFile) return;
+
+  // Auto-bake any pending text overlay before saving
+  if (textValue.trim() && textX !== null) bakeText();
 
   convertBtn.disabled = true;
   try {
