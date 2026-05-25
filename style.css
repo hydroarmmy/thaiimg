@@ -709,16 +709,69 @@ h1 {
 
 .filter-item.active span { color: #1E88E5; }
 
+/* ── Edit page: BG removal panel ─────────────────── */
+.bg-panel {
+  background: white;
+  border: 1px solid #E5E9F0;
+  border-radius: 12px;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.bg-info {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.bg-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(30,136,229,0.3);
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.bg-action-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.bg-action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.bg-status {
+  font-size: 0.83rem;
+  color: #666;
+  text-align: center;
+  min-height: 1.2em;
+}
+
 /* ── Edit page: canvas stage ─────────────────────── */
 .edit-stage {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: #f0f0f0;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 16px;
   line-height: 0;
+  background-color: #fafafa;
+  background-image:
+    linear-gradient(45deg, #e8e8e8 25%, transparent 25%),
+    linear-gradient(-45deg, #e8e8e8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e8e8e8 75%),
+    linear-gradient(-45deg, transparent 75%, #e8e8e8 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
 #editCanvas {

@@ -12,6 +12,8 @@ const convertBtn  = document.getElementById('convertBtn');
 const canvas      = document.getElementById('editCanvas');
 const ctx         = canvas.getContext('2d');
 const filterStrip = document.getElementById('filterStrip');
+const bgRemoveBtn = document.getElementById('bgRemoveBtn');
+const bgStatus    = document.getElementById('bgStatus');
 
 // ── Filter presets ─────────────────────────────────
 const FILTERS = [
@@ -66,20 +68,25 @@ function loadFile(file) {
   const img = new Image();
   img.onload = () => {
     URL.revokeObjectURL(url);
-    baseImg = img;
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
 
     fileSection.hidden = false;
     dropZone.classList.add('compact');
     fileCount.textContent = `${file.name} — ${img.naturalWidth} × ${img.naturalHeight}`;
 
-    currentFilter = 'none';
-    applyFilter('none');
-    buildFilterStrip();
+    setBaseImage(img);
     resetConvertBtn();
+    if (bgStatus) bgStatus.textContent = '';
   };
   img.src = url;
+}
+
+function setBaseImage(img) {
+  baseImg = img;
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  currentFilter = 'none';
+  applyFilter('none');
+  buildFilterStrip();
 }
 
 // ── Apply filter ───────────────────────────────────
@@ -144,6 +151,60 @@ document.querySelectorAll('.tool-tab').forEach(tab => {
       p.hidden = (p.dataset.toolPanel !== tool);
     });
   });
+});
+
+// ── Background removal (AI) ────────────────────────
+let imglyRemoveBackground = null;
+
+async function loadImgly() {
+  if (imglyRemoveBackground) return imglyRemoveBackground;
+  bgStatus.textContent = '⏳ กำลังโหลดไลบรารี AI...';
+  const mod = await import('https://esm.sh/@imgly/background-removal@1.5.5');
+  imglyRemoveBackground = mod.default || mod.removeBackground;
+  return imglyRemoveBackground;
+}
+
+bgRemoveBtn.addEventListener('click', async () => {
+  if (!currentFile) {
+    bgStatus.textContent = 'กรุณาเลือกรูปภาพก่อน';
+    return;
+  }
+
+  bgRemoveBtn.disabled = true;
+  try {
+    const removeBackground = await loadImgly();
+    bgStatus.textContent = '⏳ กำลังประมวลผล (ครั้งแรกอาจดาวน์โหลดโมเดล ~5MB)...';
+
+    // Use current canvas state as input (so applied filter is baked in)
+    const inputBlob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+
+    const blob = await removeBackground(inputBlob, {
+      progress: (key, current, total) => {
+        const pct = total > 0 ? Math.round((current / total) * 100) : 0;
+        bgStatus.textContent = `⏳ ${key}: ${pct}%`;
+      }
+    });
+
+    const url = URL.createObjectURL(blob);
+    const newImg = new Image();
+    newImg.onload = () => {
+      URL.revokeObjectURL(url);
+      setBaseImage(newImg);
+
+      // Force PNG output to preserve transparency
+      const newName = currentFile.name.replace(/\.[^.]+$/, '.png');
+      currentFile = new File([blob], newName, { type: 'image/png' });
+
+      bgStatus.textContent = '✓ สำเร็จ — กดบันทึกจะได้ PNG พร้อมความโปร่งใส';
+      resetConvertBtn();
+    };
+    newImg.src = url;
+  } catch (err) {
+    console.error('Background removal failed:', err);
+    bgStatus.textContent = '❌ เกิดข้อผิดพลาด: ' + (err.message || 'ไม่ทราบสาเหตุ');
+  } finally {
+    bgRemoveBtn.disabled = false;
+  }
 });
 
 // ── Save & Download ────────────────────────────────

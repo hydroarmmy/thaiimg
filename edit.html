@@ -116,8 +116,19 @@
     <div class="tool-panel coming-soon" data-tool-panel="frame" hidden>
       <p>เร็ว ๆ นี้ — กรอบหลากหลายสไตล์</p>
     </div>
-    <div class="tool-panel coming-soon" data-tool-panel="bg" hidden>
-      <p>เร็ว ๆ นี้ — ตัดพื้นหลังอัตโนมัติด้วย AI (รุ่น ~5MB)</p>
+    <div class="tool-panel" data-tool-panel="bg" hidden>
+      <div class="bg-panel">
+        <p class="bg-info">ตัดพื้นหลังออกอัตโนมัติด้วย AI<br>ทำงานในเครื่องคุณ — ภาพไม่ถูกส่งไปเซิร์ฟเวอร์</p>
+        <button id="bgRemoveBtn" class="bg-action-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3L13.09 8.26L18 9L13.09 9.74L12 15L10.91 9.74L6 9L10.91 8.26L12 3z"/>
+            <path d="M19 13L19.5 14.5L21 15L19.5 15.5L19 17L18.5 15.5L17 15L18.5 14.5L19 13z"/>
+            <path d="M5 13L5.5 14.5L7 15L5.5 15.5L5 17L4.5 15.5L3 15L4.5 14.5L5 13z"/>
+          </svg>
+          ตัดพื้นหลังภาพ
+        </button>
+        <p id="bgStatus" class="bg-status"></p>
+      </div>
     </div>
 
     <!-- Canvas stage -->
