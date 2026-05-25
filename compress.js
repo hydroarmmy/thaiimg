@@ -141,9 +141,10 @@ convertBtn.addEventListener('click', async () => {
 
     try {
       const blob = await compressImage(file);
-      zip.file(file.name, blob);
+      const finalBlob = blob.size < file.size ? blob : file;
+      zip.file(file.name, finalBlob);
       totalBefore += file.size;
-      totalAfter += blob.size;
+      totalAfter += finalBlob.size;
       success++;
     } catch (err) {
       console.error('บีบอัดไม่สำเร็จ:', file.name, err);
