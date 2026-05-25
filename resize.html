@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>บีบอัดรูปภาพฟรี - thaiimg.com</title>
+<title>ปรับขนาดรูปภาพฟรี - thaiimg.com</title>
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -15,13 +15,13 @@
 
   <a href="/" class="logo">
     <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="36" height="36" rx="8" fill="url(#lg2)"/>
+      <rect width="36" height="36" rx="8" fill="url(#lg3)"/>
       <path d="M4 29 L11 17 L17.5 24 L23 17.5 L32 29 Z" fill="white" opacity="0.9"/>
       <circle cx="27" cy="10" r="3.5" fill="#FF5722"/>
       <rect x="28" y="26" width="4" height="4" rx="1" fill="white" opacity="0.35"/>
       <rect x="32" y="30" width="3" height="3" rx="1" fill="white" opacity="0.2"/>
       <defs>
-        <linearGradient id="lg2" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+        <linearGradient id="lg3" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
           <stop stop-color="#42A5F5"/>
           <stop offset="1" stop-color="#1565C0"/>
         </linearGradient>
@@ -31,8 +31,8 @@
   </a>
 
   <nav class="site-nav">
-    <a href="/compress" class="nav-active">บีบอัดรูปภาพ</a>
-    <a href="/resize">ปรับขนาดรูปภาพ</a>
+    <a href="/compress">บีบอัดรูปภาพ</a>
+    <a href="/resize" class="nav-active">ปรับขนาดรูปภาพ</a>
     <a href="/">แปลงเป็น JPG</a>
     <a href="#">ครอบตัดรูปภาพ</a>
   </nav>
@@ -42,13 +42,13 @@
 <!-- ── Main ───────────────────────────────────────── -->
 <main class="page-wrap">
 
-  <h1>บีบอัดรูปภาพ</h1>
+  <h1>ปรับขนาดรูปภาพ</h1>
   <p class="subtitle">
-    ลดขนาดไฟล์ <b>JPG</b>, <b>PNG</b>, <b>WEBP</b><br>
-    บีบอัดหลายภาพพร้อมกันออนไลน์ได้ทันที
+    ลด/ขยายขนาด <b>JPG</b>, <b>PNG</b>, <b>WEBP</b><br>
+    ปรับขนาดหลายภาพพร้อมกันออนไลน์ได้ทันที
   </p>
 
-  <!-- Drop zone — แสดงตลอด -->
+  <!-- Drop zone -->
   <div id="drop-zone">
     <div class="drop-icon">
       <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
@@ -66,7 +66,7 @@
     <p class="format-hint">JPG &nbsp;·&nbsp; PNG &nbsp;·&nbsp; WEBP</p>
   </div>
 
-  <!-- File section — แสดงเมื่อเลือกไฟล์ -->
+  <!-- File section -->
   <div id="file-section" hidden>
 
     <div class="file-area">
@@ -79,23 +79,35 @@
       </label>
     </div>
 
-    <!-- Quality selector -->
-    <div class="quality-selector">
-      <p class="quality-label">ระดับการบีบอัด</p>
-      <div class="quality-buttons">
-        <button class="quality-btn" data-quality="0.85">
-          <span class="q-name">น้อย</span>
-          <span class="q-pct">85%</span>
-        </button>
-        <button class="quality-btn active" data-quality="0.65">
-          <span class="q-name">ปานกลาง</span>
-          <span class="q-pct">65%</span>
-        </button>
-        <button class="quality-btn" data-quality="0.40">
-          <span class="q-name">มาก</span>
-          <span class="q-pct">40%</span>
-        </button>
+    <!-- Resize selector -->
+    <div class="resize-selector">
+
+      <div class="resize-group">
+        <p class="quality-label">ลดขนาด</p>
+        <div class="quality-buttons">
+          <button class="scale-btn active" data-scale="0.50">50%</button>
+          <button class="scale-btn" data-scale="0.75">75%</button>
+        </div>
       </div>
+
+      <div class="resize-group">
+        <p class="quality-label">ขยายขนาด</p>
+        <div class="quality-buttons">
+          <button class="scale-btn" data-scale="2">x2</button>
+          <button class="scale-btn" data-scale="4">x4</button>
+        </div>
+      </div>
+
+      <div class="resize-group pixel-group">
+        <p class="quality-label">ตามขนาดพิกเซล</p>
+        <div class="pixel-inputs">
+          <input type="number" id="pixelWidth" placeholder="ความกว้าง" min="1" max="12000">
+          <span class="pixel-x">×</span>
+          <input type="number" id="pixelHeight" placeholder="ความสูง" min="1" max="12000">
+        </div>
+        <p class="pixel-hint">ระบุได้ทั้งคู่ หรือใส่แค่ด้านเดียว (จะคงสัดส่วนเดิม)</p>
+      </div>
+
     </div>
 
     <div class="action-bar">
@@ -110,7 +122,7 @@
       </div>
 
       <button id="convertBtn" class="convert-btn">
-        บีบอัดรูปภาพ
+        ปรับขนาดรูปภาพ
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <circle cx="9" cy="9" r="7.5" stroke="white" stroke-width="1.5"/>
           <path d="M6 9 L12 9 M9.5 6.5 L12 9 L9.5 11.5"
@@ -125,8 +137,7 @@
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
-<script src="compress.js"></script>
+<script src="resize.js"></script>
 
 </body>
 </html>
