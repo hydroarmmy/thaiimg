@@ -196,15 +196,17 @@ function resetPage() {
 
 // ── Compression ────────────────────────────────────
 const PRESETS = {
-  0.85: { maxSizeMB: 3,   initialQuality: 0.80, maxWidthOrHeight: 2560 },
-  0.65: { maxSizeMB: 1,   initialQuality: 0.65, maxWidthOrHeight: 1920 },
-  0.40: { maxSizeMB: 0.3, initialQuality: 0.50, maxWidthOrHeight: 1280 }
+  0.85: { initialQuality: 0.80 },
+  0.65: { initialQuality: 0.60 },
+  0.40: { initialQuality: 0.35 }
 };
 
 async function compressImage(file) {
   const preset = PRESETS[currentQuality] || PRESETS[0.65];
   return await imageCompression(file, {
-    ...preset,
-    useWebWorker: true
+    maxSizeMB: 100,
+    alwaysKeepResolution: true,
+    useWebWorker: true,
+    ...preset
   });
 }
