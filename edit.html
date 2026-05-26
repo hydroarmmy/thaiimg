@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180.png">
-<link rel="stylesheet" href="thai.css?v=4">
+<link rel="stylesheet" href="thai.css?v=5">
 
 </head>
 <body>
@@ -322,8 +322,17 @@
         <p class="draw-hint">พิมพ์ข้อความ → เลือกตำแหน่ง (หรือลาก) → กดใช้ลายน้ำ</p>
       </div>
     </div>
-    <div class="tool-panel coming-soon" data-tool-panel="sharpen" hidden>
-      <p>เร็ว ๆ นี้ — เพิ่มความคมชัด (slider ปรับระดับ)</p>
+    <!-- Sharpen panel -->
+    <div class="tool-panel" data-tool-panel="sharpen" hidden>
+      <div class="text-panel">
+        <p class="draw-hint" style="text-align:left;color:var(--text-muted);">เพิ่มความคมชัดของภาพ — เน้นรายละเอียดและขอบให้ชัดขึ้น</p>
+        <div class="draw-row">
+          <span class="draw-label">ระดับ: <span id="sharpenLabel">50</span>%</span>
+          <input type="range" id="sharpenLevel" min="10" max="200" value="50" class="draw-range">
+        </div>
+        <button id="applySharpenBtn" class="text-apply-btn">✓ ใช้ความคมชัดบนภาพ</button>
+        <p class="draw-hint">กดซ้ำเพื่อเพิ่มความคมชัดเรื่อย ๆ (ระวังเกินไปจะเป็นเม็ด/noise)</p>
+      </div>
     </div>
     <div class="tool-panel coming-soon" data-tool-panel="blur" hidden>
       <p>เร็ว ๆ นี้ — เบลอภาพ (slider 0-50px)</p>

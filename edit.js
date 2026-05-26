@@ -809,6 +809,74 @@ function bakeWatermark() {
 
 applyWmBtn.addEventListener('click', bakeWatermark);
 
+// ── Sharpen tool ───────────────────────────────────
+const sharpenLevel    = document.getElementById('sharpenLevel');
+const sharpenLabel    = document.getElementById('sharpenLabel');
+const applySharpenBtn = document.getElementById('applySharpenBtn');
+
+let sharpenIntensity = 0.5;
+
+sharpenLevel.addEventListener('input', () => {
+  sharpenIntensity = (parseInt(sharpenLevel.value) || 50) / 100;
+  sharpenLabel.textContent = sharpenLevel.value;
+});
+
+applySharpenBtn.addEventListener('click', async () => {
+  if (!baseImg) return;
+  const originalLabel = '✓ ใช้ความคมชัดบนภาพ';
+  applySharpenBtn.disabled = true;
+  applySharpenBtn.textContent = '⏳ กำลังประมวลผล...';
+  // Yield to browser so the label paints before the heavy loop blocks the thread
+  await new Promise(r => setTimeout(r, 30));
+
+  try {
+    ensureBaseImgCanvas();
+    const bctx = baseImg.getContext('2d');
+    const imgData = bctx.getImageData(0, 0, baseImg.width, baseImg.height);
+    const sharpened = sharpenImageData(imgData, sharpenIntensity);
+    bctx.putImageData(sharpened, 0, 0);
+    applyFilter(currentFilter);
+    applySharpenBtn.textContent = '✓ คมชัดเสร็จ — กดซ้ำเพื่อเพิ่ม';
+    setTimeout(() => { applySharpenBtn.textContent = originalLabel; }, 1800);
+  } catch (err) {
+    console.error('Sharpen failed:', err);
+    applySharpenBtn.textContent = '❌ ผิดพลาด';
+    setTimeout(() => { applySharpenBtn.textContent = originalLabel; }, 1800);
+  } finally {
+    applySharpenBtn.disabled = false;
+  }
+});
+
+// 3x3 sharpen convolution: center = 1+4i, edges = -i, corners = 0
+// (Uint8ClampedArray auto-clamps to 0..255 so we don't need Math.min/max)
+function sharpenImageData(imageData, intensity) {
+  const w = imageData.width;
+  const h = imageData.height;
+  const src = imageData.data;
+  const out = new Uint8ClampedArray(src.length);
+  out.set(src); // start from copy so the 1-pixel border keeps original values
+
+  const c = 1 + 4 * intensity;
+  const e = -intensity;
+
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      const i = (y * w + x) * 4;
+      const top    = ((y - 1) * w + x) * 4;
+      const bot    = ((y + 1) * w + x) * 4;
+      const left   = (y * w + (x - 1)) * 4;
+      const right  = (y * w + (x + 1)) * 4;
+
+      out[i    ] = src[i    ] * c + (src[top    ] + src[bot    ] + src[left    ] + src[right    ]) * e;
+      out[i + 1] = src[i + 1] * c + (src[top + 1] + src[bot + 1] + src[left + 1] + src[right + 1]) * e;
+      out[i + 2] = src[i + 2] * c + (src[top + 2] + src[bot + 2] + src[left + 2] + src[right + 2]) * e;
+      // alpha unchanged
+    }
+  }
+
+  return new ImageData(out, w, h);
+}
+
 // ── Sticker tool ───────────────────────────────────
 const STICKERS = [
   '😀','😁','😂','🤣','😊','😍','🥰','😘','😎','🤩',
