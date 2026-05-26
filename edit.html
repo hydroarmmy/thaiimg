@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180.png">
-<link rel="stylesheet" href="thai.css?v=6">
+<link rel="stylesheet" href="thai.css?v=7">
 
 </head>
 <body>
@@ -346,8 +346,17 @@
         <p class="draw-hint">กดซ้ำเพื่อเบลอเพิ่ม</p>
       </div>
     </div>
-    <div class="tool-panel coming-soon" data-tool-panel="autolight" hidden>
-      <p>เร็ว ๆ นี้ — ปรับแสงอัตโนมัติ (ปรับ exposure/contrast/saturation ตามฮิสโตแกรม)</p>
+    <!-- Auto-light panel -->
+    <div class="tool-panel" data-tool-panel="autolight" hidden>
+      <div class="text-panel">
+        <p class="draw-hint" style="text-align:left;color:var(--text-muted);">ปรับแสงอัตโนมัติ — วิเคราะห์ histogram แล้วยืดช่วงแสง/เงาให้สมดุล (เหมาะกับภาพมืดเกิน/สว่างเกิน/ขาดคอนทราสต์)</p>
+        <div class="draw-row">
+          <span class="draw-label">ระดับ: <span id="autolightLabel">100</span>%</span>
+          <input type="range" id="autolightLevel" min="0" max="100" value="100" class="draw-range">
+        </div>
+        <button id="applyAutolightBtn" class="text-apply-btn">✓ ปรับแสงอัตโนมัติ</button>
+        <p class="draw-hint">100% = ยืดเต็มที่ · 50% = ครึ่งทาง · 0% = ไม่เปลี่ยน</p>
+      </div>
     </div>
 
     <!-- Canvas stage -->

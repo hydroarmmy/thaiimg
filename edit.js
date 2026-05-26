@@ -847,6 +847,84 @@ applySharpenBtn.addEventListener('click', async () => {
   }
 });
 
+// ── Auto-light tool (histogram auto-levels) ────────
+const autolightLevel    = document.getElementById('autolightLevel');
+const autolightLabel    = document.getElementById('autolightLabel');
+const applyAutolightBtn = document.getElementById('applyAutolightBtn');
+
+let autolightStrength = 1.0;
+
+autolightLevel.addEventListener('input', () => {
+  autolightStrength = (parseInt(autolightLevel.value) || 0) / 100;
+  autolightLabel.textContent = autolightLevel.value;
+});
+
+applyAutolightBtn.addEventListener('click', async () => {
+  if (!baseImg) return;
+  const original = '✓ ปรับแสงอัตโนมัติ';
+  applyAutolightBtn.disabled = true;
+  applyAutolightBtn.textContent = '⏳ กำลังวิเคราะห์...';
+  await new Promise(r => setTimeout(r, 30));
+
+  try {
+    ensureBaseImgCanvas();
+    const bctx = baseImg.getContext('2d');
+    const imgData = bctx.getImageData(0, 0, baseImg.width, baseImg.height);
+    const out = autoLevelsImageData(imgData, autolightStrength);
+    bctx.putImageData(out, 0, 0);
+    applyFilter(currentFilter);
+    applyAutolightBtn.textContent = '✓ ปรับแสงเสร็จ';
+    setTimeout(() => { applyAutolightBtn.textContent = original; }, 1500);
+  } catch (err) {
+    console.error('Autolight failed:', err);
+    applyAutolightBtn.textContent = '❌ ผิดพลาด';
+    setTimeout(() => { applyAutolightBtn.textContent = original; }, 1500);
+  } finally {
+    applyAutolightBtn.disabled = false;
+  }
+});
+
+// Histogram-based auto-levels: stretch luminance range from
+// the (0.5%, 99.5%) percentiles to [0, 255], blended by `strength`.
+function autoLevelsImageData(imageData, strength) {
+  const src = imageData.data;
+  const total = src.length / 4;
+
+  // Luminance histogram (Rec. 601)
+  const hist = new Uint32Array(256);
+  for (let i = 0; i < src.length; i += 4) {
+    const lum = (0.299 * src[i] + 0.587 * src[i + 1] + 0.114 * src[i + 2]) | 0;
+    hist[lum]++;
+  }
+
+  // Trim 0.5% from each end to ignore extreme outliers
+  const cutoff = total * 0.005;
+  let low = 0, high = 255, sum = 0;
+  for (let i = 0; i < 256; i++) { sum += hist[i]; if (sum > cutoff) { low = i; break; } }
+  sum = 0;
+  for (let i = 255; i >= 0; i--) { sum += hist[i]; if (sum > cutoff) { high = i; break; } }
+
+  // Nothing to do if image already covers the full range
+  if (high - low < 4) return imageData;
+
+  // LUT: blend identity → stretched by `strength`
+  const range = high - low;
+  const lut = new Uint8ClampedArray(256);
+  for (let i = 0; i < 256; i++) {
+    const stretched = ((i - low) / range) * 255;
+    lut[i] = i * (1 - strength) + stretched * strength;
+  }
+
+  const out = new Uint8ClampedArray(src.length);
+  for (let i = 0; i < src.length; i += 4) {
+    out[i    ] = lut[src[i    ]];
+    out[i + 1] = lut[src[i + 1]];
+    out[i + 2] = lut[src[i + 2]];
+    out[i + 3] = src[i + 3];
+  }
+  return new ImageData(out, imageData.width, imageData.height);
+}
+
 // ── Blur tool ──────────────────────────────────────
 const blurLevel    = document.getElementById('blurLevel');
 const blurLabel    = document.getElementById('blurLabel');
