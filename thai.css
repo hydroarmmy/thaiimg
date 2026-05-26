@@ -69,6 +69,155 @@ body {
   width: 100%;
 }
 
+/* Topbar hamburger menu + dropdown */
+.topbar { grid-template-columns: 240px 1fr auto; }
+
+.topbar-menu-btn {
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 14px;
+  align-self: center;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.topbar-menu-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.topbar-menu {
+  position: absolute;
+  top: 80px;
+  right: 14px;
+  min-width: 230px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  padding: 8px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.topbar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  text-decoration: none;
+  color: var(--text-muted);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+
+.topbar-menu a:hover { background: var(--surface-alt); color: var(--text); }
+.topbar-menu a svg { flex-shrink: 0; opacity: 0.7; }
+.topbar-menu a:hover svg { opacity: 1; }
+
+/* Privacy banner (home) */
+.privacy-banner {
+  background: #ECFDF3;
+  color: #14532D;
+  border: 1px solid #A7F3D0;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.privacy-banner svg { flex-shrink: 0; color: #16a34a; }
+.privacy-banner b { color: #166534; }
+.privacy-banner a { color: #166534; font-weight: 700; text-decoration: underline; margin-left: 4px; }
+
+/* Content page (about, privacy, terms, help) */
+.content-page { max-width: 760px; margin: 0 auto; }
+
+.content-page h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.content-page .lead {
+  font-size: 1.02rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.content-page h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 36px;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.content-page h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.content-page p {
+  line-height: 1.8;
+  margin-bottom: 14px;
+  color: var(--text-muted);
+}
+
+.content-page ul, .content-page ol {
+  margin-left: 24px;
+  margin-bottom: 14px;
+}
+
+.content-page li {
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.content-page .callout {
+  background: var(--surface-alt);
+  border-left: 3px solid var(--primary);
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin: 16px 0;
+  color: var(--text);
+}
+
+.content-page .callout b { color: var(--primary); }
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  background: var(--surface);
+}
+
+.faq-item h3 { margin: 0 0 8px; color: var(--text); }
+.faq-item p:last-child { margin-bottom: 0; }
+
 /* ── Sidebar ─────────────────────────────────────── */
 .sidebar {
   grid-area: sidebar;

@@ -23,6 +23,21 @@
         btn.textContent = '−';
       }
     }
+
+    // Topbar hamburger menu — toggle + close on outside click
+    const menuBtn = document.getElementById('topbarMenuBtn');
+    const menu = document.getElementById('topbarMenu');
+    if (menuBtn && menu) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.hidden = !menu.hidden;
+      });
+      document.addEventListener('click', (e) => {
+        if (!menu.hidden && !menu.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
+          menu.hidden = true;
+        }
+      });
+    }
   }
 
   if (document.readyState === 'loading') {
