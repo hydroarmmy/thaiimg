@@ -1040,6 +1040,66 @@ body {
   font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
 }
 
+#wmOverlay {
+  position: absolute;
+  font-weight: 700;
+  line-height: 1;
+  white-space: pre;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  outline: 2px dashed var(--primary);
+  outline-offset: 3px;
+}
+
+/* ── Watermark: position preset grid ─────────────── */
+.wm-color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: 1px solid var(--border);
+  outline-offset: -1px;
+  transition: transform 0.1s;
+}
+.wm-color-swatch:hover { transform: scale(1.1); }
+.wm-color-swatch.active { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+.wm-position-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 32px);
+  gap: 4px;
+}
+
+.wm-pos-btn {
+  width: 32px;
+  height: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-muted);
+  padding: 0;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.wm-pos-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.wm-pos-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
 /* ── Edit page: BG removal panel ─────────────────── */
 .bg-panel {
   background: var(--surface);

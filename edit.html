@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180.png">
-<link rel="stylesheet" href="thai.css?v=3">
+<link rel="stylesheet" href="thai.css?v=4">
 
 </head>
 <body>
@@ -267,9 +267,60 @@
       </div>
     </div>
 
-    <!-- Watermark / Sharpen / Blur / Autolight panels (placeholders) -->
-    <div class="tool-panel coming-soon" data-tool-panel="watermark" hidden>
-      <p>เร็ว ๆ นี้ — ใส่ลายน้ำ (ข้อความ/รูปภาพ + ปรับ opacity + ตำแหน่ง)</p>
+    <!-- Watermark panel -->
+    <div class="tool-panel" data-tool-panel="watermark" hidden>
+      <div class="text-panel">
+        <input type="text" id="wmInput" placeholder="พิมพ์ข้อความลายน้ำ (เช่น © thaiimg.com)" class="text-input">
+        <div class="draw-row">
+          <span class="draw-label">ขนาด: <span id="wmSizeLabel">36</span>px</span>
+          <input type="range" id="wmSize" min="12" max="200" value="36" class="draw-range">
+        </div>
+        <div class="draw-row">
+          <span class="draw-label">ความโปร่งใส: <span id="wmOpacityLabel">50</span>%</span>
+          <input type="range" id="wmOpacity" min="10" max="100" value="50" class="draw-range">
+        </div>
+        <div class="draw-row">
+          <span class="draw-label">ฟอนต์</span>
+          <select id="wmFont" class="text-font-select">
+            <option value="'IBM Plex Sans Thai', Tahoma, sans-serif">IBM Plex Sans Thai</option>
+            <option value="Tahoma, sans-serif">Tahoma</option>
+            <option value="'Segoe UI', sans-serif">Segoe UI</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="'Courier New', monospace">Courier</option>
+            <option value="Impact, sans-serif">Impact</option>
+          </select>
+        </div>
+        <div class="draw-row">
+          <span class="draw-label">สี</span>
+          <div class="color-swatches">
+            <button class="wm-color-swatch active" data-color="#FFFFFF" style="background:#FFF"></button>
+            <button class="wm-color-swatch" data-color="#000000" style="background:#000"></button>
+            <button class="wm-color-swatch" data-color="#E53935" style="background:#E53935"></button>
+            <button class="wm-color-swatch" data-color="#1E88E5" style="background:#1E88E5"></button>
+            <button class="wm-color-swatch" data-color="#FB8C00" style="background:#FB8C00"></button>
+            <button class="wm-color-swatch" data-color="#FDD835" style="background:#FDD835"></button>
+            <label class="color-custom-label" title="เลือกสีเอง">
+              <input type="color" id="wmCustomColor" value="#FFFFFF">
+            </label>
+          </div>
+        </div>
+        <div class="draw-row">
+          <span class="draw-label">ตำแหน่ง</span>
+          <div class="wm-position-grid">
+            <button class="wm-pos-btn" data-pos="tl" title="ซ้ายบน">↖</button>
+            <button class="wm-pos-btn" data-pos="tc" title="กึ่งกลางบน">↑</button>
+            <button class="wm-pos-btn" data-pos="tr" title="ขวาบน">↗</button>
+            <button class="wm-pos-btn" data-pos="ml" title="ซ้ายกลาง">←</button>
+            <button class="wm-pos-btn" data-pos="c"  title="กึ่งกลาง">●</button>
+            <button class="wm-pos-btn" data-pos="mr" title="ขวากลาง">→</button>
+            <button class="wm-pos-btn" data-pos="bl" title="ซ้ายล่าง">↙</button>
+            <button class="wm-pos-btn" data-pos="bc" title="กึ่งกลางล่าง">↓</button>
+            <button class="wm-pos-btn active" data-pos="br" title="ขวาล่าง">↘</button>
+          </div>
+        </div>
+        <button id="applyWmBtn" class="text-apply-btn">✓ ใช้ลายน้ำบนภาพ</button>
+        <p class="draw-hint">พิมพ์ข้อความ → เลือกตำแหน่ง (หรือลาก) → กดใช้ลายน้ำ</p>
+      </div>
     </div>
     <div class="tool-panel coming-soon" data-tool-panel="sharpen" hidden>
       <p>เร็ว ๆ นี้ — เพิ่มความคมชัด (slider ปรับระดับ)</p>
@@ -287,6 +338,7 @@
         <canvas id="editCanvas"></canvas>
         <div id="textOverlay" hidden></div>
         <div id="stickerOverlay" hidden></div>
+        <div id="wmOverlay" hidden></div>
       </div>
     </div>
 

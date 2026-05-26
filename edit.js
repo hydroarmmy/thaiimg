@@ -364,6 +364,7 @@ document.querySelectorAll('.tool-tab').forEach(tab => {
     // Auto-bake pending overlays when leaving that mode
     if (currentTool === 'text' && newTool !== 'text') bakeText();
     if (currentTool === 'sticker' && newTool !== 'sticker') bakeSticker();
+    if (currentTool === 'watermark' && newTool !== 'watermark') bakeWatermark();
     currentTool = newTool;
     document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
@@ -373,6 +374,7 @@ document.querySelectorAll('.tool-tab').forEach(tab => {
     editStage.classList.toggle('draw-mode', newTool === 'draw');
     updateTextOverlay();
     updateStickerOverlay();
+    updateWmOverlay();
   });
 });
 
@@ -458,6 +460,19 @@ canvas.addEventListener('pointerdown', (e) => {
       stickerX = Math.max(0, Math.min(basePt.x, baseImgW()));
       stickerY = Math.max(0, Math.min(basePt.y, baseImgH()));
       updateStickerOverlay();
+    }
+    return;
+  }
+
+  // In watermark mode: click on canvas to place watermark there
+  if (currentTool === 'watermark') {
+    if (wmText.trim()) {
+      e.preventDefault();
+      const basePt = canvasToBaseImg(canvasCoords(e));
+      wmX = Math.max(0, Math.min(basePt.x, baseImgW()));
+      wmY = Math.max(0, Math.min(basePt.y, baseImgH()));
+      document.querySelectorAll('.wm-pos-btn').forEach(b => b.classList.remove('active'));
+      updateWmOverlay();
     }
     return;
   }
@@ -619,7 +634,180 @@ applyTextBtn.addEventListener('click', bakeText);
 window.addEventListener('resize', () => {
   if (currentTool === 'text') updateTextOverlay();
   if (currentTool === 'sticker') updateStickerOverlay();
+  if (currentTool === 'watermark') updateWmOverlay();
 });
+
+// ── Watermark tool ─────────────────────────────────
+let wmText = '';
+let wmColor = '#FFFFFF';
+let wmSize = 36;
+let wmFont = "'IBM Plex Sans Thai', Tahoma, sans-serif";
+let wmOpacity = 0.5;
+let wmX = null;
+let wmY = null;
+let wmPosition = 'br';
+const WM_MARGIN = 20;
+
+const wmInput        = document.getElementById('wmInput');
+const wmSizeInput    = document.getElementById('wmSize');
+const wmSizeLabel    = document.getElementById('wmSizeLabel');
+const wmOpacityInput = document.getElementById('wmOpacity');
+const wmOpacityLabel = document.getElementById('wmOpacityLabel');
+const wmFontSelect   = document.getElementById('wmFont');
+const wmCustomColor  = document.getElementById('wmCustomColor');
+const applyWmBtn     = document.getElementById('applyWmBtn');
+const wmOverlay      = document.getElementById('wmOverlay');
+
+wmInput.addEventListener('input', () => {
+  wmText = wmInput.value;
+  if (wmText.trim() && baseImg) {
+    if (wmX === null) setWmPositionToPreset(wmPosition);
+  }
+  updateWmOverlay();
+});
+
+wmSizeInput.addEventListener('input', () => {
+  wmSize = parseInt(wmSizeInput.value) || 12;
+  wmSizeLabel.textContent = wmSize;
+  // Recompute position if a preset is currently active
+  const activeBtn = document.querySelector('.wm-pos-btn.active');
+  if (activeBtn) setWmPositionToPreset(activeBtn.dataset.pos);
+  updateWmOverlay();
+});
+
+wmOpacityInput.addEventListener('input', () => {
+  wmOpacity = (parseInt(wmOpacityInput.value) || 50) / 100;
+  wmOpacityLabel.textContent = wmOpacityInput.value;
+  updateWmOverlay();
+});
+
+wmFontSelect.addEventListener('change', () => {
+  wmFont = wmFontSelect.value;
+  const activeBtn = document.querySelector('.wm-pos-btn.active');
+  if (activeBtn) setWmPositionToPreset(activeBtn.dataset.pos);
+  updateWmOverlay();
+});
+
+document.querySelectorAll('.wm-color-swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('.wm-color-swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    wmColor = sw.dataset.color;
+    wmCustomColor.value = wmColor;
+    updateWmOverlay();
+  });
+});
+
+wmCustomColor.addEventListener('input', () => {
+  wmColor = wmCustomColor.value;
+  document.querySelectorAll('.wm-color-swatch').forEach(s => s.classList.remove('active'));
+  updateWmOverlay();
+});
+
+document.querySelectorAll('.wm-pos-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.wm-pos-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    wmPosition = btn.dataset.pos;
+    setWmPositionToPreset(wmPosition);
+    updateWmOverlay();
+  });
+});
+
+function setWmPositionToPreset(pos) {
+  if (!baseImg) return;
+  // Measure text size via temp canvas to compute the right anchor
+  const tmp = document.createElement('canvas').getContext('2d');
+  tmp.font = `700 ${wmSize}px ${wmFont}`;
+  const textW = tmp.measureText(wmText || ' ').width;
+  const textH = wmSize;
+  const w = baseImgW();
+  const h = baseImgH();
+  const m = WM_MARGIN;
+  let x = 0, y = 0;
+  switch (pos) {
+    case 'tl': x = m;                       y = m; break;
+    case 'tc': x = (w - textW) / 2;         y = m; break;
+    case 'tr': x = w - textW - m;           y = m; break;
+    case 'ml': x = m;                       y = (h - textH) / 2; break;
+    case 'c':  x = (w - textW) / 2;         y = (h - textH) / 2; break;
+    case 'mr': x = w - textW - m;           y = (h - textH) / 2; break;
+    case 'bl': x = m;                       y = h - textH - m; break;
+    case 'bc': x = (w - textW) / 2;         y = h - textH - m; break;
+    case 'br': x = w - textW - m;           y = h - textH - m; break;
+  }
+  wmX = x;
+  wmY = y;
+}
+
+function updateWmOverlay() {
+  if (!baseImg || currentTool !== 'watermark' || !wmText.trim()) {
+    wmOverlay.hidden = true;
+    return;
+  }
+  const rect = canvas.getBoundingClientRect();
+  const scale = rect.width / canvas.width || 1;
+  wmOverlay.hidden = false;
+  wmOverlay.textContent = wmText;
+  wmOverlay.style.fontFamily = wmFont;
+  wmOverlay.style.fontSize = (wmSize * scale) + 'px';
+  wmOverlay.style.color = wmColor;
+  wmOverlay.style.opacity = wmOpacity;
+  wmOverlay.style.left = ((wmX + currentPadding.left) * scale) + 'px';
+  wmOverlay.style.top  = ((wmY + currentPadding.top)  * scale) + 'px';
+}
+
+// Drag watermark overlay
+let wmDragging = false;
+let wmDragStart = null;
+
+wmOverlay.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  wmDragging = true;
+  try { wmOverlay.setPointerCapture(e.pointerId); } catch {}
+  wmDragStart = { clientX: e.clientX, clientY: e.clientY, tx: wmX, ty: wmY };
+  // Deselect preset since user is freely positioning now
+  document.querySelectorAll('.wm-pos-btn').forEach(b => b.classList.remove('active'));
+});
+
+wmOverlay.addEventListener('pointermove', (e) => {
+  if (!wmDragging) return;
+  const rect = canvas.getBoundingClientRect();
+  const scale = rect.width / canvas.width || 1;
+  wmX = wmDragStart.tx + (e.clientX - wmDragStart.clientX) / scale;
+  wmY = wmDragStart.ty + (e.clientY - wmDragStart.clientY) / scale;
+  wmX = Math.max(0, Math.min(wmX, baseImgW()));
+  wmY = Math.max(0, Math.min(wmY, baseImgH()));
+  updateWmOverlay();
+});
+
+wmOverlay.addEventListener('pointerup', (e) => {
+  wmDragging = false;
+  try { wmOverlay.releasePointerCapture(e.pointerId); } catch {}
+});
+wmOverlay.addEventListener('pointercancel', () => { wmDragging = false; });
+
+function bakeWatermark() {
+  if (!baseImg || !wmText.trim() || wmX === null) return;
+  ensureBaseImgCanvas();
+  const bctx = baseImg.getContext('2d');
+  bctx.save();
+  bctx.globalAlpha = wmOpacity;
+  bctx.font = `700 ${wmSize}px ${wmFont}`;
+  bctx.fillStyle = wmColor;
+  bctx.textBaseline = 'top';
+  bctx.fillText(wmText, wmX, wmY);
+  bctx.restore();
+  applyFilter(currentFilter);
+  // Reset for next watermark
+  wmInput.value = '';
+  wmText = '';
+  wmX = null; wmY = null;
+  wmOverlay.hidden = true;
+}
+
+applyWmBtn.addEventListener('click', bakeWatermark);
 
 // ── Sticker tool ───────────────────────────────────
 const STICKERS = [
@@ -794,6 +982,7 @@ convertBtn.addEventListener('click', async () => {
   // Auto-bake any pending overlays before saving
   if (textValue.trim() && textX !== null) bakeText();
   if (stickerChar && stickerX !== null) bakeSticker();
+  if (wmText.trim() && wmX !== null) bakeWatermark();
 
   convertBtn.disabled = true;
   try {
