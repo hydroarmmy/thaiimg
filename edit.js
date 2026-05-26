@@ -218,6 +218,8 @@ function render() {
 
   // Tool live previews (ephemeral — only when the matching tool is active)
   if (typeof applySharpenPreview === 'function') applySharpenPreview();
+  if (typeof applyBlurPreview === 'function') applyBlurPreview();
+  if (typeof applyAutolightPreview === 'function') applyAutolightPreview();
 
   // Keep overlays positioned correctly
   updateTextOverlay && updateTextOverlay();
@@ -380,7 +382,8 @@ document.querySelectorAll('.tool-tab').forEach(tab => {
     updateStickerOverlay();
     updateWmOverlay();
     // Refresh canvas when entering/leaving tools that have a live preview
-    if (oldTool === 'sharpen' || newTool === 'sharpen') render();
+    const LIVE_PREVIEW = ['sharpen', 'blur', 'autolight'];
+    if (LIVE_PREVIEW.includes(oldTool) || LIVE_PREVIEW.includes(newTool)) render();
   });
 });
 
@@ -894,23 +897,57 @@ applySharpenBtn.addEventListener('click', async () => {
   }
 });
 
-// ── Auto-light tool (histogram auto-levels) ────────
+// ── Auto-light tool (live preview + bake) ──────────
 const autolightLevel    = document.getElementById('autolightLevel');
 const autolightLabel    = document.getElementById('autolightLabel');
 const applyAutolightBtn = document.getElementById('applyAutolightBtn');
 
 let autolightStrength = 1.0;
+let autolightPreviewTimer = null;
 
 autolightLevel.addEventListener('input', () => {
   autolightStrength = (parseInt(autolightLevel.value) || 0) / 100;
   autolightLabel.textContent = autolightLevel.value;
+  clearTimeout(autolightPreviewTimer);
+  autolightPreviewTimer = setTimeout(() => {
+    if (currentTool === 'autolight') render();
+  }, 80);
 });
+
+// Called from render() — runs auto-levels at display resolution for speed
+function applyAutolightPreview() {
+  if (currentTool !== 'autolight' || autolightStrength <= 0 || !baseImg) return;
+  const rect = canvas.getBoundingClientRect();
+  const dw = Math.max(1, Math.round(rect.width));
+  const dh = Math.max(1, Math.round(rect.height));
+  if (dw < 2 || dh < 2) return;
+
+  const preview = document.createElement('canvas');
+  preview.width = dw; preview.height = dh;
+  const pctx = preview.getContext('2d');
+  pctx.imageSmoothingEnabled = true;
+  pctx.imageSmoothingQuality = 'high';
+  pctx.drawImage(canvas, 0, 0, dw, dh);
+
+  const imgData = pctx.getImageData(0, 0, dw, dh);
+  const out = autoLevelsImageData(imgData, autolightStrength);
+  pctx.putImageData(out, 0, 0);
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+}
 
 applyAutolightBtn.addEventListener('click', async () => {
   if (!baseImg) return;
   const original = '✓ ปรับแสงอัตโนมัติ';
+  if (autolightStrength <= 0) {
+    applyAutolightBtn.textContent = 'ตั้งระดับมากกว่า 0% ก่อน';
+    setTimeout(() => { applyAutolightBtn.textContent = original; }, 1500);
+    return;
+  }
   applyAutolightBtn.disabled = true;
-  applyAutolightBtn.textContent = '⏳ กำลังวิเคราะห์...';
+  applyAutolightBtn.textContent = '⏳ กำลังวิเคราะห์ภาพเต็มขนาด...';
   await new Promise(r => setTimeout(r, 30));
 
   try {
@@ -919,9 +956,12 @@ applyAutolightBtn.addEventListener('click', async () => {
     const imgData = bctx.getImageData(0, 0, baseImg.width, baseImg.height);
     const out = autoLevelsImageData(imgData, autolightStrength);
     bctx.putImageData(out, 0, 0);
+    autolightLevel.value = '0';
+    autolightStrength = 0;
+    autolightLabel.textContent = '0';
     applyFilter(currentFilter);
-    applyAutolightBtn.textContent = '✓ ปรับแสงเสร็จ';
-    setTimeout(() => { applyAutolightBtn.textContent = original; }, 1500);
+    applyAutolightBtn.textContent = '✓ บันทึกแล้ว — ปรับ slider เพื่อทำเพิ่ม';
+    setTimeout(() => { applyAutolightBtn.textContent = original; }, 1800);
   } catch (err) {
     console.error('Autolight failed:', err);
     applyAutolightBtn.textContent = '❌ ผิดพลาด';
@@ -972,25 +1012,51 @@ function autoLevelsImageData(imageData, strength) {
   return new ImageData(out, imageData.width, imageData.height);
 }
 
-// ── Blur tool ──────────────────────────────────────
+// ── Blur tool (live preview + bake) ────────────────
 const blurLevel    = document.getElementById('blurLevel');
 const blurLabel    = document.getElementById('blurLabel');
 const applyBlurBtn = document.getElementById('applyBlurBtn');
 
 let blurRadius = 10;
+let blurPreviewTimer = null;
 
 blurLevel.addEventListener('input', () => {
-  blurRadius = parseInt(blurLevel.value) || 1;
+  blurRadius = parseInt(blurLevel.value) || 0;
   blurLabel.textContent = blurRadius;
+  clearTimeout(blurPreviewTimer);
+  blurPreviewTimer = setTimeout(() => {
+    if (currentTool === 'blur') render();
+  }, 60);
 });
+
+// Called from render() — re-draws the canvas with a CSS blur filter.
+// Hardware-accelerated, so we can run at full canvas resolution.
+function applyBlurPreview() {
+  if (currentTool !== 'blur' || blurRadius <= 0 || !baseImg) return;
+  const tmp = document.createElement('canvas');
+  tmp.width = canvas.width;
+  tmp.height = canvas.height;
+  tmp.getContext('2d').drawImage(canvas, 0, 0);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.filter = `blur(${blurRadius}px)`;
+  ctx.drawImage(tmp, 0, 0);
+  ctx.filter = 'none';
+}
 
 applyBlurBtn.addEventListener('click', () => {
   if (!baseImg) return;
+  const original = '✓ ใช้เบลอบนภาพ';
+  if (blurRadius <= 0) {
+    applyBlurBtn.textContent = 'ตั้งระดับมากกว่า 0 ก่อน';
+    setTimeout(() => { applyBlurBtn.textContent = original; }, 1500);
+    return;
+  }
   ensureBaseImgCanvas();
   const w = baseImg.width;
   const h = baseImg.height;
 
-  // Snapshot current baseImg so we can draw it back through a blur filter
+  // Snapshot baseImg so we can re-draw it through the blur filter
   const tmp = document.createElement('canvas');
   tmp.width = w;
   tmp.height = h;
@@ -1002,11 +1068,14 @@ applyBlurBtn.addEventListener('click', () => {
   bctx.drawImage(tmp, 0, 0);
   bctx.filter = 'none';
 
+  // Reset slider so the preview vanishes; canvas now shows the baked state
+  blurLevel.value = '0';
+  blurRadius = 0;
+  blurLabel.textContent = '0';
   applyFilter(currentFilter);
 
-  const original = '✓ ใช้เบลอบนภาพ';
-  applyBlurBtn.textContent = '✓ เบลอเสร็จ — กดซ้ำเพื่อเพิ่ม';
-  setTimeout(() => { applyBlurBtn.textContent = original; }, 1500);
+  applyBlurBtn.textContent = '✓ บันทึกแล้ว — ปรับ slider เพื่อทำเพิ่ม';
+  setTimeout(() => { applyBlurBtn.textContent = original; }, 1800);
 });
 
 // 3x3 sharpen convolution: center = 1+4i, edges = -i, corners = 0

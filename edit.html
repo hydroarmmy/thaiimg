@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180.png">
-<link rel="stylesheet" href="thai.css?v=8">
+<link rel="stylesheet" href="thai.css?v=9">
 
 </head>
 <body>
@@ -340,10 +340,10 @@
         <p class="draw-hint" style="text-align:left;color:var(--text-muted);">เบลอภาพ — ใช้สำหรับซ่อนข้อมูลส่วนตัว หรือสร้าง effect</p>
         <div class="draw-row">
           <span class="draw-label">ระดับเบลอ: <span id="blurLabel">10</span>px</span>
-          <input type="range" id="blurLevel" min="1" max="50" value="10" class="draw-range">
+          <input type="range" id="blurLevel" min="0" max="50" value="10" class="draw-range">
         </div>
         <button id="applyBlurBtn" class="text-apply-btn">✓ ใช้เบลอบนภาพ</button>
-        <p class="draw-hint">กดซ้ำเพื่อเบลอเพิ่ม</p>
+        <p class="draw-hint">เลื่อน slider เพื่อ preview สด → กดปุ่มเพื่อบันทึก</p>
       </div>
     </div>
     <!-- Auto-light panel -->
@@ -355,7 +355,7 @@
           <input type="range" id="autolightLevel" min="0" max="100" value="100" class="draw-range">
         </div>
         <button id="applyAutolightBtn" class="text-apply-btn">✓ ปรับแสงอัตโนมัติ</button>
-        <p class="draw-hint">100% = ยืดเต็มที่ · 50% = ครึ่งทาง · 0% = ไม่เปลี่ยน</p>
+        <p class="draw-hint">เลื่อน slider เพื่อ preview สด → กดปุ่มเพื่อบันทึก (100%=ยืดเต็ม · 0%=ไม่เปลี่ยน)</p>
       </div>
     </div>
 
