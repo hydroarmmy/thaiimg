@@ -551,6 +551,22 @@ body {
 .q-pct  { font-size: 0.7rem; opacity: 0.65; font-weight: 500; }
 .quality-btn.active .q-pct { opacity: 0.95; }
 
+/* Format-only button (used by HEIC → JPG/PNG/WEBP selector) */
+.format-btn {
+  padding: 10px 24px;
+  border: none;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  min-width: 80px;
+  font-weight: 700;
+  transition: background 0.15s, color 0.15s;
+}
+.format-btn:not(:last-child) { border-right: 1px solid var(--border); }
+.format-btn:hover:not(.active) { background: var(--primary-soft); color: var(--primary); }
+.format-btn.active { background: var(--primary); color: white; }
+
 /* ── Resize selector (resize) ────────────────────── */
 .resize-selector {
   width: 100%;

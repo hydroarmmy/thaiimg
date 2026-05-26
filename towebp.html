@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ปรับขนาดรูปภาพฟรี - thaiimg.com</title>
+<title>แปลงรูปภาพเป็น WEBP ฟรี - thaiimg.com</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180.png">
@@ -13,16 +13,13 @@
 </head>
 <body>
 
-<!-- ── Topbar (logo + ads) ────────────────────────── -->
 <header class="topbar">
   <a href="/" class="brand">
     <img src="icons/logo.png" alt="thaiimg" class="brand-logo">
   </a>
-  <!-- AdSense slot — drop <ins class="adsbygoogle"> here -->
   <div class="ads-slot ads-topbar"></div>
 </header>
 
-<!-- ── Sidebar ────────────────────────────────────── -->
 <aside class="sidebar">
 
   <div>
@@ -36,11 +33,10 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 3h6v6H9V9H3z M15 9h6v6h-6z M3 15h6v6H3z" stroke-width="1.4" opacity="0.55"/></svg>
         <span>แปลงเป็น PNG</span>
       </a>
-      <a href="/towebp" class="tool-link">
+      <a href="/towebp" class="tool-link active">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M6 16l2-6 2 4 2-6 2 8" /></svg>
         <span>แปลงเป็น WEBP</span>
       </a>
-
       <a href="/topdf" class="tool-link">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
         <span>แปลงเป็น PDF</span>
@@ -57,13 +53,11 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8v8M16 8v8M8 12h8" /></svg>
         <span>แปลงจาก HEIC</span>
       </a>
-
-
       <a href="/compress" class="tool-link">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
         <span>บีบอัดรูปภาพ</span>
       </a>
-      <a href="/resize" class="tool-link active">
+      <a href="/resize" class="tool-link">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
         <span>ปรับขนาดรูปภาพ</span>
       </a>
@@ -99,18 +93,16 @@
 
 </aside>
 
-<!-- ── Workspace ──────────────────────────────────── -->
 <main class="workspace">
 
   <header class="page-header">
-    <h1>ปรับขนาดรูปภาพ</h1>
+    <h1>แปลงรูปภาพเป็น WEBP</h1>
     <p>
-      ลด/ขยายขนาด <b>JPG</b>, <b>PNG</b>, <b>WEBP</b><br>
-      ปรับขนาดหลายภาพพร้อมกันออนไลน์ได้ทันที
+      แปลง <b>JPG</b>, <b>PNG</b>, <b>GIF</b>, <b>HEIC</b> ให้อยู่ในรูปแบบ <b>WEBP</b><br>
+      ไฟล์เล็กกว่า JPG/PNG ~25-35% โดยคุณภาพใกล้เคียง รักษา transparency ได้
     </p>
   </header>
 
-  <!-- Drop zone -->
   <div id="drop-zone">
     <div class="drop-icon">
       <svg width="56" height="56" viewBox="0 0 52 52" fill="none">
@@ -123,12 +115,11 @@
     </div>
     <label id="selectBtn" for="fileInput">เลือกรูปภาพ</label>
     <input type="file" id="fileInput" multiple
-      accept=".jpg,.jpeg,.png,.webp" hidden>
+      accept=".png,.gif,.webp,.heic,.heif,.jpg,.jpeg" hidden>
     <p class="drop-hint">หรือลากและวางรูปภาพที่นี่</p>
-    <p class="format-hint">JPG &nbsp;·&nbsp; PNG &nbsp;·&nbsp; WEBP</p>
+    <p class="format-hint">JPG &nbsp;·&nbsp; PNG &nbsp;·&nbsp; GIF &nbsp;·&nbsp; HEIC</p>
   </div>
 
-  <!-- File section -->
   <div id="file-section" hidden>
 
     <div class="file-area">
@@ -141,35 +132,13 @@
       </label>
     </div>
 
-    <!-- Resize selector -->
-    <div class="resize-selector">
-
-      <div class="resize-group">
-        <p class="quality-label">ลดขนาด</p>
-        <div class="quality-buttons">
-          <button class="scale-btn active" data-scale="0.50">50%</button>
-          <button class="scale-btn" data-scale="0.75">75%</button>
-        </div>
+    <div class="quality-selector">
+      <p class="quality-label">คุณภาพ</p>
+      <div class="quality-buttons">
+        <button class="quality-btn" data-quality="0.95"><span class="q-name">สูง</span><span class="q-pct">95%</span></button>
+        <button class="quality-btn active" data-quality="0.85"><span class="q-name">กลาง</span><span class="q-pct">85%</span></button>
+        <button class="quality-btn" data-quality="0.65"><span class="q-name">ต่ำ</span><span class="q-pct">65%</span></button>
       </div>
-
-      <div class="resize-group">
-        <p class="quality-label">ขยายขนาด</p>
-        <div class="quality-buttons">
-          <button class="scale-btn" data-scale="2">x2</button>
-          <button class="scale-btn" data-scale="4">x4</button>
-        </div>
-      </div>
-
-      <div class="resize-group pixel-group">
-        <p class="quality-label">ตามขนาดพิกเซล</p>
-        <div class="pixel-inputs">
-          <input type="number" id="pixelWidth" placeholder="ความกว้าง" min="1" max="12000">
-          <span class="pixel-x">×</span>
-          <input type="number" id="pixelHeight" placeholder="ความสูง" min="1" max="12000">
-        </div>
-        <p class="pixel-hint">ระบุได้ทั้งคู่ หรือใส่แค่ด้านเดียว (จะคงสัดส่วนเดิม)</p>
-      </div>
-
     </div>
 
     <div class="action-bar">
@@ -184,7 +153,7 @@
       </div>
 
       <button id="convertBtn" class="convert-btn">
-        ปรับขนาดรูปภาพ
+        แปลงเป็น WEBP
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <circle cx="9" cy="9" r="7.5" stroke="white" stroke-width="1.5"/>
           <path d="M6 9 L12 9 M9.5 6.5 L12 9 L9.5 11.5"
@@ -198,8 +167,9 @@
 
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="resize.js?v=2"></script>
+<script src="towebp.js?v=2"></script>
 
 <script src="sidebar.js?v=2"></script>
 </body>
