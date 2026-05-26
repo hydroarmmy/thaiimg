@@ -57,10 +57,27 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
         <span>ครอบตัดรูปภาพ</span>
       </a>
-      <a href="/edit" class="tool-link">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L13.5 8L19 9L13.5 10.5L12 16L10.5 10.5L5 9L10.5 8L12 3z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7L19 17z"/></svg>
-        <span>ปรับแต่งภาพถ่าย</span>
-      </a>
+      <div class="tool-group">
+        <div class="tool-link-row">
+          <a href="/edit" class="tool-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L13.5 8L19 9L13.5 10.5L12 16L10.5 10.5L5 9L10.5 8L12 3z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7L19 17z"/></svg>
+            <span>ปรับแต่งภาพถ่าย</span>
+          </a>
+          <button class="tool-expand-btn" data-target="editSubmenu" aria-label="แสดงเมนูย่อย">+</button>
+        </div>
+        <div class="tool-submenu" id="editSubmenu" hidden>
+          <a href="/edit#bg">ตัดพื้นหลัง</a>
+          <a href="/edit#watermark">ใส่ลายน้ำ</a>
+          <a href="/edit#sharpen">เพิ่มความคมชัด</a>
+          <a href="/edit#blur">เบลอภาพ</a>
+          <a href="/edit#autolight">ปรับแสงอัตโนมัติ</a>
+          <a href="/edit#filter">ฟิลเตอร์</a>
+          <a href="/edit#draw">วาด</a>
+          <a href="/edit#text">ข้อความ</a>
+          <a href="/edit#sticker">สติกเกอร์</a>
+          <a href="/edit#frame">กรอบ</a>
+        </div>
+      </div>
     </nav>
   </div>
 
@@ -141,5 +158,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="topng.js"></script>
 
+<script src="sidebar.js"></script>
 </body>
 </html>

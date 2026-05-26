@@ -57,10 +57,27 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
         <span>ครอบตัดรูปภาพ</span>
       </a>
-      <a href="/edit" class="tool-link active">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L13.5 8L19 9L13.5 10.5L12 16L10.5 10.5L5 9L10.5 8L12 3z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7L19 17z"/></svg>
-        <span>ปรับแต่งภาพถ่าย</span>
-      </a>
+      <div class="tool-group">
+        <div class="tool-link-row">
+          <a href="/edit" class="tool-link active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L13.5 8L19 9L13.5 10.5L12 16L10.5 10.5L5 9L10.5 8L12 3z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7L19 17z"/></svg>
+            <span>ปรับแต่งภาพถ่าย</span>
+          </a>
+          <button class="tool-expand-btn" data-target="editSubmenu" aria-label="แสดงเมนูย่อย">+</button>
+        </div>
+        <div class="tool-submenu" id="editSubmenu" hidden>
+          <a href="/edit#bg">ตัดพื้นหลัง</a>
+          <a href="/edit#watermark">ใส่ลายน้ำ</a>
+          <a href="/edit#sharpen">เพิ่มความคมชัด</a>
+          <a href="/edit#blur">เบลอภาพ</a>
+          <a href="/edit#autolight">ปรับแสงอัตโนมัติ</a>
+          <a href="/edit#filter">ฟิลเตอร์</a>
+          <a href="/edit#draw">วาด</a>
+          <a href="/edit#text">ข้อความ</a>
+          <a href="/edit#sticker">สติกเกอร์</a>
+          <a href="/edit#frame">กรอบ</a>
+        </div>
+      </div>
     </nav>
   </div>
 
@@ -125,6 +142,22 @@
       <button class="tool-tab" data-tool="bg">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <span>ตัดพื้นหลัง</span>
+      </button>
+      <button class="tool-tab" data-tool="watermark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 17l4-6 3 4 2-2 2 4" opacity="0.5"/><text x="7" y="11" font-size="6" fill="currentColor" stroke="none">W</text></svg>
+        <span>ใส่ลายน้ำ</span>
+      </button>
+      <button class="tool-tab" data-tool="sharpen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 4 7 4 17 12 22 20 17 20 7 12 2"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+        <span>เพิ่มความคมชัด</span>
+      </button>
+      <button class="tool-tab" data-tool="blur">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7" opacity="0.5"/><circle cx="12" cy="12" r="10" opacity="0.25"/></svg>
+        <span>เบลอภาพ</span>
+      </button>
+      <button class="tool-tab" data-tool="autolight">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <span>ปรับแสง</span>
       </button>
     </div>
 
@@ -235,6 +268,20 @@
       </div>
     </div>
 
+    <!-- Watermark / Sharpen / Blur / Autolight panels (placeholders) -->
+    <div class="tool-panel coming-soon" data-tool-panel="watermark" hidden>
+      <p>เร็ว ๆ นี้ — ใส่ลายน้ำ (ข้อความ/รูปภาพ + ปรับ opacity + ตำแหน่ง)</p>
+    </div>
+    <div class="tool-panel coming-soon" data-tool-panel="sharpen" hidden>
+      <p>เร็ว ๆ นี้ — เพิ่มความคมชัด (slider ปรับระดับ)</p>
+    </div>
+    <div class="tool-panel coming-soon" data-tool-panel="blur" hidden>
+      <p>เร็ว ๆ นี้ — เบลอภาพ (slider 0-50px)</p>
+    </div>
+    <div class="tool-panel coming-soon" data-tool-panel="autolight" hidden>
+      <p>เร็ว ๆ นี้ — ปรับแสงอัตโนมัติ (ปรับ exposure/contrast/saturation ตามฮิสโตแกรม)</p>
+    </div>
+
     <!-- Canvas stage -->
     <div class="edit-stage">
       <div class="canvas-wrap">
@@ -262,5 +309,6 @@
 
 <script src="edit.js"></script>
 
+<script src="sidebar.js"></script>
 </body>
 </html>

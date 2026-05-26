@@ -136,6 +136,69 @@ body {
 }
 .tool-link.active svg { opacity: 1; }
 
+/* Tool group with expand sub-menu */
+.tool-group { display: flex; flex-direction: column; }
+
+.tool-link-row {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.tool-link-row .tool-link { flex: 1; min-width: 0; }
+
+.tool-expand-btn {
+  flex-shrink: 0;
+  width: 30px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  padding: 0;
+  line-height: 1;
+}
+
+.tool-expand-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.tool-submenu {
+  display: flex;
+  flex-direction: column;
+  margin: 4px 0 6px 14px;
+  border-left: 2px solid var(--border);
+  padding-left: 4px;
+}
+
+.tool-submenu a {
+  display: block;
+  padding: 7px 12px;
+  text-decoration: none;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tool-submenu a:hover {
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.tool-submenu a.active {
+  color: var(--primary);
+  font-weight: 700;
+  background: var(--primary-soft);
+}
+
 .sidebar-footer {
   margin-top: auto;
   padding: 0 8px;

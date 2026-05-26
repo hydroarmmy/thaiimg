@@ -344,6 +344,16 @@ function buildFrameStrip() {
   });
 }
 
+// ── Hash routing: open the tab named in URL hash ───
+function openTabFromHash() {
+  const hash = location.hash.slice(1);
+  if (!hash) return;
+  const tab = document.querySelector(`.tool-tab[data-tool="${hash}"]`);
+  if (tab) tab.click();
+}
+window.addEventListener('DOMContentLoaded', openTabFromHash);
+window.addEventListener('hashchange', openTabFromHash);
+
 // ── Tool tabs ──────────────────────────────────────
 let currentTool = 'filter';
 const editStage = document.querySelector('.edit-stage');
