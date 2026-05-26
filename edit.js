@@ -216,6 +216,9 @@ function render() {
 
   drawFrameFg(ctx, canvas.width, canvas.height, currentFrame, pad);
 
+  // Tool live previews (ephemeral — only when the matching tool is active)
+  if (typeof applySharpenPreview === 'function') applySharpenPreview();
+
   // Keep overlays positioned correctly
   updateTextOverlay && updateTextOverlay();
   updateStickerOverlay && updateStickerOverlay();
@@ -361,10 +364,11 @@ const editStage = document.querySelector('.edit-stage');
 document.querySelectorAll('.tool-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const newTool = tab.dataset.tool;
+    const oldTool = currentTool;
     // Auto-bake pending overlays when leaving that mode
-    if (currentTool === 'text' && newTool !== 'text') bakeText();
-    if (currentTool === 'sticker' && newTool !== 'sticker') bakeSticker();
-    if (currentTool === 'watermark' && newTool !== 'watermark') bakeWatermark();
+    if (oldTool === 'text' && newTool !== 'text') bakeText();
+    if (oldTool === 'sticker' && newTool !== 'sticker') bakeSticker();
+    if (oldTool === 'watermark' && newTool !== 'watermark') bakeWatermark();
     currentTool = newTool;
     document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
@@ -375,6 +379,8 @@ document.querySelectorAll('.tool-tab').forEach(tab => {
     updateTextOverlay();
     updateStickerOverlay();
     updateWmOverlay();
+    // Refresh canvas when entering/leaving tools that have a live preview
+    if (oldTool === 'sharpen' || newTool === 'sharpen') render();
   });
 });
 
@@ -809,24 +815,61 @@ function bakeWatermark() {
 
 applyWmBtn.addEventListener('click', bakeWatermark);
 
-// ── Sharpen tool ───────────────────────────────────
+// ── Sharpen tool (live preview + bake) ─────────────
 const sharpenLevel    = document.getElementById('sharpenLevel');
 const sharpenLabel    = document.getElementById('sharpenLabel');
 const applySharpenBtn = document.getElementById('applySharpenBtn');
 
 let sharpenIntensity = 0.5;
+let sharpenPreviewTimer = null;
 
 sharpenLevel.addEventListener('input', () => {
-  sharpenIntensity = (parseInt(sharpenLevel.value) || 50) / 100;
+  sharpenIntensity = (parseInt(sharpenLevel.value) || 0) / 100;
   sharpenLabel.textContent = sharpenLevel.value;
+  // Debounced live preview — re-render so applySharpenPreview() runs at the end
+  clearTimeout(sharpenPreviewTimer);
+  sharpenPreviewTimer = setTimeout(() => {
+    if (currentTool === 'sharpen') render();
+  }, 80);
 });
+
+// Called from render() — sharpens the just-drawn canvas at DISPLAY resolution
+// so live preview stays smooth even on multi-MP source images. The bake button
+// re-applies sharpen at full baseImg resolution for the final crisp result.
+function applySharpenPreview() {
+  if (currentTool !== 'sharpen' || sharpenIntensity <= 0 || !baseImg) return;
+  const rect = canvas.getBoundingClientRect();
+  const dw = Math.max(1, Math.round(rect.width));
+  const dh = Math.max(1, Math.round(rect.height));
+  if (dw < 2 || dh < 2) return;
+
+  // Downsample current canvas to display size, sharpen, draw back scaled-up
+  const preview = document.createElement('canvas');
+  preview.width = dw; preview.height = dh;
+  const pctx = preview.getContext('2d');
+  pctx.imageSmoothingEnabled = true;
+  pctx.imageSmoothingQuality = 'high';
+  pctx.drawImage(canvas, 0, 0, dw, dh);
+
+  const imgData = pctx.getImageData(0, 0, dw, dh);
+  const sharpened = sharpenImageData(imgData, sharpenIntensity);
+  pctx.putImageData(sharpened, 0, 0);
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+}
 
 applySharpenBtn.addEventListener('click', async () => {
   if (!baseImg) return;
   const originalLabel = '✓ ใช้ความคมชัดบนภาพ';
+  if (sharpenIntensity <= 0) {
+    applySharpenBtn.textContent = 'ตั้งระดับมากกว่า 0% ก่อน';
+    setTimeout(() => { applySharpenBtn.textContent = originalLabel; }, 1500);
+    return;
+  }
   applySharpenBtn.disabled = true;
-  applySharpenBtn.textContent = '⏳ กำลังประมวลผล...';
-  // Yield to browser so the label paints before the heavy loop blocks the thread
+  applySharpenBtn.textContent = '⏳ กำลังประมวลผลภาพเต็มขนาด...';
   await new Promise(r => setTimeout(r, 30));
 
   try {
@@ -835,8 +878,12 @@ applySharpenBtn.addEventListener('click', async () => {
     const imgData = bctx.getImageData(0, 0, baseImg.width, baseImg.height);
     const sharpened = sharpenImageData(imgData, sharpenIntensity);
     bctx.putImageData(sharpened, 0, 0);
+    // Reset slider to 0 — preview vanishes, canvas now shows baked state
+    sharpenLevel.value = '0';
+    sharpenIntensity = 0;
+    sharpenLabel.textContent = '0';
     applyFilter(currentFilter);
-    applySharpenBtn.textContent = '✓ คมชัดเสร็จ — กดซ้ำเพื่อเพิ่ม';
+    applySharpenBtn.textContent = '✓ บันทึกแล้ว — ปรับ slider เพื่อทำเพิ่ม';
     setTimeout(() => { applySharpenBtn.textContent = originalLabel; }, 1800);
   } catch (err) {
     console.error('Sharpen failed:', err);
