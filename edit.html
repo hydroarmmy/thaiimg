@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180.png">
-<link rel="stylesheet" href="thai.css?v=5">
+<link rel="stylesheet" href="thai.css?v=6">
 
 </head>
 <body>
@@ -334,8 +334,17 @@
         <p class="draw-hint">กดซ้ำเพื่อเพิ่มความคมชัดเรื่อย ๆ (ระวังเกินไปจะเป็นเม็ด/noise)</p>
       </div>
     </div>
-    <div class="tool-panel coming-soon" data-tool-panel="blur" hidden>
-      <p>เร็ว ๆ นี้ — เบลอภาพ (slider 0-50px)</p>
+    <!-- Blur panel -->
+    <div class="tool-panel" data-tool-panel="blur" hidden>
+      <div class="text-panel">
+        <p class="draw-hint" style="text-align:left;color:var(--text-muted);">เบลอภาพ — ใช้สำหรับซ่อนข้อมูลส่วนตัว หรือสร้าง effect</p>
+        <div class="draw-row">
+          <span class="draw-label">ระดับเบลอ: <span id="blurLabel">10</span>px</span>
+          <input type="range" id="blurLevel" min="1" max="50" value="10" class="draw-range">
+        </div>
+        <button id="applyBlurBtn" class="text-apply-btn">✓ ใช้เบลอบนภาพ</button>
+        <p class="draw-hint">กดซ้ำเพื่อเบลอเพิ่ม</p>
+      </div>
     </div>
     <div class="tool-panel coming-soon" data-tool-panel="autolight" hidden>
       <p>เร็ว ๆ นี้ — ปรับแสงอัตโนมัติ (ปรับ exposure/contrast/saturation ตามฮิสโตแกรม)</p>

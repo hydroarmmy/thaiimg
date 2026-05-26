@@ -847,6 +847,43 @@ applySharpenBtn.addEventListener('click', async () => {
   }
 });
 
+// ── Blur tool ──────────────────────────────────────
+const blurLevel    = document.getElementById('blurLevel');
+const blurLabel    = document.getElementById('blurLabel');
+const applyBlurBtn = document.getElementById('applyBlurBtn');
+
+let blurRadius = 10;
+
+blurLevel.addEventListener('input', () => {
+  blurRadius = parseInt(blurLevel.value) || 1;
+  blurLabel.textContent = blurRadius;
+});
+
+applyBlurBtn.addEventListener('click', () => {
+  if (!baseImg) return;
+  ensureBaseImgCanvas();
+  const w = baseImg.width;
+  const h = baseImg.height;
+
+  // Snapshot current baseImg so we can draw it back through a blur filter
+  const tmp = document.createElement('canvas');
+  tmp.width = w;
+  tmp.height = h;
+  tmp.getContext('2d').drawImage(baseImg, 0, 0);
+
+  const bctx = baseImg.getContext('2d');
+  bctx.clearRect(0, 0, w, h);
+  bctx.filter = `blur(${blurRadius}px)`;
+  bctx.drawImage(tmp, 0, 0);
+  bctx.filter = 'none';
+
+  applyFilter(currentFilter);
+
+  const original = '✓ ใช้เบลอบนภาพ';
+  applyBlurBtn.textContent = '✓ เบลอเสร็จ — กดซ้ำเพื่อเพิ่ม';
+  setTimeout(() => { applyBlurBtn.textContent = original; }, 1500);
+});
+
 // 3x3 sharpen convolution: center = 1+4i, edges = -i, corners = 0
 // (Uint8ClampedArray auto-clamps to 0..255 so we don't need Math.min/max)
 function sharpenImageData(imageData, intensity) {
