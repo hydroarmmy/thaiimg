@@ -1,8 +1,7 @@
 // ── Sidebar expand sub-menu ────────────────────────
 (function () {
   function init() {
-    const buttons = document.querySelectorAll('.tool-expand-btn');
-    buttons.forEach(btn => {
+    document.querySelectorAll('.tool-expand-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const target = document.getElementById(btn.dataset.target);
@@ -13,8 +12,7 @@
       });
     });
 
-    // Auto-open the edit sub-menu when we are on /edit and highlight the
-    // sub-item that matches the current hash
+    // On /edit page, auto-open the sub-menu so visitors see the feature list
     const isEditPage = /\/edit(\.html)?$/.test(location.pathname) ||
                        location.pathname === '/edit';
     if (isEditPage) {
@@ -24,19 +22,7 @@
         submenu.hidden = false;
         btn.textContent = '−';
       }
-      highlightActiveSub();
-      window.addEventListener('hashchange', highlightActiveSub);
     }
-  }
-
-  function highlightActiveSub() {
-    const hash = location.hash;
-    document.querySelectorAll('.tool-submenu a').forEach(a => {
-      const href = a.getAttribute('href') || '';
-      const match = (hash && href.endsWith(hash)) ||
-                    (!hash && href === '/edit#filter');
-      a.classList.toggle('active', match);
-    });
   }
 
   if (document.readyState === 'loading') {

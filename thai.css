@@ -177,26 +177,25 @@ body {
   padding-left: 4px;
 }
 
-.tool-submenu a {
-  display: block;
-  padding: 7px 12px;
-  text-decoration: none;
+.tool-submenu span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
   color: var(--text-muted);
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   font-weight: 500;
-  transition: background 0.15s, color 0.15s;
+  cursor: default;
 }
 
-.tool-submenu a:hover {
-  background: var(--surface-alt);
-  color: var(--text);
-}
-
-.tool-submenu a.active {
-  color: var(--primary);
-  font-weight: 700;
-  background: var(--primary-soft);
+.tool-submenu span::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: var(--text-faint);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .sidebar-footer {
