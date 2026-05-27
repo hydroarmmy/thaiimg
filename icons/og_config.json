@@ -1,0 +1,18 @@
+{
+  "brand": "thaiimg.com",
+  "badge": "ฟรี  •  ไม่ต้องอัพโหลด  •  ปลอดภัย 100%",
+  "pages": [
+    { "file": "og-home.png",     "title": "thaiimg.com",           "subtitle": "แปลง บีบอัด ครอบตัด ปรับแต่งรูปภาพออนไลน์ฟรี", "tag": "เครื่องมือรูปภาพออนไลน์" },
+    { "file": "og-convert.png",  "title": "แปลงรูปเป็น JPG",       "subtitle": "แปลง PNG, WEBP, HEIC เป็น JPG ฟรี",         "tag": "เครื่องมือแปลงไฟล์" },
+    { "file": "og-topng.png",    "title": "แปลงรูปเป็น PNG",       "subtitle": "รักษาพื้นหลังโปร่งใส ฟรี ไม่ต้องอัพโหลด",   "tag": "เครื่องมือแปลงไฟล์" },
+    { "file": "og-towebp.png",   "title": "แปลงรูปเป็น WEBP",      "subtitle": "ลดขนาดไฟล์ 70% โดยคงคุณภาพ",                 "tag": "เครื่องมือแปลงไฟล์" },
+    { "file": "og-topdf.png",    "title": "แปลงรูปเป็น PDF",       "subtitle": "รวมรูปหลายใบเป็น PDF เล่มเดียว",             "tag": "เครื่องมือแปลงไฟล์" },
+    { "file": "og-togif.png",    "title": "สร้าง GIF Animation",   "subtitle": "สร้างภาพเคลื่อนไหวจากรูปหลายใบ",             "tag": "เครื่องมือแปลงไฟล์" },
+    { "file": "og-tosvg.png",    "title": "แปลงรูปเป็น SVG",       "subtitle": "ใช้กับเว็บไซต์และงานออกแบบ",                 "tag": "เครื่องมือแปลงไฟล์" },
+    { "file": "og-fromheic.png", "title": "แปลง HEIC เป็น JPG",    "subtitle": "แปลงไฟล์รูปจาก iPhone, iPad ฟรี",            "tag": "เครื่องมือแปลงไฟล์" },
+    { "file": "og-compress.png", "title": "บีบอัดรูปภาพ",          "subtitle": "ลดขนาดไฟล์ 50-90% โดยคงคุณภาพ",              "tag": "จัดการรูป" },
+    { "file": "og-resize.png",   "title": "ปรับขนาดรูปภาพ",        "subtitle": "ย่อ-ขยายรูปในคลิกเดียว",                     "tag": "จัดการรูป" },
+    { "file": "og-crop.png",     "title": "ครอบตัดรูปภาพ",         "subtitle": "ตัดภาพเฉพาะส่วนที่ต้องการ",                   "tag": "จัดการรูป" },
+    { "file": "og-edit.png",     "title": "ปรับแต่งภาพถ่าย",       "subtitle": "ฟิลเตอร์ ลายน้ำ ลบพื้นหลัง AI",              "tag": "Photo Editor" }
+  ]
+}
