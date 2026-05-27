@@ -317,6 +317,9 @@
     loadImage(file, function (img) {
       autoFitImage(slot, img);
       render();
+      // Auto-open edit mode so the shape selector + pan controls are
+      // immediately discoverable
+      openEditMode(slot);
       if (typeof gtag === 'function') {
         gtag('event', 'template_photo_added', { template: template.id });
       }
