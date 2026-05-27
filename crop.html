@@ -3,6 +3,12 @@
 <head>
 
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1191923210487951" crossorigin="anonymous"></script>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-24FR9E6CYV"></script>
@@ -74,6 +80,21 @@ gtag('config', 'G-24FR9E6CYV');
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="thaiimg">
+<!-- FAQ_JSONLD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"ครอบตัดกี่ขนาดได้บ้าง?","acceptedAnswer":{"@type":"Answer","text":"อิสระทุกขนาด ตามที่คุณลากหรือพิมพ์ตัวเลข ไม่มีข้อจำกัด"}},
+    {"@type":"Question","name":"ครอบตัดแล้วคุณภาพลดไหม?","acceptedAnswer":{"@type":"Answer","text":"ไม่ลดเลย เพราะแค่ตัดส่วนของภาพออก ไม่ได้บีบอัดใหม่"}}
+  ]
+}
+</script>
+<!-- /FAQ_JSONLD -->
+
+
+
 
 
 </head>
@@ -217,7 +238,7 @@ gtag('config', 'G-24FR9E6CYV');
 
     <div class="crop-stage">
       <div class="crop-image-wrap" id="cropWrap">
-        <img id="cropImg" alt="" draggable="false">
+        <img id="cropImg" alt="" draggable="false" loading="lazy" decoding="async">
         <div id="cropBox" hidden>
           <div class="crop-handle" data-h="nw"></div>
           <div class="crop-handle" data-h="ne"></div>
@@ -318,8 +339,8 @@ gtag('config', 'G-24FR9E6CYV');
 
 <script src="crop.js?v=2"></script>
 
-<script src="analytics.js?v=1"></script>
-<script src="sidebar.js?v=2"></script>
-<script src="pwa.js?v=2"></script>
+<script src="analytics.js?v=1" defer></script>
+<script src="sidebar.js?v=2" defer></script>
+<script src="pwa.js?v=2" defer></script>
 </body>
 </html>

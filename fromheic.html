@@ -3,6 +3,12 @@
 <head>
 
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1191923210487951" crossorigin="anonymous"></script>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-24FR9E6CYV"></script>
@@ -74,6 +80,22 @@ gtag('config', 'G-24FR9E6CYV');
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="thaiimg">
+<!-- FAQ_JSONLD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"ทำไม iPhone บันทึกเป็น HEIC?","acceptedAnswer":{"@type":"Answer","text":"เพราะ HEIC ให้คุณภาพสูงกว่าและขนาดเล็กกว่า JPG ประมาณ 50% ประหยัดพื้นที่เก็บข้อมูล"}},
+    {"@type":"Question","name":"แปลงแล้วคุณภาพลดลงไหม?","acceptedAnswer":{"@type":"Answer","text":"JPG อาจลดลงเล็กน้อย (lossy), PNG ไม่ลดลงเลย (lossless), WEBP กลางๆ"}},
+    {"@type":"Question","name":"ตั้งค่า iPhone ให้บันทึกเป็น JPG ได้ไหม?","acceptedAnswer":{"@type":"Answer","text":"ได้ครับ ไป Settings - Camera - Formats - เลือก \"Most Compatible\" จะบันทึกเป็น JPG แทน"}}
+  ]
+}
+</script>
+<!-- /FAQ_JSONLD -->
+
+
+
 
 
 </head>
@@ -256,7 +278,7 @@ gtag('config', 'G-24FR9E6CYV');
 
     <!-- LONGFORM_START -->
     <h3>HEIC คืออะไร? ทำไม iPhone ถึงเปลี่ยนมาใช้</h3>
-    <p>HEIC (High Efficiency Image Container) เป็นฟอร์แมตรูปที่ Apple นำมาใช้กับ iPhone และ iPad ตั้งแต่ <b>iOS 11 ในปี 2017</b> เพื่อแทนที่ JPG ที่ใช้มากว่า 30 ปี เหตุผลหลักคือ HEIC ให้ <b>คุณภาพดีกว่า JPG ในขนาดไฟล์ที่เล็กกว่าครึ่งหนึ่ง</b> ตัวอย่างเช่น รูปที่ JPG เก็บได้ 4 MB, HEIC จะใช้แค่ 2 MB โดยคุณภาพดีกว่าด้วย นั่นหมายความว่า iPhone ของคุณเก็บรูปได้ <b>มากขึ้น 2 เท่า</b> ในพื้นที่เท่าเดิม ซึ่งสำคัญมากสำหรับการถ่ายรูปและวิดีโอ 4K HDR</p>
+    <p>HEIC (High Efficiency Image Container) เป็นฟอร์แมตรูปที่ Apple นำมาใช้กับ iPhone และ iPad ตั้งแต่ <b>iOS 11 ในปี 2017</b> เพื่อแทนที่ <a href="/convert">JPG</a> ที่ใช้มากว่า 30 ปี เหตุผลหลักคือ HEIC ให้ <b>คุณภาพดีกว่า JPG ในขนาดไฟล์ที่เล็กกว่าครึ่งหนึ่ง</b> ตัวอย่างเช่น รูปที่ JPG เก็บได้ 4 MB, HEIC จะใช้แค่ 2 MB โดยคุณภาพดีกว่าด้วย นั่นหมายความว่า iPhone ของคุณเก็บรูปได้ <b>มากขึ้น 2 เท่า</b> ในพื้นที่เท่าเดิม ซึ่งสำคัญมากสำหรับการถ่ายรูปและวิดีโอ 4K HDR</p>
 
     <h3>ปัญหาที่พบบ่อยกับไฟล์ HEIC</h3>
     <p>แม้ HEIC จะดีกว่าทางเทคนิค แต่ก็มีปัญหาที่พบบ่อย คือ <b>เปิดไม่ได้บนหลายอุปกรณ์</b> โดยเฉพาะ <b>Windows รุ่นเก่า, Android, เว็บไซต์ทั่วไป, ระบบราชการไทย</b> ที่ยังต้องการ JPG เท่านั้น ทำให้คนที่ใช้ iPhone มักเจอปัญหาว่าส่งรูปไปแล้วเปิดไม่ได้ หรืออัพโหลดเว็บไม่ผ่าน นอกจากนี้ HEIC ยังเปิดไม่ได้บน Office รุ่นเก่า ทำให้ใส่ในเอกสาร Word/PowerPoint ไม่ได้ การแปลงเป็น JPG จึงเป็นทางออกที่จำเป็นในหลายสถานการณ์</p>
@@ -306,8 +328,8 @@ gtag('config', 'G-24FR9E6CYV');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="fromheic.js?v=2"></script>
 
-<script src="analytics.js?v=1"></script>
-<script src="sidebar.js?v=2"></script>
-<script src="pwa.js?v=2"></script>
+<script src="analytics.js?v=1" defer></script>
+<script src="sidebar.js?v=2" defer></script>
+<script src="pwa.js?v=2" defer></script>
 </body>
 </html>

@@ -3,6 +3,12 @@
 <head>
 
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1191923210487951" crossorigin="anonymous"></script>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-24FR9E6CYV"></script>
@@ -75,6 +81,21 @@ gtag('config', 'G-24FR9E6CYV');
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="thaiimg">
+<!-- FAQ_JSONLD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"GIF ที่สร้างเอาไปทำ Line sticker ได้ไหม?","acceptedAnswer":{"@type":"Answer","text":"ได้ครับ แต่ Line อาจมีข้อกำหนดขนาดไฟล์/ขนาดภาพ ควรตรวจสอบที่ Line Creator Market ก่อน"}},
+    {"@type":"Question","name":"ทำไมไฟล์ GIF ใหญ่จัง?","acceptedAnswer":{"@type":"Answer","text":"GIF ใช้การบีบอัดเก่า ไฟล์จะใหญ่ตามจำนวน frame ถ้าใหญ่เกินไป ลองลดขนาดรูปก่อนสร้าง GIF (ใช้หน้า /resize)"}}
+  ]
+}
+</script>
+<!-- /FAQ_JSONLD -->
+
+
+
 
 
 </head>
@@ -270,7 +291,7 @@ gtag('config', 'G-24FR9E6CYV');
     <p>GIF ถูกใช้แพร่หลายใน <b>Line, Facebook Messenger, Discord, Twitter, WhatsApp</b> เพื่อแสดงอารมณ์และปฏิกิริยา เป็นเหมือน "อิโมจิที่เคลื่อนไหวได้" สามารถสร้าง GIF ของตัวเอง เพื่อนๆ หรือสัตว์เลี้ยงเพื่อแชร์ในกลุ่ม นอกจากนี้ยังใช้ในงานการตลาด เช่น banner เว็บไซต์, โพสต์ Facebook ดึงดูดความสนใจ, หรือสาธิตการใช้งานสินค้าแบบสั้นๆ (3-5 วินาที) ที่เข้าใจได้ทันทีโดยไม่ต้องดูวิดีโอเต็มๆ</p>
 
     <h3>เคล็ดลับการทำ GIF ให้สวยและไฟล์เล็ก</h3>
-    <p>GIF มีข้อจำกัดเรื่องสีและขนาดไฟล์ ดังนั้นเคล็ดลับคือ <b>(1) ใช้รูปขนาดเล็ก</b> เช่น 480×270 px ไม่ต้องใหญ่มาก, <b>(2) จำกัด frame ไว้ 10-20 รูป</b> เพื่อไม่ให้ไฟล์ใหญ่เกินไป, <b>(3) ปรับ frame delay</b> 100-200ms เป็นจังหวะที่ดูสบายตา, <b>(4) ใช้รูปที่มีโทนสีคล้ายกัน</b> GIF จะบีบอัดได้ดีกว่า ถ้าต้องการคุณภาพสูงกว่านี้ ลองพิจารณาฟอร์แมต <b>WebP animation หรือ MP4 video</b> ซึ่งให้คุณภาพดีกว่า GIF มากในขนาดไฟล์เท่ากัน แต่ GIF ยังคงเป็นมาตรฐานที่เปิดได้ทุกที่</p>
+    <p>GIF มีข้อจำกัดเรื่องสีและขนาดไฟล์ ดังนั้นเคล็ดลับคือ <b>(1) ใช้รูปขนาดเล็ก</b> เช่น 480×270 px ไม่ต้องใหญ่มาก, <b>(2) จำกัด frame ไว้ 10-20 รูป</b> เพื่อไม่ให้ไฟล์ใหญ่เกินไป, <b>(3) ปรับ frame delay</b> 100-200ms เป็นจังหวะที่ดูสบายตา, <b>(4) ใช้รูปที่มีโทนสีคล้ายกัน</b> GIF จะบีบอัดได้ดีกว่า ถ้าต้องการคุณภาพสูงกว่านี้ ลองพิจารณาฟอร์แมต <b><a href="/towebp">WebP</a> animation หรือ MP4 video</b> ซึ่งให้คุณภาพดีกว่า GIF มากในขนาดไฟล์เท่ากัน แต่ GIF ยังคงเป็นมาตรฐานที่เปิดได้ทุกที่</p>
 
     <!-- LONGFORM_END -->
 
@@ -309,8 +330,8 @@ gtag('config', 'G-24FR9E6CYV');
 <script src="https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js"></script>
 <script src="togif.js?v=2"></script>
 
-<script src="analytics.js?v=1"></script>
-<script src="sidebar.js?v=2"></script>
-<script src="pwa.js?v=2"></script>
+<script src="analytics.js?v=1" defer></script>
+<script src="sidebar.js?v=2" defer></script>
+<script src="pwa.js?v=2" defer></script>
 </body>
 </html>

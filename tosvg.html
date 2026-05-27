@@ -3,6 +3,12 @@
 <head>
 
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1191923210487951" crossorigin="anonymous"></script>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-24FR9E6CYV"></script>
@@ -73,6 +79,21 @@ gtag('config', 'G-24FR9E6CYV');
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="thaiimg">
+<!-- FAQ_JSONLD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"SVG ที่ได้เป็น vector หรือเปล่า?","acceptedAnswer":{"@type":"Answer","text":"ไม่ครับ เป็น raster image ที่ห่อใน SVG container การแปลงรูปถ่ายเป็น vector จริงๆ ต้องใช้โปรแกรมเฉพาะ (vectorize)"}},
+    {"@type":"Question","name":"SVG ใช้ทำอะไรได้บ้าง?","acceptedAnswer":{"@type":"Answer","text":"ใช้ใน HTML/CSS เว็บไซต์, นำเข้า Figma/Illustrator, ใช้เป็น favicon, ไอคอน UI ได้หมด"}}
+  ]
+}
+</script>
+<!-- /FAQ_JSONLD -->
+
+
+
 
 
 </head>
@@ -246,10 +267,10 @@ gtag('config', 'G-24FR9E6CYV');
 
     <!-- LONGFORM_START -->
     <h3>SVG คืออะไร? ต่างจากรูปทั่วไปอย่างไร</h3>
-    <p>SVG (Scalable Vector Graphics) เป็นฟอร์แมตที่ใช้ <b>คณิตศาสตร์</b> ในการอธิบายรูปภาพ แทนการเก็บข้อมูลของแต่ละพิกเซลเหมือน JPG/PNG ทำให้ SVG <b>ขยายได้ไม่จำกัดโดยไม่เสียคุณภาพ</b> ไม่ว่าจะดูบนหน้าจอเล็กๆ ของมือถือ หรือป้ายโฆษณาขนาดยักษ์ก็ยังคมชัดเหมือนเดิม นอกจากนี้ SVG ยังเป็น <b>ไฟล์ text-based</b> สามารถเปิดด้วย text editor และแก้ไขด้วยโค้ดได้ จึงเหมาะมากกับการใช้ในเว็บไซต์และงานออกแบบ</p>
+    <p>SVG (Scalable Vector Graphics) เป็นฟอร์แมตที่ใช้ <b>คณิตศาสตร์</b> ในการอธิบายรูปภาพ แทนการเก็บข้อมูลของแต่ละพิกเซลเหมือน JPG/<a href="/topng">PNG</a> ทำให้ SVG <b>ขยายได้ไม่จำกัดโดยไม่เสียคุณภาพ</b> ไม่ว่าจะดูบนหน้าจอเล็กๆ ของมือถือ หรือป้ายโฆษณาขนาดยักษ์ก็ยังคมชัดเหมือนเดิม นอกจากนี้ SVG ยังเป็น <b>ไฟล์ text-based</b> สามารถเปิดด้วย text editor และแก้ไขด้วยโค้ดได้ จึงเหมาะมากกับการใช้ในเว็บไซต์และงานออกแบบ</p>
 
     <h3>การใช้ SVG container สำหรับรูป raster</h3>
-    <p>thaiimg.com ใช้การห่อรูป raster (JPG/PNG/WEBP) ไว้ใน <b>SVG container</b> ทำให้ได้ไฟล์ .svg ที่ใช้งานได้ใน HTML, CSS หรือ design tools ต่างๆ แม้ว่ารูปข้างในจะยังเป็น raster อยู่ แต่การห่อใน SVG ก็มีประโยชน์ เช่น สามารถเพิ่ม overlay ข้อความหรือกราฟิก vector ลงไปบนรูปได้, ใช้กับ CSS animation ได้, หรือ embed ในไฟล์ document ได้สะดวกกว่า สำหรับการแปลงรูปถ่ายเป็น <b>true vector</b> จะต้องใช้กระบวนการ vectorize ซึ่งต้องการซอฟต์แวร์เฉพาะทาง</p>
+    <p>thaiimg.com ใช้การห่อรูป raster (JPG/PNG/<a href="/towebp">WEBP</a>) ไว้ใน <b>SVG container</b> ทำให้ได้ไฟล์ .svg ที่ใช้งานได้ใน HTML, CSS หรือ design tools ต่างๆ แม้ว่ารูปข้างในจะยังเป็น raster อยู่ แต่การห่อใน SVG ก็มีประโยชน์ เช่น สามารถเพิ่ม overlay ข้อความหรือกราฟิก vector ลงไปบนรูปได้, ใช้กับ CSS animation ได้, หรือ embed ในไฟล์ document ได้สะดวกกว่า สำหรับการแปลงรูปถ่ายเป็น <b>true vector</b> จะต้องใช้กระบวนการ vectorize ซึ่งต้องการซอฟต์แวร์เฉพาะทาง</p>
 
     <h3>SVG ใช้กับอะไรได้บ้าง</h3>
     <p>SVG ใช้ได้กับ <b>(1) เว็บไซต์</b> ทั้งใส่ใน HTML ตรงๆ หรือใช้เป็นพื้นหลัง CSS, <b>(2) Design software</b> เช่น Figma, Adobe Illustrator, Sketch, Inkscape, <b>(3) Office tools</b> เช่น PowerPoint, Word รุ่นใหม่ๆ, <b>(4) Favicon</b> ของเว็บไซต์ เพราะคมชัดทุกขนาด, <b>(5) UI icons</b> ในแอป mobile/desktop เพราะใช้สีจาก theme ได้ ข้อดีอีกอย่างคือ SVG รองรับ <b>animation</b> ผ่าน CSS และ JavaScript ทำให้สร้าง interactive graphics ได้</p>
@@ -290,8 +311,8 @@ gtag('config', 'G-24FR9E6CYV');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="tosvg.js?v=2"></script>
 
-<script src="analytics.js?v=1"></script>
-<script src="sidebar.js?v=2"></script>
-<script src="pwa.js?v=2"></script>
+<script src="analytics.js?v=1" defer></script>
+<script src="sidebar.js?v=2" defer></script>
+<script src="pwa.js?v=2" defer></script>
 </body>
 </html>

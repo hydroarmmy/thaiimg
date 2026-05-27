@@ -3,6 +3,12 @@
 <head>
 
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1191923210487951" crossorigin="anonymous"></script>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-24FR9E6CYV"></script>
@@ -75,6 +81,21 @@ gtag('config', 'G-24FR9E6CYV');
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="thaiimg">
+<!-- FAQ_JSONLD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"PNG ดีกว่า JPG ตรงไหน?","acceptedAnswer":{"@type":"Answer","text":"PNG รองรับพื้นหลังโปร่งใส เหมาะกับโลโก้ ไอคอน กราฟิก ขณะที่ JPG เหมาะกับภาพถ่ายเพราะไฟล์เล็กกว่า"}},
+    {"@type":"Question","name":"แปลง JPG เป็น PNG จะมีพื้นหลังโปร่งใสไหม?","acceptedAnswer":{"@type":"Answer","text":"ไม่ครับ ถ้าต้นฉบับเป็น JPG จะไม่มีข้อมูลพื้นหลังโปร่งใส ต้องใช้เครื่องมือ \"ลบพื้นหลัง\" ในหน้า /edit แยกต่างหาก"}}
+  ]
+}
+</script>
+<!-- /FAQ_JSONLD -->
+
+
+
 
 
 </head>
@@ -257,13 +278,13 @@ gtag('config', 'G-24FR9E6CYV');
 
     <!-- LONGFORM_START -->
     <h3>PNG คืออะไร? และทำไมต้องใช้</h3>
-    <p>PNG (Portable Network Graphics) เป็นฟอร์แมตรูปภาพที่ถูกพัฒนาขึ้นในปี 1996 เพื่อแก้ปัญหาของ GIF โดยใช้การบีบอัดแบบ <b>lossless</b> หมายความว่าทุกพิกเซลของภาพต้นฉบับจะถูกเก็บไว้ครบถ้วน ไม่มีการสูญเสียคุณภาพแม้จะบันทึกซ้ำเป็นร้อยครั้ง จุดเด่นที่สำคัญที่สุดของ PNG คือ <b>การรองรับ alpha channel</b> ทำให้สามารถมีพื้นหลังโปร่งใสได้ ซึ่งจำเป็นมากในการออกแบบโลโก้ ไอคอน หรือกราฟิกที่ต้องใช้บนพื้นหลังที่แตกต่างกัน</p>
+    <p>PNG (Portable Network Graphics) เป็นฟอร์แมตรูปภาพที่ถูกพัฒนาขึ้นในปี 1996 เพื่อแก้ปัญหาของ <a href="/togif">GIF</a> โดยใช้การบีบอัดแบบ <b>lossless</b> หมายความว่าทุกพิกเซลของภาพต้นฉบับจะถูกเก็บไว้ครบถ้วน ไม่มีการสูญเสียคุณภาพแม้จะบันทึกซ้ำเป็นร้อยครั้ง จุดเด่นที่สำคัญที่สุดของ PNG คือ <b>การรองรับ alpha channel</b> ทำให้สามารถมีพื้นหลังโปร่งใสได้ ซึ่งจำเป็นมากในการออกแบบโลโก้ ไอคอน หรือกราฟิกที่ต้องใช้บนพื้นหลังที่แตกต่างกัน</p>
 
     <h3>PNG vs JPG ต่างกันอย่างไร</h3>
-    <p>ความแตกต่างที่สำคัญที่สุดคือ <b>การบีบอัด</b> PNG ใช้ lossless ทำให้คุณภาพไม่ลด แต่ไฟล์ใหญ่กว่า JPG ประมาณ 5-10 เท่าสำหรับภาพถ่าย ในขณะที่ JPG ใช้ lossy ทำให้ไฟล์เล็กแต่คุณภาพลดลงเล็กน้อย <b>หลักการเลือก:</b> ถ้าเป็น <i>ภาพถ่าย</i> ใช้ JPG (เล็กกว่ามาก), ถ้าเป็น <i>โลโก้ ไอคอน screenshot</i> ใช้ PNG (คุณภาพดีกว่าและรองรับโปร่งใส), ถ้าเป็น <i>กราฟิกเว็บไซต์สมัยใหม่</i> ใช้ WEBP (ดีทั้งคู่)</p>
+    <p>ความแตกต่างที่สำคัญที่สุดคือ <b>การบีบอัด</b> PNG ใช้ lossless ทำให้คุณภาพไม่ลด แต่ไฟล์ใหญ่กว่า JPG ประมาณ 5-10 เท่าสำหรับภาพถ่าย ในขณะที่ JPG ใช้ lossy ทำให้ไฟล์เล็กแต่คุณภาพลดลงเล็กน้อย <b>หลักการเลือก:</b> ถ้าเป็น <i>ภาพถ่าย</i> ใช้ JPG (เล็กกว่ามาก), ถ้าเป็น <i>โลโก้ ไอคอน screenshot</i> ใช้ PNG (คุณภาพดีกว่าและรองรับโปร่งใส), ถ้าเป็น <i>กราฟิกเว็บไซต์สมัยใหม่</i> ใช้ <a href="/towebp">WEBP</a> (ดีทั้งคู่)</p>
 
     <h3>เมื่อไหร่ควรเลือกใช้ PNG</h3>
-    <p>PNG เหมาะที่สุดกับงาน 4 ประเภท คือ <b>(1) โลโก้และแบรนด์</b> ที่ต้องวางบนพื้นหลังหลากหลาย, <b>(2) ไอคอนและ UI elements</b> ที่ต้องการความคมชัด, <b>(3) Screenshot และภาพหน้าจอ</b> ที่มีตัวอักษรและขอบคม, <b>(4) ภาพที่ต้องผ่านการแก้ไขซ้ำๆ</b> เพราะคุณภาพจะไม่ลดลง ขณะที่ JPG จะลดคุณภาพทุกครั้งที่บันทึก สำหรับการอัพโหลดบนโซเชียลมีเดียทั่วไป JPG ยังคงเป็นทางเลือกที่ดีกว่าเพราะไฟล์เล็กกว่ามาก</p>
+    <p>PNG เหมาะที่สุดกับงาน 4 ประเภท คือ <b>(1) โลโก้และแบรนด์</b> ที่ต้องวางบนพื้นหลังหลากหลาย, <b>(2) ไอคอนและ UI elements</b> ที่ต้องการความคมชัด, <b>(3) Screenshot และภาพหน้าจอ</b> ที่มีตัวอักษรและขอบคม, <b>(4) ภาพที่ต้องผ่านการแก้ไขซ้ำๆ</b> เพราะคุณภาพจะไม่ลดลง ขณะที่ <a href="/convert">JPG</a> จะลดคุณภาพทุกครั้งที่บันทึก สำหรับการอัพโหลดบนโซเชียลมีเดียทั่วไป JPG ยังคงเป็นทางเลือกที่ดีกว่าเพราะไฟล์เล็กกว่ามาก</p>
 
     <!-- LONGFORM_END -->
 
@@ -303,8 +324,8 @@ gtag('config', 'G-24FR9E6CYV');
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="topng.js?v=2"></script>
 
-<script src="analytics.js?v=1"></script>
-<script src="sidebar.js?v=2"></script>
-<script src="pwa.js?v=2"></script>
+<script src="analytics.js?v=1" defer></script>
+<script src="sidebar.js?v=2" defer></script>
+<script src="pwa.js?v=2" defer></script>
 </body>
 </html>
