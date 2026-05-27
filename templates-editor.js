@@ -115,19 +115,26 @@
     ctx.fillRect(l.x, l.y, l.width, l.height);
   }
 
-  function clipSlot(l) {
-    ctx.beginPath();
-    if (l.shape === 'circle') {
+  // Get effective shape — user override (in state) trumps template default
+  function getShape(l) {
+    const st = layerState[l.id];
+    return (st && st.shape) || l.shape || 'rect';
+  }
+
+  function clipSlot(ctxIn, l) {
+    const shape = getShape(l);
+    ctxIn.beginPath();
+    if (shape === 'circle') {
       const cx = l.x + l.width / 2;
       const cy = l.y + l.height / 2;
       const r  = Math.min(l.width, l.height) / 2;
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    } else if (l.shape === 'rounded') {
-      roundedRectPath(ctx, l.x, l.y, l.width, l.height, l.borderRadius || 16);
+      ctxIn.arc(cx, cy, r, 0, Math.PI * 2);
+    } else if (shape === 'rounded') {
+      roundedRectPath(ctxIn, l.x, l.y, l.width, l.height, l.borderRadius || 16);
     } else {
-      ctx.rect(l.x, l.y, l.width, l.height);
+      ctxIn.rect(l.x, l.y, l.width, l.height);
     }
-    ctx.closePath();
+    ctxIn.closePath();
   }
 
   function roundedRectPath(ctx, x, y, w, h, r) {
@@ -147,7 +154,7 @@
     const st = layerState[l.id];
 
     ctx.save();
-    clipSlot(l);
+    clipSlot(ctx, l);
 
     if (st.img) {
       // Draw image with cover-mode transform
@@ -322,8 +329,36 @@
     overlay.classList.add('show');
     editPanel.classList.add('show');
     editPanel.dataset.slotId = slot.id;
+    updateShapeButtons(slot);
     renderEditOverlay(slot);
   }
+
+  // Highlight the active shape button
+  function updateShapeButtons(slot) {
+    const current = getShape(slot);
+    document.querySelectorAll('.shape-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.shape === current);
+    });
+  }
+
+  // Wire up shape buttons
+  document.querySelectorAll('.shape-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!activeSlot) return;
+      const slot = template.layers.find(l => l.id === activeSlot);
+      const newShape = btn.dataset.shape;
+      const st = layerState[slot.id];
+      st.shape = newShape;          // store override
+      updateShapeButtons(slot);
+      renderEditOverlay(slot);
+      render();                      // also update background canvas
+      if (typeof gtag === 'function') {
+        gtag('event', 'template_shape_changed', {
+          template: template.id, shape: newShape
+        });
+      }
+    });
+  });
 
   function closeEditMode() {
     overlay.classList.remove('show');
@@ -386,34 +421,18 @@
     octx.drawImage(st.img, imgX, imgY, drawW, drawH);
     octx.globalAlpha = 1;
 
-    // 2) Draw image undimmed inside slot
+    // 2) Draw image undimmed inside slot (uses effective shape)
     octx.save();
-    octx.beginPath();
-    if (slot.shape === 'circle') {
-      const r = Math.min(slot.width, slot.height) / 2;
-      octx.arc(cx, cy, r, 0, Math.PI * 2);
-    } else if (slot.shape === 'rounded') {
-      roundedRectPath(octx, slot.x, slot.y, slot.width, slot.height, slot.borderRadius || 16);
-    } else {
-      octx.rect(slot.x, slot.y, slot.width, slot.height);
-    }
+    clipSlot(octx, slot);
     octx.clip();
     octx.drawImage(st.img, imgX, imgY, drawW, drawH);
     octx.restore();
 
-    // 3) Dotted slot border
+    // 3) Dotted slot border (uses effective shape)
     octx.strokeStyle = '#E97132';
     octx.lineWidth = 6;
     octx.setLineDash([18, 12]);
-    octx.beginPath();
-    if (slot.shape === 'circle') {
-      const r = Math.min(slot.width, slot.height) / 2;
-      octx.arc(cx, cy, r, 0, Math.PI * 2);
-    } else if (slot.shape === 'rounded') {
-      roundedRectPath(octx, slot.x, slot.y, slot.width, slot.height, slot.borderRadius || 16);
-    } else {
-      octx.rect(slot.x, slot.y, slot.width, slot.height);
-    }
+    clipSlot(octx, slot);
     octx.stroke();
     octx.setLineDash([]);
   }
