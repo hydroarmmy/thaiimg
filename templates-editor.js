@@ -81,10 +81,11 @@
     drawBackground();
     template.layers.forEach(layer => {
       switch (layer.type) {
-        case 'circle': drawCircle(layer);  break;
-        case 'rect':   drawRect(layer);    break;
+        case 'circle':   drawCircle(layer);    break;
+        case 'rect':     drawRect(layer);      break;
+        case 'triangle': drawTriangle(layer);  break;
         case 'photo-slot': drawPhotoSlot(layer);  break;
-        case 'text':   drawText(layer);    break;
+        case 'text':     drawText(layer);      break;
       }
     });
   }
@@ -112,7 +113,22 @@
 
   function drawRect(l) {
     ctx.fillStyle = l.fill;
-    ctx.fillRect(l.x, l.y, l.width, l.height);
+    if (l.borderRadius) {
+      roundedRectPath(ctx, l.x, l.y, l.width, l.height, l.borderRadius);
+      ctx.fill();
+    } else {
+      ctx.fillRect(l.x, l.y, l.width, l.height);
+    }
+  }
+
+  function drawTriangle(l) {
+    ctx.fillStyle = l.fill;
+    ctx.beginPath();
+    ctx.moveTo(l.x1, l.y1);
+    ctx.lineTo(l.x2, l.y2);
+    ctx.lineTo(l.x3, l.y3);
+    ctx.closePath();
+    ctx.fill();
   }
 
   // Get effective shape — user override (in state) trumps template default

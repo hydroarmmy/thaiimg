@@ -57,6 +57,22 @@
         ctx.beginPath();
         ctx.arc(l.x, l.y, l.radius, 0, Math.PI * 2);
         ctx.fill();
+      } else if (l.type === 'rect') {
+        ctx.fillStyle = l.fill;
+        if (l.borderRadius) {
+          roundedRectPath(ctx, l.x, l.y, l.width, l.height, l.borderRadius);
+          ctx.fill();
+        } else {
+          ctx.fillRect(l.x, l.y, l.width, l.height);
+        }
+      } else if (l.type === 'triangle') {
+        ctx.fillStyle = l.fill;
+        ctx.beginPath();
+        ctx.moveTo(l.x1, l.y1);
+        ctx.lineTo(l.x2, l.y2);
+        ctx.lineTo(l.x3, l.y3);
+        ctx.closePath();
+        ctx.fill();
       } else if (l.type === 'photo-slot') {
         // Show placeholder pattern
         ctx.fillStyle = 'rgba(0,0,0,0.06)';

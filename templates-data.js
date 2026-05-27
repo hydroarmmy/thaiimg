@@ -429,7 +429,242 @@ window.THAIIMG_TEMPLATES = [
     ],
   },
 
-  // ── วันเกิด ───────────────────────────────────────
+  // ── วันเกิด (4 ธีมใหม่) ───────────────────────────
+
+  // 🎁 กล่องของขวัญ
+  {
+    id: 'bday-gift',
+    category: 'birthday',
+    categoryLabel: 'วันเกิด',
+    name: 'สุขสันต์วันเกิด — กล่องของขวัญ',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#FFE4E6', '#FBCFE8'] },
+    layers: [
+      // Gift box (top-right area)
+      // Main box body
+      { type: 'rect', x: 830, y: 145, width: 160, height: 130, fill: '#EC4899', borderRadius: 8 },
+      // Lid (slightly wider, sits on top)
+      { type: 'rect', x: 815, y: 125, width: 190, height: 30,  fill: '#DB2777', borderRadius: 6 },
+      // Vertical ribbon
+      { type: 'rect', x: 897, y: 125, width: 28,  height: 150, fill: '#FBBF24' },
+      // Horizontal ribbon
+      { type: 'rect', x: 830, y: 195, width: 160, height: 28,  fill: '#FBBF24' },
+      // Bow (two loops + knot)
+      { type: 'circle', x: 890, y: 110, radius: 18, fill: '#FBBF24' },
+      { type: 'circle', x: 930, y: 110, radius: 18, fill: '#FBBF24' },
+      { type: 'rect',   x: 902, y: 105, width: 16, height: 14, fill: '#F59E0B', borderRadius: 3 },
+      // Confetti dots scattered
+      { type: 'circle', x: 240, y: 130, radius: 9,  fill: '#EC4899' },
+      { type: 'circle', x: 280, y: 110, radius: 7,  fill: '#FBBF24' },
+      { type: 'circle', x: 320, y: 140, radius: 8,  fill: '#A78BFA' },
+      { type: 'circle', x: 130, y: 920, radius: 10, fill: '#EC4899' },
+      { type: 'circle', x: 170, y: 940, radius: 8,  fill: '#FBBF24' },
+      { type: 'circle', x: 210, y: 920, radius: 9,  fill: '#A78BFA' },
+      { type: 'circle', x: 970, y: 760, radius: 11, fill: '#F472B6' },
+      { type: 'circle', x: 90,  y: 600, radius: 9,  fill: '#FBBF24' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 320, width: 800, height: 460,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'สุขสันต์วันเกิด',
+        font: 'Mitr', size: 86, weight: 700,
+        color: '#BE185D', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'มีของขวัญพิเศษให้คุณ ขอให้มีความสุขมากๆ',
+        font: 'IBM Plex Sans Thai', size: 34, weight: 500,
+        color: '#9D174D', align: 'center', editable: true },
+    ],
+  },
+
+  // 🎂 เค้กวันเกิด
+  {
+    id: 'bday-cake',
+    category: 'birthday',
+    categoryLabel: 'วันเกิด',
+    name: 'สุขสันต์วันเกิด — เค้กวันเกิด',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#FEF3C7', '#FBCFE8'] },
+    layers: [
+      // 3-tier cake at top-center
+      // Plate
+      { type: 'rect', x: 380, y: 295, width: 320, height: 14, fill: '#9CA3AF', borderRadius: 6 },
+      // Bottom layer (largest)
+      { type: 'rect', x: 395, y: 225, width: 290, height: 70, fill: '#FFE4E6', borderRadius: 8 },
+      // Bottom decoration dots (frosting)
+      { type: 'circle', x: 420, y: 230, radius: 6, fill: '#EC4899' },
+      { type: 'circle', x: 460, y: 230, radius: 6, fill: '#FBBF24' },
+      { type: 'circle', x: 500, y: 230, radius: 6, fill: '#A78BFA' },
+      { type: 'circle', x: 540, y: 230, radius: 6, fill: '#EC4899' },
+      { type: 'circle', x: 580, y: 230, radius: 6, fill: '#FBBF24' },
+      { type: 'circle', x: 620, y: 230, radius: 6, fill: '#A78BFA' },
+      { type: 'circle', x: 660, y: 230, radius: 6, fill: '#EC4899' },
+      // Middle layer
+      { type: 'rect', x: 425, y: 155, width: 230, height: 70, fill: '#FED7AA', borderRadius: 8 },
+      // Middle decoration
+      { type: 'circle', x: 450, y: 160, radius: 5, fill: '#EA580C' },
+      { type: 'circle', x: 490, y: 160, radius: 5, fill: '#EA580C' },
+      { type: 'circle', x: 530, y: 160, radius: 5, fill: '#EA580C' },
+      { type: 'circle', x: 570, y: 160, radius: 5, fill: '#EA580C' },
+      { type: 'circle', x: 610, y: 160, radius: 5, fill: '#EA580C' },
+      { type: 'circle', x: 630, y: 160, radius: 5, fill: '#EA580C' },
+      // Top layer (smallest)
+      { type: 'rect', x: 460, y: 90, width: 160, height: 65, fill: '#FBCFE8', borderRadius: 8 },
+      // Top decoration
+      { type: 'circle', x: 485, y: 95, radius: 5, fill: '#DB2777' },
+      { type: 'circle', x: 525, y: 95, radius: 5, fill: '#DB2777' },
+      { type: 'circle', x: 565, y: 95, radius: 5, fill: '#DB2777' },
+      { type: 'circle', x: 595, y: 95, radius: 5, fill: '#DB2777' },
+      // Candles (3 colors)
+      { type: 'rect', x: 490, y: 50, width: 9,  height: 42, fill: '#FBBF24' },
+      { type: 'rect', x: 535, y: 40, width: 9,  height: 52, fill: '#EC4899' },
+      { type: 'rect', x: 580, y: 50, width: 9,  height: 42, fill: '#A78BFA' },
+      // Flames
+      { type: 'circle', x: 494, y: 42, radius: 7, fill: '#F97316' },
+      { type: 'circle', x: 539, y: 32, radius: 8, fill: '#F97316' },
+      { type: 'circle', x: 584, y: 42, radius: 7, fill: '#F97316' },
+      // Inner flames (yellow)
+      { type: 'circle', x: 494, y: 44, radius: 4, fill: '#FBBF24' },
+      { type: 'circle', x: 539, y: 34, radius: 4, fill: '#FBBF24' },
+      { type: 'circle', x: 584, y: 44, radius: 4, fill: '#FBBF24' },
+      // Confetti dots
+      { type: 'circle', x: 160, y: 200, radius: 10, fill: '#EC4899' },
+      { type: 'circle', x: 200, y: 230, radius: 8,  fill: '#FBBF24' },
+      { type: 'circle', x: 880, y: 220, radius: 9,  fill: '#A78BFA' },
+      { type: 'circle', x: 920, y: 180, radius: 10, fill: '#EC4899' },
+      { type: 'circle', x: 140, y: 740, radius: 8,  fill: '#FBBF24' },
+      { type: 'circle', x: 940, y: 760, radius: 9,  fill: '#A78BFA' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 380, width: 800, height: 420,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 870,
+        text: 'สุขสันต์วันเกิด',
+        font: 'Mitr', size: 86, weight: 700,
+        color: '#BE185D', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 960,
+        text: 'ขอให้มีความสุข อายุยืน สุขภาพแข็งแรง',
+        font: 'IBM Plex Sans Thai', size: 34, weight: 500,
+        color: '#9D174D', align: 'center', editable: true },
+    ],
+  },
+
+  // 🍩 โดนัท
+  {
+    id: 'bday-donut',
+    category: 'birthday',
+    categoryLabel: 'วันเกิด',
+    name: 'สุขสันต์วันเกิด — โดนัทหวาน',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#FFF7ED', '#FED7AA'] },
+    layers: [
+      // Donut (top-right): body (brown) + frosting (pink) + hole + sprinkles
+      // Body (brown ring shown around edge)
+      { type: 'circle', x: 910, y: 190, radius: 88, fill: '#92400E' },
+      // Pink frosting (sits on top, slightly smaller so brown shows)
+      { type: 'circle', x: 910, y: 190, radius: 76, fill: '#F472B6' },
+      // Drip 1
+      { type: 'circle', x: 855, y: 220, radius: 16, fill: '#F472B6' },
+      // Drip 2
+      { type: 'circle', x: 970, y: 215, radius: 14, fill: '#F472B6' },
+      // Hole
+      { type: 'circle', x: 910, y: 190, radius: 26, fill: '#FFF7ED' },
+      // Sprinkles (rotated tiny rects)
+      { type: 'rect', x: 880, y: 145, width: 4, height: 10, fill: '#FFFFFF' },
+      { type: 'rect', x: 930, y: 150, width: 4, height: 10, fill: '#FBBF24' },
+      { type: 'rect', x: 858, y: 175, width: 4, height: 10, fill: '#3B82F6' },
+      { type: 'rect', x: 955, y: 178, width: 4, height: 10, fill: '#FFFFFF' },
+      { type: 'rect', x: 870, y: 215, width: 4, height: 10, fill: '#FBBF24' },
+      { type: 'rect', x: 945, y: 218, width: 4, height: 10, fill: '#3B82F6' },
+      { type: 'rect', x: 890, y: 235, width: 4, height: 10, fill: '#FFFFFF' },
+      { type: 'rect', x: 925, y: 235, width: 4, height: 10, fill: '#FBBF24' },
+      // Small donut bottom-left
+      { type: 'circle', x: 140, y: 920, radius: 38, fill: '#92400E' },
+      { type: 'circle', x: 140, y: 920, radius: 32, fill: '#FBBF24' }, // yellow frosting
+      { type: 'circle', x: 140, y: 920, radius: 11, fill: '#FFF7ED' },
+      { type: 'circle', x: 124, y: 905, radius: 2, fill: '#EC4899' },
+      { type: 'circle', x: 156, y: 905, radius: 2, fill: '#EC4899' },
+      { type: 'circle', x: 124, y: 935, radius: 2, fill: '#EC4899' },
+      { type: 'circle', x: 156, y: 935, radius: 2, fill: '#EC4899' },
+      // Confetti
+      { type: 'circle', x: 250, y: 130, radius: 8, fill: '#F472B6' },
+      { type: 'circle', x: 290, y: 110, radius: 7, fill: '#FBBF24' },
+      { type: 'circle', x: 960, y: 760, radius: 12, fill: '#F472B6' },
+      { type: 'circle', x: 80,  y: 600, radius: 9,  fill: '#FBBF24' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 320, width: 800, height: 460,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'สุขสันต์วันเกิด',
+        font: 'Mitr', size: 86, weight: 700,
+        color: '#9A3412', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'หวานๆ เหมือนวันเกิดของคุณนะ',
+        font: 'IBM Plex Sans Thai', size: 36, weight: 500,
+        color: '#C2410C', align: 'center', editable: true },
+    ],
+  },
+
+  // 🎉 หมวกน่ารัก (Party Hat)
+  {
+    id: 'bday-hat',
+    category: 'birthday',
+    categoryLabel: 'วันเกิด',
+    name: 'สุขสันต์วันเกิด — หมวกปาร์ตี้',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#E0E7FF', '#C7D2FE'] },
+    layers: [
+      // Party hat top-right area — base cone is yellow triangle
+      { type: 'triangle', x1: 845, y1: 270, x2: 910, y2: 105, x3: 975, y3: 270, fill: '#FBBF24' },
+      // Pink stripe (small triangle inside)
+      { type: 'triangle', x1: 870, y1: 217, x2: 910, y2: 158, x3: 950, y3: 217, fill: '#EC4899' },
+      // Top stripe (purple)
+      { type: 'triangle', x1: 890, y1: 184, x2: 910, y2: 130, x3: 930, y3: 184, fill: '#A78BFA' },
+      // Pompom (fluffy ball on top)
+      { type: 'circle', x: 910, y: 95, radius: 22, fill: '#EC4899' },
+      { type: 'circle', x: 898, y: 87, radius: 12, fill: '#F9A8D4' },
+      { type: 'circle', x: 920, y: 88, radius: 11, fill: '#F9A8D4' },
+      { type: 'circle', x: 912, y: 102, radius: 10, fill: '#F9A8D4' },
+      // Brim (rounded rect at base)
+      { type: 'rect', x: 838, y: 263, width: 144, height: 14, fill: '#3B82F6', borderRadius: 7 },
+      // Small hat bottom-left
+      { type: 'triangle', x1: 100, y1: 970, x2: 140, y2: 870, x3: 180, y3: 970, fill: '#A78BFA' },
+      { type: 'circle',   x: 140, y: 866, radius: 12, fill: '#EC4899' },
+      { type: 'rect',     x: 96, y: 966, width: 88, height: 10, fill: '#FBBF24', borderRadius: 5 },
+      // Confetti scattered (varied colors)
+      { type: 'circle', x: 240, y: 120, radius: 9,  fill: '#EC4899' },
+      { type: 'circle', x: 285, y: 100, radius: 7,  fill: '#FBBF24' },
+      { type: 'circle', x: 320, y: 130, radius: 8,  fill: '#A78BFA' },
+      { type: 'rect',   x: 360, y: 110, width: 5, height: 12, fill: '#3B82F6' },
+      { type: 'rect',   x: 400, y: 130, width: 5, height: 12, fill: '#EC4899' },
+      { type: 'circle', x: 970, y: 700, radius: 10, fill: '#FBBF24' },
+      { type: 'circle', x: 80,  y: 600, radius: 9,  fill: '#A78BFA' },
+      { type: 'rect',   x: 950, y: 820, width: 5, height: 12, fill: '#EC4899' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 330, width: 800, height: 450,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'สุขสันต์วันเกิด',
+        font: 'Mitr', size: 86, weight: 700,
+        color: '#5B21B6', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'มาฉลองวันพิเศษของคุณกันเถอะ 🎉',
+        font: 'IBM Plex Sans Thai', size: 34, weight: 500,
+        color: '#6D28D9', align: 'center', editable: true },
+    ],
+  },
+
+  // ── วันเกิด (เดิม) ──────────────────────────────
   {
     id: 'bday-1',
     category: 'birthday',
