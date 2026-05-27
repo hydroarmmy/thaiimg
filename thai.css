@@ -226,7 +226,8 @@ body {
   padding: 22px 14px;
   position: sticky;
   top: 78px;
-  height: calc(100vh - 78px);
+  align-self: start;          /* prevent grid from stretching cell height */
+  height: calc(100vh - 78px); /* fixed height so internal scroll works */
   overflow-y: auto;
   display: flex;
   flex-direction: column;
