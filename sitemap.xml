@@ -45,6 +45,13 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- เทมเพลตการ์ด -->
+  <url>
+    <loc>https://thaiimg.com/templates</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- เครื่องมือจัดการรูป -->
   <url>
     <loc>https://thaiimg.com/compress</loc>
