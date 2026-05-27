@@ -121,34 +121,47 @@
     return (st && st.shape) || l.shape || 'rect';
   }
 
+  // Aspect ratios for the "ratio-*" shapes
+  const RATIO_MAP = {
+    'ratio-4-5':  4 / 5,    // Instagram portrait
+    'ratio-16-9': 16 / 9,   // Landscape
+    'ratio-3-4':  3 / 4,    // Classic portrait
+    'ratio-9-16': 9 / 16,   // Story / Reels (very tall)
+    'portrait':   4 / 5,    // legacy alias
+  };
+
   function clipSlot(ctxIn, l) {
     const shape = getShape(l);
     ctxIn.beginPath();
+
     if (shape === 'circle') {
       const cx = l.x + l.width / 2;
       const cy = l.y + l.height / 2;
       const r  = Math.min(l.width, l.height) / 2;
       ctxIn.arc(cx, cy, r, 0, Math.PI * 2);
-    } else if (shape === 'rounded') {
+    }
+    else if (shape === 'rounded') {
       roundedRectPath(ctxIn, l.x, l.y, l.width, l.height, l.borderRadius || 16);
-    } else if (shape === 'portrait') {
-      // 4:5 portrait inscribed inside the slot bounds (centered)
-      const ratio = 4 / 5;
+    }
+    else if (RATIO_MAP[shape] !== undefined) {
+      // Generic aspect-ratio rectangle, inscribed inside slot bounds (centered)
+      const ratio = RATIO_MAP[shape];   // width / height
       const slotR = l.width / l.height;
       let w, h;
       if (slotR > ratio) {
-        // slot is wider than 4:5 → fit by height
+        // slot is wider than target → fit by height
         h = l.height;
         w = h * ratio;
       } else {
-        // slot is narrower (or equal) → fit by width
+        // slot is narrower → fit by width
         w = l.width;
         h = w / ratio;
       }
       const x = l.x + (l.width  - w) / 2;
       const y = l.y + (l.height - h) / 2;
       roundedRectPath(ctxIn, x, y, w, h, 16);
-    } else {
+    }
+    else {
       ctxIn.rect(l.x, l.y, l.width, l.height);
     }
     ctxIn.closePath();

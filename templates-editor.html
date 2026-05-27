@@ -32,7 +32,7 @@ gtag('config', 'G-24FR9E6CYV');
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png?v=3">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/favicon-192.png?v=3">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon-180.png?v=3">
-<link rel="stylesheet" href="thai.css?v=17">
+<link rel="stylesheet" href="thai.css?v=18">
 
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#E97132">
@@ -79,19 +79,24 @@ gtag('config', 'G-24FR9E6CYV');
   <div class="edit-panel-title">ปรับตำแหน่งรูปในกรอบ</div>
 
   <div class="edit-panel-shape-row">
-    <span class="edit-panel-label">รูปกรอบ:</span>
-    <button class="shape-btn" data-shape="rect" type="button" aria-label="กรอบสี่เหลี่ยม">
+    <span class="edit-panel-label">รูปทรง:</span>
+    <button class="shape-btn" data-shape="rect" type="button" aria-label="สี่เหลี่ยม">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16"/></svg>
     </button>
-    <button class="shape-btn" data-shape="rounded" type="button" aria-label="กรอบมุมโค้ง">
+    <button class="shape-btn" data-shape="rounded" type="button" aria-label="มุมโค้ง">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>
     </button>
-    <button class="shape-btn" data-shape="circle" type="button" aria-label="กรอบวงกลม">
+    <button class="shape-btn" data-shape="circle" type="button" aria-label="วงกลม">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>
     </button>
-    <button class="shape-btn" data-shape="portrait" type="button" aria-label="กรอบแนวตั้ง 4:5">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="1"/></svg>
-    </button>
+  </div>
+
+  <div class="edit-panel-shape-row">
+    <span class="edit-panel-label">อัตราส่วน:</span>
+    <button class="shape-btn shape-btn-text" data-shape="ratio-4-5"  type="button" aria-label="4:5 (Instagram portrait)">4:5</button>
+    <button class="shape-btn shape-btn-text" data-shape="ratio-16-9" type="button" aria-label="16:9 (แนวนอน)">16:9</button>
+    <button class="shape-btn shape-btn-text" data-shape="ratio-3-4"  type="button" aria-label="3:4 (รูปคลาสสิก)">3:4</button>
+    <button class="shape-btn shape-btn-text" data-shape="ratio-9-16" type="button" aria-label="9:16 (Story/Reels)">9:16</button>
   </div>
 
   <div class="edit-panel-help">ลาก = เลื่อน · ปุ่ม +/- หรือ scroll = ขยาย/ย่อ</div>
@@ -116,7 +121,7 @@ gtag('config', 'G-24FR9E6CYV');
 </div>
 
 <script src="templates-data.js?v=1"></script>
-<script src="templates-editor.js?v=4"></script>
+<script src="templates-editor.js?v=5"></script>
 <script src="analytics.js?v=1" defer></script>
 <script src="pwa.js?v=2" defer></script>
 </body>
