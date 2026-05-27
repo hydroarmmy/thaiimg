@@ -156,8 +156,8 @@ for my $file (sort keys %pages) {
 <meta name="twitter:description" content="$desc">
 <meta name="twitter:image" content="$img">};
 
-  # Insert SEO block right after the title
-  $html =~ s|(<title>$title</title>)|$1$seo|;
+  # Insert SEO block right after the title (use \Q...\E to escape regex metachars in title)
+  $html =~ s|(<title>\Q$title\E</title>)|$1$seo|;
 
   # Write back
   open my $out, '>:encoding(UTF-8)', $file or die "Cannot write $file: $!\n";
