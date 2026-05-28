@@ -706,7 +706,246 @@ window.THAIIMG_TEMPLATES = [
     ],
   },
 
-  // ── ขอบคุณ ────────────────────────────────────────
+  // ── ขอบคุณ (4 ธีมใหม่) ──────────────────────────
+
+  // 🌼 ขอบคุณค่ะ — ช่อมะลิ
+  {
+    id: 'thanks-jasmine',
+    category: 'thanks',
+    categoryLabel: 'ขอบคุณ',
+    name: 'ขอบคุณค่ะ — ช่อดอกมะลิ',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#F0FDF4', '#A7F3D0'] },
+    layers: [
+      // Jasmine bouquet top-right area
+      // Bouquet flower cluster 1
+      { type: 'circle', x: 910, y: 145, radius: 22, fill: '#FFFFFF' },
+      { type: 'circle', x: 933, y: 160, radius: 22, fill: '#FFFFFF' },
+      { type: 'circle', x: 933, y: 195, radius: 22, fill: '#FFFFFF' },
+      { type: 'circle', x: 910, y: 210, radius: 22, fill: '#FFFFFF' },
+      { type: 'circle', x: 887, y: 195, radius: 22, fill: '#FFFFFF' },
+      { type: 'circle', x: 887, y: 160, radius: 22, fill: '#FFFFFF' },
+      { type: 'circle', x: 910, y: 178, radius: 11, fill: '#FBBF24' },
+      // Side jasmine cluster
+      { type: 'circle', x: 860, y: 235, radius: 16, fill: '#FFFFFF' },
+      { type: 'circle', x: 880, y: 245, radius: 16, fill: '#FFFFFF' },
+      { type: 'circle', x: 840, y: 245, radius: 16, fill: '#FFFFFF' },
+      { type: 'circle', x: 860, y: 240, radius: 7, fill: '#FBBF24' },
+      // Right side cluster
+      { type: 'circle', x: 970, y: 230, radius: 14, fill: '#FFFFFF' },
+      { type: 'circle', x: 985, y: 250, radius: 14, fill: '#FFFFFF' },
+      { type: 'circle', x: 962, y: 252, radius: 14, fill: '#FFFFFF' },
+      { type: 'circle', x: 972, y: 240, radius: 6, fill: '#FBBF24' },
+      // Green leaves (triangles for bouquet greenery)
+      { type: 'triangle', x1: 855, y1: 285, x2: 880, y2: 270, x3: 870, y3: 305, fill: '#16A34A' },
+      { type: 'triangle', x1: 940, y1: 285, x2: 920, y2: 270, x3: 935, y3: 305, fill: '#16A34A' },
+      // Ribbon binding bouquet
+      { type: 'rect', x: 880, y: 285, width: 60, height: 18, fill: '#F472B6', borderRadius: 4 },
+      // Small jasmine bottom-left
+      { type: 'circle', x: 140, y: 920, radius: 18, fill: '#FFFFFF' },
+      { type: 'circle', x: 160, y: 935, radius: 18, fill: '#FFFFFF' },
+      { type: 'circle', x: 120, y: 935, radius: 18, fill: '#FFFFFF' },
+      { type: 'circle', x: 140, y: 928, radius: 9, fill: '#FBBF24' },
+      // Falling petals (scattered)
+      { type: 'circle', x: 250, y: 120, radius: 8, fill: '#FFFFFF' },
+      { type: 'circle', x: 320, y: 100, radius: 7, fill: '#FFFFFF' },
+      { type: 'circle', x: 400, y: 130, radius: 6, fill: '#FFFFFF' },
+      { type: 'circle', x: 960, y: 720, radius: 10, fill: '#FFFFFF' },
+      { type: 'circle', x: 80,  y: 600, radius: 8, fill: '#FFFFFF' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 340, width: 800, height: 440,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'ขอบคุณค่ะ',
+        font: 'Mitr', size: 96, weight: 700,
+        color: '#166534', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'จากใจของฉัน 🤍',
+        font: 'IBM Plex Sans Thai', size: 38, weight: 500,
+        color: '#15803D', align: 'center', editable: true },
+    ],
+  },
+
+  // 💗 ขอบคุณจากใจ — หัวใจ
+  {
+    id: 'thanks-heart',
+    category: 'thanks',
+    categoryLabel: 'ขอบคุณ',
+    name: 'ขอบคุณจากใจ — หัวใจอบอุ่น',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#FFE4E6', '#FDA4AF'] },
+    layers: [
+      // Big heart top-right
+      { type: 'circle', x: 882, y: 160, radius: 38, fill: '#F43F5E' },
+      { type: 'circle', x: 938, y: 160, radius: 38, fill: '#F43F5E' },
+      { type: 'triangle', x1: 845, y1: 178, x2: 975, y2: 178, x3: 910, y3: 258, fill: '#F43F5E' },
+      // Inner highlight heart (lighter pink, slightly smaller, offset)
+      { type: 'circle', x: 894, y: 158, radius: 14, fill: '#FECDD3' },
+      { type: 'circle', x: 920, y: 158, radius: 14, fill: '#FECDD3' },
+      { type: 'triangle', x1: 880, y1: 167, x2: 934, y2: 167, x3: 907, y3: 200, fill: '#FECDD3' },
+      // Medium heart bottom-left
+      { type: 'circle', x: 122, y: 920, radius: 24, fill: '#FB7185' },
+      { type: 'circle', x: 158, y: 920, radius: 24, fill: '#FB7185' },
+      { type: 'triangle', x1: 98, y1: 932, x2: 182, y2: 932, x3: 140, y3: 988, fill: '#FB7185' },
+      // Small hearts scattered
+      { type: 'circle', x: 245, y: 105, radius: 12, fill: '#E11D48' },
+      { type: 'circle', x: 263, y: 105, radius: 12, fill: '#E11D48' },
+      { type: 'triangle', x1: 233, y1: 112, x2: 275, y2: 112, x3: 254, y3: 140, fill: '#E11D48' },
+      { type: 'circle', x: 410, y: 135, radius: 10, fill: '#FB7185' },
+      { type: 'circle', x: 425, y: 135, radius: 10, fill: '#FB7185' },
+      { type: 'triangle', x1: 400, y1: 140, x2: 435, y2: 140, x3: 417, y3: 164, fill: '#FB7185' },
+      { type: 'circle', x: 985, y: 720, radius: 11, fill: '#FECDD3' },
+      { type: 'circle', x: 1002, y: 720, radius: 11, fill: '#FECDD3' },
+      { type: 'triangle', x1: 974, y1: 726, x2: 1013, y2: 726, x3: 993, y3: 753, fill: '#FECDD3' },
+      // Dot accents
+      { type: 'circle', x: 580, y: 90,  radius: 6, fill: '#F43F5E' },
+      { type: 'circle', x: 720, y: 110, radius: 5, fill: '#FB7185' },
+      { type: 'circle', x: 80,  y: 600, radius: 7, fill: '#FECDD3' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 340, width: 800, height: 440,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'ขอบคุณจากใจ',
+        font: 'Mitr', size: 86, weight: 700,
+        color: '#BE123C', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'ที่อยู่เคียงข้างกันเสมอ 💗',
+        font: 'IBM Plex Sans Thai', size: 36, weight: 500,
+        color: '#E11D48', align: 'center', editable: true },
+    ],
+  },
+
+  // 🎀 ขอบคุณมากๆ — โบว์ทอง
+  {
+    id: 'thanks-ribbon',
+    category: 'thanks',
+    categoryLabel: 'ขอบคุณ',
+    name: 'ขอบคุณมากๆ — โบว์ทอง',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#FFFBEB', '#FDE68A'] },
+    layers: [
+      // Big gold bow top-right
+      // Left loop
+      { type: 'circle', x: 870, y: 175, radius: 36, fill: '#FBBF24' },
+      { type: 'circle', x: 870, y: 175, radius: 22, fill: '#F59E0B' },
+      // Right loop
+      { type: 'circle', x: 950, y: 175, radius: 36, fill: '#FBBF24' },
+      { type: 'circle', x: 950, y: 175, radius: 22, fill: '#F59E0B' },
+      // Center knot (rect, wider top)
+      { type: 'rect', x: 900, y: 158, width: 20, height: 34, fill: '#D97706', borderRadius: 4 },
+      // Ribbon tails hanging down (2 long rects with V-cut bottoms - approximate with triangle + rect)
+      { type: 'rect', x: 893, y: 195, width: 14, height: 65, fill: '#FBBF24' },
+      { type: 'rect', x: 913, y: 195, width: 14, height: 65, fill: '#FBBF24' },
+      // V-cut bottoms of ribbons (use triangles to "cut" - same color as BG-ish)
+      { type: 'triangle', x1: 893, y1: 260, x2: 907, y2: 260, x3: 900, y3: 270, fill: '#FFFBEB' },
+      { type: 'triangle', x1: 913, y1: 260, x2: 927, y2: 260, x3: 920, y3: 270, fill: '#FFFBEB' },
+      // Sparkles around (4-pointed stars approximated with circle + 4 small circles)
+      // Sparkle 1
+      { type: 'circle', x: 800, y: 120, radius: 6, fill: '#FBBF24' },
+      { type: 'circle', x: 800, y: 105, radius: 3, fill: '#FBBF24' },
+      { type: 'circle', x: 800, y: 135, radius: 3, fill: '#FBBF24' },
+      { type: 'circle', x: 786, y: 120, radius: 3, fill: '#FBBF24' },
+      { type: 'circle', x: 814, y: 120, radius: 3, fill: '#FBBF24' },
+      // Sparkle 2
+      { type: 'circle', x: 1010, y: 220, radius: 5, fill: '#F59E0B' },
+      { type: 'circle', x: 1010, y: 210, radius: 2, fill: '#F59E0B' },
+      { type: 'circle', x: 1010, y: 230, radius: 2, fill: '#F59E0B' },
+      { type: 'circle', x: 1000, y: 220, radius: 2, fill: '#F59E0B' },
+      { type: 'circle', x: 1020, y: 220, radius: 2, fill: '#F59E0B' },
+      // Small bow bottom-left
+      { type: 'circle', x: 110, y: 935, radius: 18, fill: '#FBBF24' },
+      { type: 'circle', x: 170, y: 935, radius: 18, fill: '#FBBF24' },
+      { type: 'circle', x: 110, y: 935, radius: 11, fill: '#F59E0B' },
+      { type: 'circle', x: 170, y: 935, radius: 11, fill: '#F59E0B' },
+      { type: 'rect',   x: 132, y: 925, width: 16, height: 22, fill: '#D97706', borderRadius: 3 },
+      // Scattered sparkle dots
+      { type: 'circle', x: 230, y: 110, radius: 6, fill: '#FBBF24' },
+      { type: 'circle', x: 340, y: 90,  radius: 5, fill: '#F59E0B' },
+      { type: 'circle', x: 460, y: 150, radius: 4, fill: '#FBBF24' },
+      { type: 'circle', x: 970, y: 720, radius: 7, fill: '#FBBF24' },
+      { type: 'circle', x: 80,  y: 600, radius: 6, fill: '#F59E0B' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 340, width: 800, height: 440,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'ขอบคุณมากๆ',
+        font: 'Mitr', size: 92, weight: 700,
+        color: '#92400E', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'ความช่วยเหลือของคุณมีค่ามาก',
+        font: 'IBM Plex Sans Thai', size: 36, weight: 500,
+        color: '#B45309', align: 'center', editable: true },
+    ],
+  },
+
+  // ☕ ขอบคุณนะ — กาแฟอุ่นๆ
+  {
+    id: 'thanks-coffee',
+    category: 'thanks',
+    categoryLabel: 'ขอบคุณ',
+    name: 'ขอบคุณนะ — กาแฟอุ่นๆ',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#FEF3C7', '#FED7AA'] },
+    layers: [
+      // Coffee mug top-right (side view)
+      // Saucer
+      { type: 'rect', x: 845, y: 235, width: 130, height: 16, fill: '#78350F', borderRadius: 8 },
+      // Mug body (dark brown)
+      { type: 'rect', x: 870, y: 155, width: 80, height: 85, fill: '#92400E', borderRadius: 8 },
+      // Mug rim (top)
+      { type: 'rect', x: 865, y: 152, width: 90, height: 12, fill: '#7C2D12', borderRadius: 4 },
+      // Coffee surface (inside cup top)
+      { type: 'rect', x: 870, y: 155, width: 80, height: 10, fill: '#451A03' },
+      // Handle (outer ring)
+      { type: 'circle', x: 970, y: 192, radius: 22, fill: '#92400E' },
+      // Handle inner (cutout look using bg-matching color)
+      { type: 'circle', x: 970, y: 192, radius: 12, fill: '#FED7AA' },
+      // Tiny heart on mug body
+      { type: 'circle', x: 902, y: 195, radius: 5, fill: '#F472B6' },
+      { type: 'circle', x: 916, y: 195, radius: 5, fill: '#F472B6' },
+      { type: 'triangle', x1: 896, y1: 198, x2: 922, y2: 198, x3: 909, y3: 215, fill: '#F472B6' },
+      // Steam wisps (3 small white circles in S-pattern above)
+      { type: 'circle', x: 900, y: 130, radius: 7, fill: '#FFFFFF' },
+      { type: 'circle', x: 920, y: 110, radius: 6, fill: '#FFFFFF' },
+      { type: 'circle', x: 905, y: 90,  radius: 5, fill: '#FFFFFF' },
+      // Small coffee bean accents (bottom-left)
+      { type: 'rect', x: 110, y: 920, width: 30, height: 20, fill: '#78350F', borderRadius: 10 },
+      { type: 'rect', x: 150, y: 935, width: 28, height: 18, fill: '#92400E', borderRadius: 9 },
+      { type: 'rect', x: 90,  y: 950, width: 26, height: 18, fill: '#78350F', borderRadius: 9 },
+      // Heart accents scattered
+      { type: 'circle', x: 250, y: 110, radius: 7, fill: '#F472B6' },
+      { type: 'circle', x: 263, y: 110, radius: 7, fill: '#F472B6' },
+      { type: 'triangle', x1: 243, y1: 115, x2: 270, y2: 115, x3: 256, y3: 132, fill: '#F472B6' },
+      { type: 'circle', x: 970, y: 750, radius: 8, fill: '#92400E' },
+      { type: 'circle', x: 80,  y: 600, radius: 6, fill: '#78350F' },
+      { type: 'circle', x: 360, y: 90,  radius: 5, fill: '#FBBF24' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 340, width: 800, height: 440,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'ขอบคุณนะ',
+        font: 'Mitr', size: 94, weight: 700,
+        color: '#7C2D12', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'ขอเลี้ยงกาแฟสักแก้วไหม ☕',
+        font: 'IBM Plex Sans Thai', size: 36, weight: 500,
+        color: '#92400E', align: 'center', editable: true },
+    ],
+  },
+
+  // ── ขอบคุณ (เดิม) ────────────────────────────────
   {
     id: 'thanks-1',
     category: 'thanks',
