@@ -754,7 +754,266 @@ window.THAIIMG_TEMPLATES = [
     ],
   },
 
-  // ── ปีใหม่ ────────────────────────────────────────
+  // ── เทศกาล (4 ธีมใหม่) ─────────────────────────
+
+  // 💦 สงกรานต์ — สาดน้ำ
+  {
+    id: 'fest-songkran',
+    category: 'festival',
+    categoryLabel: 'เทศกาล',
+    name: 'สงกรานต์ — สาดน้ำสุขใจ',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#DBEAFE', '#67E8F9'] },
+    layers: [
+      // Water splash top-right (1 center big drop + radiating droplets)
+      { type: 'circle', x: 910, y: 180, radius: 38, fill: '#3B82F6' },
+      // Splash droplets around center (8 directions)
+      { type: 'circle', x: 970, y: 180, radius: 18, fill: '#60A5FA' },
+      { type: 'circle', x: 850, y: 180, radius: 18, fill: '#60A5FA' },
+      { type: 'circle', x: 910, y: 120, radius: 16, fill: '#60A5FA' },
+      { type: 'circle', x: 910, y: 240, radius: 16, fill: '#60A5FA' },
+      { type: 'circle', x: 955, y: 135, radius: 14, fill: '#93C5FD' },
+      { type: 'circle', x: 865, y: 135, radius: 14, fill: '#93C5FD' },
+      { type: 'circle', x: 955, y: 225, radius: 14, fill: '#93C5FD' },
+      { type: 'circle', x: 865, y: 225, radius: 14, fill: '#93C5FD' },
+      // Tiny outer droplets
+      { type: 'circle', x: 1010, y: 180, radius: 8, fill: '#3B82F6' },
+      { type: 'circle', x: 810, y: 180, radius: 8, fill: '#3B82F6' },
+      { type: 'circle', x: 910, y: 80,  radius: 8, fill: '#3B82F6' },
+      { type: 'circle', x: 910, y: 280, radius: 8, fill: '#3B82F6' },
+      // Lotus bottom-left (pink for Thai cultural element)
+      { type: 'circle', x: 140, y: 940, radius: 22, fill: '#F472B6' },
+      { type: 'circle', x: 115, y: 920, radius: 18, fill: '#F472B6' },
+      { type: 'circle', x: 165, y: 920, radius: 18, fill: '#F472B6' },
+      { type: 'circle', x: 115, y: 960, radius: 18, fill: '#F472B6' },
+      { type: 'circle', x: 165, y: 960, radius: 18, fill: '#F472B6' },
+      { type: 'circle', x: 140, y: 940, radius: 10, fill: '#FBBF24' },
+      // Water drops scattered (falling rain feel)
+      { type: 'circle', x: 250, y: 110, radius: 9,  fill: '#3B82F6' },
+      { type: 'circle', x: 320, y: 90,  radius: 7,  fill: '#60A5FA' },
+      { type: 'circle', x: 400, y: 130, radius: 8,  fill: '#3B82F6' },
+      { type: 'circle', x: 960, y: 700, radius: 11, fill: '#60A5FA' },
+      { type: 'circle', x: 80,  y: 600, radius: 10, fill: '#3B82F6' },
+      { type: 'circle', x: 970, y: 800, radius: 8,  fill: '#93C5FD' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 330, width: 800, height: 460,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'สุขสันต์วันสงกรานต์',
+        font: 'Mitr', size: 78, weight: 700,
+        color: '#1E40AF', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'สวัสดีปีใหม่ไทย ขอให้สุขใจ เย็นใจ',
+        font: 'IBM Plex Sans Thai', size: 36, weight: 500,
+        color: '#1D4ED8', align: 'center', editable: true },
+    ],
+  },
+
+  // 🌙 ลอยกระทง — กระทงเทียน
+  {
+    id: 'fest-loykrathong',
+    category: 'festival',
+    categoryLabel: 'เทศกาล',
+    name: 'ลอยกระทง — กระทงเทียนใต้แสงจันทร์',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#1E3A8A', '#7C3AED'] },
+    layers: [
+      // Moon top-right
+      { type: 'circle', x: 920, y: 170, radius: 70, fill: '#FEF3C7' },
+      { type: 'circle', x: 920, y: 170, radius: 60, fill: '#FFFBEB' },
+      // Moon craters (faint)
+      { type: 'circle', x: 900, y: 155, radius: 5, fill: '#FDE68A' },
+      { type: 'circle', x: 935, y: 180, radius: 4, fill: '#FDE68A' },
+      // Stars scattered in night sky
+      { type: 'circle', x: 80,  y: 80,  radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 200, y: 60,  radius: 4, fill: '#FEF3C7' },
+      { type: 'circle', x: 350, y: 100, radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 500, y: 70,  radius: 5, fill: '#FEF3C7' },
+      { type: 'circle', x: 620, y: 130, radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 730, y: 80,  radius: 4, fill: '#FEF3C7' },
+      { type: 'circle', x: 100, y: 230, radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 280, y: 200, radius: 3, fill: '#FEF3C7' },
+      { type: 'circle', x: 750, y: 240, radius: 4, fill: '#FFFFFF' },
+      // Krathong bottom-left (lotus float with candle)
+      // Outer lotus petals (orange-gold)
+      { type: 'circle', x: 175, y: 920, radius: 28, fill: '#FBBF24' },
+      { type: 'circle', x: 145, y: 905, radius: 26, fill: '#FBBF24' },
+      { type: 'circle', x: 115, y: 920, radius: 26, fill: '#FBBF24' },
+      { type: 'circle', x: 145, y: 945, radius: 26, fill: '#FBBF24' },
+      { type: 'circle', x: 105, y: 945, radius: 24, fill: '#FBBF24' },
+      // Inner banana leaf base (green)
+      { type: 'circle', x: 140, y: 925, radius: 22, fill: '#86EFAC' },
+      { type: 'circle', x: 140, y: 925, radius: 16, fill: '#16A34A' },
+      // Candle on top
+      { type: 'rect', x: 134, y: 880, width: 12, height: 30, fill: '#FFFBEB', borderRadius: 2 },
+      // Flame
+      { type: 'circle', x: 140, y: 875, radius: 9, fill: '#F97316' },
+      { type: 'circle', x: 140, y: 877, radius: 5, fill: '#FBBF24' },
+      // Water ripples (reflection on water surface)
+      { type: 'circle', x: 200, y: 970, radius: 4, fill: '#A78BFA' },
+      { type: 'circle', x: 240, y: 980, radius: 3, fill: '#C4B5FD' },
+      { type: 'circle', x: 90,  y: 985, radius: 3, fill: '#A78BFA' },
+      // Sky lanterns floating (small)
+      { type: 'circle', x: 920, y: 380, radius: 7, fill: '#F97316' },
+      { type: 'circle', x: 900, y: 460, radius: 6, fill: '#FBBF24' },
+      { type: 'circle', x: 950, y: 500, radius: 5, fill: '#F97316' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 320, width: 800, height: 460,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'ลอยกระทง',
+        font: 'Mitr', size: 92, weight: 700,
+        color: '#FEF3C7', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'ขอให้ลอยทุกข์โศกไป มีแต่ความสุข',
+        font: 'IBM Plex Sans Thai', size: 36, weight: 500,
+        color: '#FDE68A', align: 'center', editable: true },
+    ],
+  },
+
+  // 🎆 ปีใหม่ — พลุ
+  {
+    id: 'fest-newyear-fireworks',
+    category: 'festival',
+    categoryLabel: 'เทศกาล',
+    name: 'ปีใหม่ — พลุระยิบระยับ',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#1E1B4B', '#6B21A8'] },
+    layers: [
+      // ── Big gold firework top-right ──
+      // Center bright
+      { type: 'circle', x: 910, y: 180, radius: 12, fill: '#FFFBEB' },
+      // Ring 1 (gold, 6 dots at 60° intervals, distance 35)
+      { type: 'circle', x: 945, y: 180, radius: 10, fill: '#FBBF24' },
+      { type: 'circle', x: 927, y: 210, radius: 10, fill: '#FBBF24' },
+      { type: 'circle', x: 893, y: 210, radius: 10, fill: '#FBBF24' },
+      { type: 'circle', x: 875, y: 180, radius: 10, fill: '#FBBF24' },
+      { type: 'circle', x: 893, y: 150, radius: 10, fill: '#FBBF24' },
+      { type: 'circle', x: 927, y: 150, radius: 10, fill: '#FBBF24' },
+      // Ring 2 (smaller, further out, offset 30°)
+      { type: 'circle', x: 962, y: 215, radius: 6, fill: '#F59E0B' },
+      { type: 'circle', x: 910, y: 245, radius: 6, fill: '#F59E0B' },
+      { type: 'circle', x: 858, y: 215, radius: 6, fill: '#F59E0B' },
+      { type: 'circle', x: 858, y: 145, radius: 6, fill: '#F59E0B' },
+      { type: 'circle', x: 910, y: 115, radius: 6, fill: '#F59E0B' },
+      { type: 'circle', x: 962, y: 145, radius: 6, fill: '#F59E0B' },
+
+      // ── Small pink firework top-left ──
+      { type: 'circle', x: 210, y: 200, radius: 8,  fill: '#FFFFFF' },
+      { type: 'circle', x: 235, y: 200, radius: 6, fill: '#EC4899' },
+      { type: 'circle', x: 222, y: 222, radius: 6, fill: '#EC4899' },
+      { type: 'circle', x: 198, y: 222, radius: 6, fill: '#EC4899' },
+      { type: 'circle', x: 185, y: 200, radius: 6, fill: '#EC4899' },
+      { type: 'circle', x: 198, y: 178, radius: 6, fill: '#EC4899' },
+      { type: 'circle', x: 222, y: 178, radius: 6, fill: '#EC4899' },
+
+      // ── Tiny blue firework bottom-left ──
+      { type: 'circle', x: 150, y: 920, radius: 7, fill: '#FFFFFF' },
+      { type: 'circle', x: 170, y: 920, radius: 5, fill: '#60A5FA' },
+      { type: 'circle', x: 160, y: 938, radius: 5, fill: '#60A5FA' },
+      { type: 'circle', x: 140, y: 938, radius: 5, fill: '#60A5FA' },
+      { type: 'circle', x: 130, y: 920, radius: 5, fill: '#60A5FA' },
+      { type: 'circle', x: 140, y: 902, radius: 5, fill: '#60A5FA' },
+      { type: 'circle', x: 160, y: 902, radius: 5, fill: '#60A5FA' },
+
+      // Stars scattered
+      { type: 'circle', x: 360, y: 80,  radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 500, y: 110, radius: 4, fill: '#FEF3C7' },
+      { type: 'circle', x: 650, y: 80,  radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 780, y: 290, radius: 4, fill: '#FBBF24' },
+      { type: 'circle', x: 80,  y: 500, radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 970, y: 600, radius: 4, fill: '#FEF3C7' },
+      { type: 'circle', x: 80,  y: 720, radius: 3, fill: '#FFFFFF' },
+      { type: 'circle', x: 990, y: 850, radius: 3, fill: '#FFFFFF' },
+      // Gold confetti
+      { type: 'rect', x: 400, y: 200, width: 4, height: 12, fill: '#FBBF24' },
+      { type: 'rect', x: 580, y: 230, width: 4, height: 12, fill: '#EC4899' },
+      { type: 'rect', x: 750, y: 200, width: 4, height: 12, fill: '#60A5FA' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 330, width: 800, height: 450,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'สวัสดีปีใหม่',
+        font: 'Mitr', size: 90, weight: 700,
+        color: '#FBBF24', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'ขอให้ปีนี้เป็นปีที่ดีที่สุดของคุณ ✨',
+        font: 'IBM Plex Sans Thai', size: 34, weight: 500,
+        color: '#FEF3C7', align: 'center', editable: true },
+    ],
+  },
+
+  // ❤️ วาเลนไทน์ — หัวใจ
+  {
+    id: 'fest-valentine',
+    category: 'festival',
+    categoryLabel: 'เทศกาล',
+    name: 'วาเลนไทน์ — หัวใจสีชมพู',
+    width: 1080, height: 1080,
+    background: { type: 'gradient', colors: ['#FCE7F3', '#FBCFE8'] },
+    layers: [
+      // ── Big heart top-right (size=70) ──
+      // Two top lobes (circles)
+      { type: 'circle', x: 882, y: 160, radius: 38, fill: '#EC4899' },
+      { type: 'circle', x: 938, y: 160, radius: 38, fill: '#EC4899' },
+      // Bottom V (triangle)
+      { type: 'triangle', x1: 845, y1: 178, x2: 975, y2: 178, x3: 910, y3: 258, fill: '#EC4899' },
+
+      // ── Medium heart bottom-left (size=48) ──
+      { type: 'circle', x: 122, y: 920, radius: 26, fill: '#F472B6' },
+      { type: 'circle', x: 162, y: 920, radius: 26, fill: '#F472B6' },
+      { type: 'triangle', x1: 96, y1: 932, x2: 188, y2: 932, x3: 142, y3: 990, fill: '#F472B6' },
+
+      // ── Small hearts scattered (each = 2 circles + 1 triangle) ──
+      // Heart 1 (top-left, red)
+      { type: 'circle', x: 250, y: 110, radius: 14, fill: '#DC2626' },
+      { type: 'circle', x: 270, y: 110, radius: 14, fill: '#DC2626' },
+      { type: 'triangle', x1: 236, y1: 117, x2: 284, y2: 117, x3: 260, y3: 148, fill: '#DC2626' },
+      // Heart 2 (top, pink)
+      { type: 'circle', x: 410, y: 130, radius: 12, fill: '#F9A8D4' },
+      { type: 'circle', x: 426, y: 130, radius: 12, fill: '#F9A8D4' },
+      { type: 'triangle', x1: 398, y1: 136, x2: 438, y2: 136, x3: 418, y3: 162, fill: '#F9A8D4' },
+      // Heart 3 (right side, magenta)
+      { type: 'circle', x: 980, y: 720, radius: 14, fill: '#BE185D' },
+      { type: 'circle', x: 1000, y: 720, radius: 14, fill: '#BE185D' },
+      { type: 'triangle', x1: 966, y1: 727, x2: 1014, y2: 727, x3: 990, y3: 758, fill: '#BE185D' },
+      // Heart 4 (left side, light pink)
+      { type: 'circle', x: 80, y: 620, radius: 12, fill: '#FBCFE8' },
+      { type: 'circle', x: 96, y: 620, radius: 12, fill: '#FBCFE8' },
+      { type: 'triangle', x1: 68, y1: 626, x2: 108, y2: 626, x3: 88, y3: 652, fill: '#FBCFE8' },
+
+      // Confetti dot accents
+      { type: 'circle', x: 580, y: 90,  radius: 7, fill: '#EC4899' },
+      { type: 'circle', x: 750, y: 130, radius: 6, fill: '#F472B6' },
+      { type: 'circle', x: 360, y: 770, radius: 8, fill: '#FBCFE8' },
+      { type: 'circle', x: 690, y: 780, radius: 7, fill: '#F9A8D4' },
+      {
+        type: 'photo-slot', id: 'main-photo',
+        x: 140, y: 330, width: 800, height: 450,
+        shape: 'rounded', borderRadius: 28,
+        placeholder: 'แตะเพื่อใส่รูปของคุณ'
+      },
+      { type: 'text', id: 'title', x: 540, y: 860,
+        text: 'สุขสันต์วันวาเลนไทน์',
+        font: 'Mitr', size: 78, weight: 700,
+        color: '#BE185D', align: 'center', editable: true },
+      { type: 'text', id: 'subtitle', x: 540, y: 950,
+        text: 'ขอให้ความรักของเราเป็นนิรันดร์ 💕',
+        font: 'IBM Plex Sans Thai', size: 34, weight: 500,
+        color: '#9D174D', align: 'center', editable: true },
+    ],
+  },
+
+  // ── ปีใหม่ (เดิม) ──────────────────────────────
   {
     id: 'newyear-1',
     category: 'festival',
